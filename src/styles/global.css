@@ -1,0 +1,451 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource/instrument-serif/latin-400.css";
+@import "@fontsource/instrument-serif/latin-400-italic.css";
+@import "@fontsource-variable/inter-tight/wght.css";
+@import "@fontsource-variable/jetbrains-mono/wght.css";
+
+/* Metric-matched fallbacks (values measured from the real font files with @capsizecss/unpack): while a web font
+   loads, the system fallback is scaled so line height and text width match, so the swap does not shift layout. */
+@font-face {
+  font-family: "Inter Tight Fallback";
+  src: local("Arial"), local("Helvetica Neue"), local("Helvetica");
+  size-adjust: 96.39%;
+  ascent-override: 100.51%;
+  descent-override: 25.03%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Instrument Serif Fallback";
+  src: local("Times New Roman"), local("Times");
+  size-adjust: 88.37%;
+  ascent-override: 112.03%;
+  descent-override: 35.08%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "JetBrains Mono Fallback";
+  src: local("Courier New"), local("Courier");
+  size-adjust: 99.98%;
+  ascent-override: 102.02%;
+  descent-override: 30%;
+  line-gap-override: 0%;
+}
+
+/* Sections flip the whole token set; shadcn `dark:` variants follow the nearest .theme-dark. */
+@custom-variant dark (&:is(.theme-dark, .theme-dark *));
+
+/* ------------------------------------------------------------------------------------------
+   Kannaadi.Ai tokens
+   Base: warm ivory / ink / graphite / soft stone. One accent — "lumen" — reserved for interactive
+   state, CTAs, AI indicators and the reveal. On light surfaces lumen is only ever a FILL with ink
+   text (it fails contrast as text on ivory); on dark surfaces it can be text, line or fill.
+   ------------------------------------------------------------------------------------------ */
+@theme inline {
+  --font-sans: "Inter Tight Variable", "Inter Tight Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+  --font-display: "Instrument Serif", "Instrument Serif Fallback", ui-serif, Georgia, serif;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono Fallback", ui-monospace, SFMono-Regular, monospace;
+
+  --color-ivory: #f5f1e8;
+  --color-paper: #fbf9f4;
+  --color-sand: #e9e3d6;
+  --color-stone: #cfc9bc;
+  --color-ink: #0d0d0c;
+  --color-charcoal: #151517;
+  --color-graphite: #222226;
+  --color-lumen: #d5ff4f;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-line: var(--line);
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.75rem;
+  --radius-3xl: 2.25rem;
+  --radius-4xl: 2.75rem;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.22, 0.8, 0.28, 1);
+
+  --animate-marquee: marquee 40s linear infinite;
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  --animate-page-in: page-in 0.55s var(--ease-out-expo) both;
+  @keyframes page-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+  --animate-pulse-dot: pulse-dot 2.4s ease-in-out infinite;
+  @keyframes pulse-dot {
+    50% {
+      opacity: 0.35;
+      transform: scale(0.8);
+    }
+  }
+}
+
+:root {
+  --background: #f5f1e8;
+  --foreground: #0d0d0c;
+  --card: #fbf9f4;
+  --card-foreground: #0d0d0c;
+  --popover: #fbf9f4;
+  --popover-foreground: #0d0d0c;
+  --primary: #d5ff4f;
+  --primary-foreground: #0d0d0c;
+  --secondary: #e9e3d6;
+  --secondary-foreground: #0d0d0c;
+  --muted: #e9e3d6;
+  --muted-foreground: #5a584f;
+  --accent: #e9e3d6;
+  --accent-foreground: #0d0d0c;
+  --destructive: #b3261e;
+  --border: rgb(13 13 12 / 0.14);
+  --input: rgb(13 13 12 / 0.22);
+  --ring: #0d0d0c;
+  --line: rgb(13 13 12 / 0.1);
+  --header-h: 4.25rem;
+  --radius: 0.875rem;
+  color-scheme: light;
+}
+
+/* A page whose first section is dark gets a dark header until the user scrolls. */
+.theme-dark,
+body:has(main > [data-hero="dark"]:first-child) .site-header[data-top="true"]:not([data-menu="open"]) {
+  --background: #0d0d0c;
+  --foreground: #f5f1e8;
+  --card: #151517;
+  --card-foreground: #f5f1e8;
+  --popover: #151517;
+  --popover-foreground: #f5f1e8;
+  --primary: #d5ff4f;
+  --primary-foreground: #0d0d0c;
+  --secondary: #222226;
+  --secondary-foreground: #f5f1e8;
+  --muted: #1a1a1d;
+  --muted-foreground: #a9a69b;
+  --accent: #222226;
+  --accent-foreground: #f5f1e8;
+  --destructive: #ff8a80;
+  --border: rgb(245 241 232 / 0.16);
+  --input: rgb(245 241 232 / 0.26);
+  --ring: #d5ff4f;
+  --line: rgb(245 241 232 / 0.1);
+  color-scheme: dark;
+}
+
+.theme-sand {
+  --background: #ebe5d7;
+  --card: #f5f1e8;
+  --muted: #ddd6c6;
+  --secondary: #ddd6c6;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "ss01", "cv11";
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: #d5ff4f;
+    color: #0d0d0c;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  img,
+  svg,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------------------------------
+   Layout + type primitives. One spacing scale so sections stay tight and consistent:
+   section   : 3.5rem → 5rem → 6rem
+   section-sm: 2.5rem → 3.5rem
+   ------------------------------------------------------------------------------------------ */
+@layer components {
+  .container-x {
+    width: 100%;
+    max-width: 1400px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-x {
+      padding-inline: 2rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .container-x {
+      padding-inline: 3rem;
+    }
+  }
+
+  .section {
+    padding-block: 3.5rem;
+  }
+  .section-sm {
+    padding-block: 2.5rem;
+  }
+  @media (min-width: 768px) {
+    .section {
+      padding-block: 5rem;
+    }
+    .section-sm {
+      padding-block: 3.5rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .section {
+      padding-block: 6rem;
+    }
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    line-height: 1;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+  .t-display {
+    font-weight: 600;
+    font-size: clamp(2.6rem, 1.4rem + 6vw, 6.4rem);
+    line-height: 0.94;
+    letter-spacing: -0.04em;
+  }
+  .t-1 {
+    font-weight: 600;
+    font-size: clamp(2rem, 1.2rem + 3.4vw, 3.9rem);
+    line-height: 1;
+    letter-spacing: -0.035em;
+  }
+  .t-2 {
+    font-weight: 600;
+    font-size: clamp(1.45rem, 1.1rem + 1.5vw, 2.3rem);
+    line-height: 1.08;
+    letter-spacing: -0.028em;
+  }
+  .t-3 {
+    font-weight: 600;
+    font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+  .lede {
+    font-size: clamp(1.02rem, 0.96rem + 0.35vw, 1.2rem);
+    line-height: 1.55;
+    color: var(--muted-foreground);
+    max-width: 62ch;
+  }
+  /* Serif italic used for the emphasised word in headlines */
+  .accent-serif {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+  .hairline {
+    border-top: 1px solid var(--line);
+  }
+  .surface {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+  }
+
+  /* subtle film grain for dark sections */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.07;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  /* Scroll reveal: content is only hidden once JS has marked the document, so the page is
+     fully readable without scripts or when animation is reduced. */
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+    transition:
+      opacity 0.8s var(--ease-out-expo),
+      transform 0.8s var(--ease-out-expo);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+  .js [data-reveal="fade"] {
+    transform: none;
+  }
+  .js [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+  .no-anim [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hero intro — pure CSS so the headline paints and animates without waiting for JavaScript. */
+@keyframes word-up {
+  from {
+    transform: translate3d(0, 108%, 0);
+  }
+}
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+}
+@keyframes stage-in {
+  from {
+    opacity: 0;
+    transform: scale(1.015);
+  }
+}
+.hero-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+.hero-word {
+  display: inline-block;
+  animation: word-up 1.05s var(--ease-out-expo) both;
+  animation-delay: calc(var(--i, 0) * 70ms + 120ms);
+}
+.hero-fade {
+  animation: fade-up 0.9s var(--ease-out-expo) both;
+  animation-delay: var(--d, 500ms);
+}
+.hero-stage-in {
+  animation: stage-in 1.3s var(--ease-out-expo) both;
+}
+
+@keyframes bar {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes scan-x {
+  from {
+    clip-path: inset(0 0 0 22%);
+  }
+  to {
+    clip-path: inset(0 0 0 78%);
+  }
+}
+
+/* A light island inside a dark section (e.g. the demo form card). */
+.theme-light {
+  --background: #f5f1e8;
+  --foreground: #0d0d0c;
+  --card: #fbf9f4;
+  --card-foreground: #0d0d0c;
+  --popover: #fbf9f4;
+  --popover-foreground: #0d0d0c;
+  --secondary: #e9e3d6;
+  --secondary-foreground: #0d0d0c;
+  --muted: #e9e3d6;
+  --muted-foreground: #5a584f;
+  --accent: #e9e3d6;
+  --accent-foreground: #0d0d0c;
+  --destructive: #b3261e;
+  --border: rgb(13 13 12 / 0.14);
+  --input: rgb(13 13 12 / 0.28);
+  --ring: #0d0d0c;
+  --line: rgb(13 13 12 / 0.1);
+  color-scheme: light;
+  color: var(--foreground);
+}
