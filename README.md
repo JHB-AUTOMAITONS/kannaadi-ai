@@ -10,7 +10,11 @@ npm run build      # type-check → client bundle → SSR bundle → prerender e
 npm run verify     # SEO / a11y / link audit of the prerendered site (needs a build first)
 npm run lint       # oxlint
 npm run preview    # serve the production build locally
-npm run art        # regenerate every procedural image into public/images
+npm run art        # regenerate the procedural placeholder art into public/images
+npm run photos     # build model photography from assets-src/photos (see below)
+npm run photos:tryon      # compose the hero try-on pair from assets-src/photos/hero-tryon
+npm run photos:cta        # build the transparent model for the closing "Book a demo" card
+npm run photos:generate   # generate missing slot photos with FLUX.1-schnell (set HF_TOKEN for more quota)
 ```
 
 Configuration lives in environment variables — see [.env.example](.env.example). **Set `VITE_SITE_URL` and
@@ -69,6 +73,15 @@ navigation. Deploy `dist/` to any static host and serve `404.html` for unknown U
   scrolls the page. Keyboard users get a scripted pass (“Play the AI scan reveal”). With reduced motion the blob is
   static (still asymmetric) and does not wobble.
 * The hero copy is blended with `mix-blend-mode: difference`, so it flips ink ↔ ivory as the dark layer passes beneath.
+* **The whole hero is the reveal surface, and the background lettering takes part.** On the home hero `RevealStage`
+  is given `reachAll`: a mouse or pen drives the reveal from anywhere inside the hero, not just over the image (on wide
+  screens the image box is narrower than the hero, which used to leave dead bands at the edges). Touch keeps the image
+  as its surface, so a scroll that starts on the copy stays calm. Coordinates stay relative to the image, so the image
+  layer is untouched. There is still one engine, one pointer and one mask: the engine publishes the exact blob it draws
+  (`onShape`), and `src/lib/words-reveal.ts` draws the lettering's revealed state through it on a canvas inside the
+  `HeroBackdropWords` layer — same stacking, multiply blend and silhouette mask as the resting words. Each word is
+  drawn where the real element is right now (measured every frame, parallax included), only inside the blob's bounds.
+  It needs canvas `letterSpacing` and font metrics; without them the lettering simply has no revealed state.
 
 ### Design system
 
@@ -84,12 +97,33 @@ adapt automatically. Type: Inter Tight (UI/headings), Instrument Serif italic (e
 selectively: `Link000` for inline/footer links, `Link002` for standalone “more” links, `Link005` for the mega-menu
 rows. Upstream licence: free with attribution — kept in the file header and credited in the footer.
 
-### Imagery
+### Imagery — model photography
 
-All artwork is **procedural** (`scripts/art/*`): one shaded 3D surface model rendered twice — a clean studio still and
-an AI-scan version — so each pair is pixel-aligned by construction. It is deliberately a stand-in for real
-photography. To swap in real photos, replace the files in `public/images/**` keeping the same names and dimensions
-(clean and AI versions must stay aligned) — no code changes needed.
+The site's visual identity is realistic South Indian fashion photography with an AI layer underneath. Every photo
+slot (hero, the eight business pages, four saree-look colourways) is defined in
+[scripts/photos/manifest.mjs](scripts/photos/manifest.mjs) with its art-direction prompt, size and alt text;
+[assets-src/photos/PROMPTS.md](assets-src/photos/PROMPTS.md) lists them ready to paste into an image generator.
+
+1. Generate a photo and save it as `assets-src/photos/<slot>.jpg` (optionally a `<slot>.json` with the face box).
+2. `npm run photos` crops and compresses it, **derives Image 2 (the AI layer) from the photo's own pixels** — so the
+   reveal is always the same woman, pose and crop, aligned to the pixel — writes `public/images/models/<folder>/…`
+   and updates `src/data/photos.generated.ts`.
+3. `npm run build`. Pages switch from placeholder to photo slot by slot; the hero preload and social card follow.
+
+**Home hero = a try-on pair.** The hero uses two cut-out photos of the *same* model (transparent backgrounds) in
+`assets-src/photos/hero-tryon/`: `casual.png` (what visitors see) and `saree.png` (revealed under the pointer, so she
+"tries on" the saree). `align.json` holds both pupils in each photo; `npm run photos:tryon` aligns them with a
+similarity transform, places both on one shared studio backdrop, and writes `hero.png`, `hero.ai.png`, `hero.mask.png`
+(her silhouette — the large background lettering is cut away around her on desktop) and `hero.json` (reveal wording).
+Then run `npm run photos` as usual. Without `hero-tryon` sources, drop a single `hero.png` and Image 2 is derived.
+`npm run photos:generate` can create missing slot sources with FLUX.1-schnell (Apache-2.0) — set `HF_TOKEN` for quota.
+
+**Closing "Book a demo" card.** `ConversionCard` shows the same woman from `hero-tryon/saree.png`, in her natural
+colours (no filter, tint or blend mode): `npm run photos:cta` adds transparent headroom above her hair and writes three
+sizes to `public/images/models/cta/`. She is anchored flush to the card's right and bottom edges, because the cut-out
+runs off both; warm gold light sits behind her in CSS so dark hair keeps its outline against the charcoal.
+
+Until a slot has a photo, the site shows the procedural placeholder art (`scripts/art`, `npm run art`).
 
 ### Forms
 

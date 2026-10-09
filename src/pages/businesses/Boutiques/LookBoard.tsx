@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
+import { gown, gownAlt } from '@/lib/images'
 
 const LOOKS = [
   { id: 'ink', name: 'The evening anchor', tilt: -2.2, notes: ['Statement earrings', 'Structured clutch', 'Satin heels'], why: 'A confident base piece that a stylist can dress up or down.' },
@@ -32,7 +33,7 @@ export function LookBoard() {
               )}
             >
               <span className="relative block aspect-[4/5] overflow-hidden rounded-xl bg-[radial-gradient(90%_70%_at_50%_35%,#f4efe3,#e1d9c6)]">
-                <img src={`/images/showcase/gown-${l.id}.webp`} alt={`${l.name}: ${l.id} satin gown`} width={1100} height={1300} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full scale-105 object-contain" />
+                <img src={gown(l.id, 'sm')} alt={`${l.name}: ${gownAlt(l.id, l.id)}`} width={1100} height={1300} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full scale-105 object-contain" />
               </span>
               <span className="absolute inset-x-3 bottom-2.5 flex items-center justify-between font-mono text-[0.68rem] tracking-[0.12em] uppercase">
                 <span>{l.name}</span>

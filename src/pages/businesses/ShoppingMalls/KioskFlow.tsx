@@ -1,3 +1,4 @@
+import { gown as gownUrl } from '@/lib/images'
 import { useEffect, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { prefersReducedMotion } from '@/hooks/use-media'
@@ -9,7 +10,7 @@ const STEPS = [
   { title: 'Share or reward', body: 'A share-ready look, and for campaigns a lucky-draw moment to finish.' },
 ]
 
-const gown = (c: string) => `/images/showcase/gown-${c}.webp`
+const gown = (c: string) => gownUrl(c, 'sm')
 
 function Screen({ step }: { step: number }) {
   return (

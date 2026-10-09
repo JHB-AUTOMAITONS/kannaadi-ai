@@ -26,7 +26,7 @@ export default function ForBusinesses() {
         eyebrow="For businesses"
         title={
           <>
-            One try-on layer, <span className="accent-serif">eight</span> ways to sell.
+            One <span className="whitespace-nowrap">try-on</span> layer, <span className="accent-serif">eight</span> ways to sell.
           </>
         }
         intro="Fashion stores, ethnic wear, bridal, boutiques, malls, events, jewellery and eyewear each sell differently. Choose your business type to see how Kannaadi.Ai fits the way you work."

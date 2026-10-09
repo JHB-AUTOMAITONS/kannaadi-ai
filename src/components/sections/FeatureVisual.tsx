@@ -1,18 +1,14 @@
+import { gownAlt, gownProps, heroPair, scene, type GownId } from '@/lib/images'
 import { useRef, useState } from 'react'
+import { RevealHint } from '@/components/hero/RevealHint'
 import { RevealStage, type ImageSource } from '@/components/hero/RevealStage'
 import type { FeatureVisualKey } from '@/data/features'
 import { cn } from '@/lib/utils'
 
-const gown = (c: string) => `/images/showcase/gown-${c}.webp`
 
-const HERO_CLEAN: ImageSource[] = [
-  { src: '/images/hero/hero-clean-1600.webp', width: 1600 },
-  { src: '/images/hero/hero-clean-2400.webp', width: 2400 },
-]
-const HERO_AI: ImageSource[] = [
-  { src: '/images/hero/hero-ai-1600.webp', width: 1600 },
-  { src: '/images/hero/hero-ai-2400.webp', width: 2400 },
-]
+const HERO = heroPair()
+const HERO_CLEAN: ImageSource[] = HERO.clean
+const HERO_AI: ImageSource[] = HERO.ai.filter((a) => a.width >= 1600)
 
 const frame =
   'theme-dark relative aspect-[6/5] w-full overflow-hidden rounded-[1.75rem] border border-border bg-[radial-gradient(90%_80%_at_50%_30%,#232719_0%,#111312_65%,#0b0c0d_100%)]'
@@ -27,8 +23,13 @@ function Corners() {
   )
 }
 
-const Img = ({ src, className, alt = '' }: { src: string; className?: string; alt?: string }) => (
-  <img src={src} alt={alt} aria-hidden={!alt} width={1100} height={1300} loading="lazy" decoding="async" draggable={false} className={cn('absolute object-contain', className)} />
+/** Look imagery via the shared helper: responsive, and photo-or-art aware. */
+const Img = ({ id, className, alt = '' }: { id: GownId; className?: string; alt?: string }) => (
+  <img {...gownProps(id, { sizes: '(min-width: 1024px) 28rem, 90vw' })} alt={alt} aria-hidden={!alt} width={1100} height={1300} loading="lazy" decoding="async" draggable={false} className={cn('absolute object-contain', className)} />
+)
+
+const ImgScan = ({ className }: { className?: string }) => (
+  <img {...gownProps('scan', { sizes: '(min-width: 1024px) 28rem, 90vw', scanOf: 'forest' })} alt="" aria-hidden width={1100} height={1300} loading="lazy" decoding="async" draggable={false} className={cn('absolute object-contain', className)} />
 )
 
 export function Wheel() {
@@ -79,20 +80,21 @@ export function Wheel() {
 
 function SceneReveal({ slug, alt }: { slug: string; alt: string }) {
   const host = useRef<HTMLDivElement>(null)
+  const sc = scene(slug, `/images/industry/${slug}`, alt)
   return (
     <div ref={host} className={frame}>
       <RevealStage
-        clean={[{ src: `/images/industry/${slug}-clean.webp`, width: 1200 }]}
-        ai={[{ src: `/images/industry/${slug}-ai.webp`, width: 1200 }]}
-        aspect={[1200, 900]}
-        alt={alt}
+        clean={sc.clean}
+        ai={sc.ai}
+        aspect={sc.aspect}
+        alt={sc.alt}
         sizes="(min-width: 1024px) 40vw, 92vw"
         eventTarget={host}
         blobScale={0.8}
         loadAi="interact"
         className="absolute inset-0"
       />
-      <p className="pointer-events-none absolute bottom-3 left-4 font-mono text-[0.68rem] tracking-[0.14em] text-white/80 uppercase mix-blend-difference">Move across to reveal the AI scan</p>
+      <RevealHint />
     </div>
   )
 }
@@ -106,11 +108,11 @@ export function FeatureVisual({ kind }: { kind: FeatureVisualKey }) {
       return (
         <div className={frame}>
           <Corners />
-          <Img src={gown('champagne')} alt="Champagne satin gown shown on a dress form" className="inset-x-[8%] inset-y-[2%] h-[96%] w-[84%]" />
-          <div className="absolute top-4 left-1/2 flex -translate-x-1/2 gap-1.5 font-mono text-[0.68rem] tracking-[0.14em] uppercase">
-            <span className="rounded-full bg-lumen px-2.5 py-1 text-ink">On you</span>
-            <span className="rounded-full border border-border px-2.5 py-1">Colour</span>
-            <span className="rounded-full border border-border px-2.5 py-1">Silhouette</span>
+          <Img id="champagne" alt={gownAlt('champagne', 'Champagne')} className="inset-x-[8%] top-[13%] h-[85%] w-[84%]" />
+          <div className="absolute top-4 left-5 flex flex-wrap gap-1.5 font-mono text-[0.68rem] leading-none tracking-[0.12em] whitespace-nowrap uppercase">
+            <span className="rounded-full bg-lumen px-2.5 py-1.5 text-ink">On you</span>
+            <span className="rounded-full border border-border px-2.5 py-1.5">Colour</span>
+            <span className="rounded-full border border-border px-2.5 py-1.5 max-[400px]:hidden">Silhouette</span>
           </div>
         </div>
       )
@@ -119,7 +121,7 @@ export function FeatureVisual({ kind }: { kind: FeatureVisualKey }) {
         <div className={cn(frame, 'grid grid-cols-2 gap-3 p-4')}>
           {(['ink', 'champagne', 'forest', 'claret'] as const).map((c, i) => (
             <div key={c} className="relative overflow-hidden rounded-2xl border border-border bg-muted/40">
-              <Img src={gown(c)} className="inset-0 h-full w-full scale-110 object-cover object-[50%_30%]" />
+              <Img id={c} className="inset-0 h-full w-full scale-110 object-cover object-[50%_30%]" />
               <span className="absolute bottom-2 left-3 font-mono text-[0.68rem] tracking-[0.14em] uppercase" style={{ color: i === 1 ? '#0d0d0c' : '#f5f1e8' }}>
                 Look 0{i + 1}
               </span>
@@ -140,7 +142,7 @@ export function FeatureVisual({ kind }: { kind: FeatureVisualKey }) {
           </div>
           <span aria-hidden="true" className="text-2xl text-lumen">→</span>
           <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-border bg-muted/40">
-            <Img src={gown('claret')} className="inset-0 h-full w-full scale-110 object-cover object-[50%_28%]" />
+            <Img id="claret" className="inset-0 h-full w-full scale-110 object-cover object-[50%_28%]" />
           </div>
         </div>
       )
@@ -148,9 +150,9 @@ export function FeatureVisual({ kind }: { kind: FeatureVisualKey }) {
       return (
         <div className={frame}>
           <Corners />
-          <Img src={gown('forest')} alt="Forest green gown being scanned" className="inset-x-[8%] inset-y-[2%] h-[96%] w-[84%]" />
-          <Img src="/images/showcase/gown-scan.webp" className="inset-x-[8%] inset-y-[2%] h-[96%] w-[84%] [clip-path:inset(0_0_0_50%)] animate-[scan-x_4s_ease-in-out_infinite_alternate] motion-reduce:animate-none" />
-          <span className="absolute bottom-4 left-4 rounded-full border border-lumen px-2.5 py-1 font-mono text-[0.68rem] tracking-[0.14em] text-lumen uppercase">Scanning…</span>
+          <Img id="forest" alt={gownAlt('forest', 'Forest green')} className="inset-x-[8%] inset-y-[2%] h-[96%] w-[84%]" />
+          <ImgScan className="inset-x-[8%] inset-y-[2%] h-[96%] w-[84%] [clip-path:inset(0_0_0_50%)] animate-[scan-x_4s_ease-in-out_infinite_alternate] motion-reduce:animate-none" />
+          <span className="absolute top-4 left-5 rounded-full border border-lumen px-2.5 py-1.5 font-mono text-[0.68rem] leading-none tracking-[0.12em] whitespace-nowrap text-lumen uppercase">Scanning…</span>
         </div>
       )
     case 'kiosk':
@@ -158,7 +160,7 @@ export function FeatureVisual({ kind }: { kind: FeatureVisualKey }) {
         <div className={cn(frame, 'grid place-items-center')}>
           <div className="relative flex h-[88%] flex-col items-center">
             <div className="relative aspect-[9/14] h-[88%] overflow-hidden rounded-[1.4rem] border-2 border-foreground/30 bg-[#0b0c0d] shadow-[0_0_0_6px_#151517,0_30px_60px_-20px_rgb(0_0_0/0.8)]">
-              <Img src={gown('forest')} className="inset-0 h-full w-full object-contain" />
+              <Img id="forest" className="inset-0 h-full w-full object-contain" />
               <div className="absolute inset-x-0 bottom-0 flex justify-center gap-1.5 p-3">
                 {['#2c2c34', '#eadfc8', '#1f5a43', '#6a1730'].map((c) => (
                   <span key={c} className="size-4 rounded-full ring-1 ring-foreground/40" style={{ background: c }} />
@@ -183,7 +185,7 @@ export function FeatureVisual({ kind }: { kind: FeatureVisualKey }) {
           <RevealStage
             clean={HERO_CLEAN}
             ai={HERO_AI}
-            alt="Satin gown on a dress form with a live AI scan revealed under the pointer"
+            alt={HERO.alt}
             sizes="(min-width: 1024px) 50vw, 92vw"
             imgClassName="object-[72%_50%]"
             eventTarget={host}
@@ -191,7 +193,7 @@ export function FeatureVisual({ kind }: { kind: FeatureVisualKey }) {
             loadAi="interact"
             className="absolute inset-0"
           />
-          <p className="pointer-events-none absolute bottom-3 left-4 font-mono text-[0.68rem] tracking-[0.14em] text-white/80 uppercase mix-blend-difference">Move across to feel it respond</p>
+          <RevealHint />
         </div>
       )
     case 'engage':

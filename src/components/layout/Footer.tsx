@@ -74,7 +74,6 @@ export function Footer() {
             <Link001 href="https://skiper-ui.com" className="text-foreground">
               Skiper UI
             </Link001>
-            .
           </p>
         </div>
       </div>

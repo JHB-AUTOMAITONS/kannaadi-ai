@@ -2,7 +2,7 @@ import { Link } from 'react-router'
 import { cn } from '@/lib/utils'
 
 /** Mirror glyph: an organic, slightly asymmetric looking-glass with a lumen glint. */
-export function LogoMark({ className }: { className?: string }) {
+function LogoMark({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 40 40" className={cn('size-8', className)} aria-hidden="true">
       <path

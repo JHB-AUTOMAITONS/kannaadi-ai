@@ -1,7 +1,8 @@
 // Generates every raster visual on the site into public/images (WebP).
 //   node scripts/generate-art.mjs            -> everything
 //   node scripts/generate-art.mjs hero       -> only the hero + gown colourways + OG
-//   node scripts/generate-art.mjs industry   -> only the industry scenes
+//   node scripts/generate-art.mjs industry   -> only the industry scenes (+ menu thumbnails)
+//   node scripts/generate-art.mjs thumbs     -> only the menu thumbnails, from the existing clean scenes
 //
 // All artwork is procedural (see scripts/art/*). Swap any output file for real photography of the
 // same dimensions and the site will pick it up unchanged — clean/AI pairs must stay pixel-aligned.
@@ -37,6 +38,7 @@ async function hero() {
   for (const [name, svg, alpha] of [['clean', clean, true], ['ai', plate, false]]) {
     await save(svg, out('hero', `hero-${name}-2400.webp`), { width: 2400, height: 1300, quality: alpha ? 84 : 78, alpha })
     await save(svg, out('hero', `hero-${name}-1600.webp`), { width: 1600, height: 867, quality: alpha ? 82 : 74, alpha })
+    if (name === 'ai') await save(svg, out('hero', 'hero-ai-800.webp'), { width: 800, height: 434, quality: 72 }) // decorative backgrounds on phones
   }
 
   // OG card: clean left, AI right, joined by an organic seam — the reveal concept in one frame.
@@ -91,6 +93,32 @@ async function industry() {
   }
 }
 
+/** 64×48 menu thumbnails (rendered at 3×), cut from the finished clean scenes: a few KB instead of the 1200px scene. */
+async function thumbs() {
+  console.log('industry thumbnails')
+  for (const slug of INDUSTRY) {
+    const src = out('industry', `${slug}-clean.webp`)
+    if (!fs.existsSync(src)) continue
+    const dest = out('industry', `${slug}-thumb.webp`)
+    await sharp(src).resize(192, 144).webp({ quality: 72, effort: 6 }).toFile(dest)
+    console.log(`  ${path.relative(root, dest)}  ${(fs.statSync(dest).size / 1024).toFixed(1)}KB`)
+  }
+}
+
+/** 550×650 variants of every gown image, cut from the full-size files, for thumbnails and 1× layouts. */
+async function gownSmall() {
+  console.log('gown small variants')
+  for (const id of [...Object.keys(COLORWAYS), 'scan']) {
+    const src = out('showcase', `gown-${id}.webp`)
+    if (!fs.existsSync(src)) continue
+    const dest = out('showcase', `gown-${id}-sm.webp`)
+    await sharp(src).resize(550, 650).webp({ quality: 78, effort: 6, alphaQuality: 85 }).toFile(dest)
+    console.log(`  ${path.relative(root, dest)}  ${(fs.statSync(dest).size / 1024).toFixed(0)}KB`)
+  }
+}
+
 if (!only || only === 'hero') await hero()
+if (!only || only === 'hero' || only === 'thumbs') await gownSmall()
 if (!only || only === 'industry') await industry()
+if (!only || only === 'industry' || only === 'thumbs') await thumbs()
 console.log('done')

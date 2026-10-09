@@ -28,7 +28,7 @@ const base =
 
 const sizes: Record<Size, { box: string; chip: string }> = {
   md: { box: 'h-11 pl-5 pr-1.5 text-[0.95rem]', chip: 'size-8' },
-  lg: { box: 'h-12 pl-5 pr-1.5 text-[0.95rem] sm:h-[3.4rem] sm:pl-6 sm:pr-2 sm:text-base', chip: 'size-9 sm:size-10' },
+  lg: { box: 'h-12 gap-2.5 pl-4 pr-1.5 text-[0.92rem] sm:h-[3.4rem] sm:gap-3 sm:pl-6 sm:pr-2 sm:text-base', chip: 'size-8 sm:size-10' },
 }
 
 // Colours come from tokens so `secondary` is right on both ivory and ink sections.

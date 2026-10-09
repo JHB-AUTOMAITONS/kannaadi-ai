@@ -227,5 +227,4 @@ export const BUSINESSES: Business[] = [
   },
 ]
 
-export const businessByPath = (path: string) => BUSINESSES.find((b) => b.path === path)
 export const businessBySlug = (slug: string) => BUSINESSES.find((b) => b.slug === slug)

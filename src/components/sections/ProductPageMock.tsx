@@ -1,3 +1,4 @@
+import { gownProps, gownAlt } from '@/lib/images'
 import { useState } from 'react'
 import { Loader2, Sparkles } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -37,8 +38,8 @@ export function ProductPageMock() {
           {COLOURS.map((c) => (
             <img
               key={c.id}
-              src={`/images/showcase/gown-${c.id}.webp`}
-              alt={c.id === colour ? `${c.label} satin gown on a dress form` : ''}
+              {...gownProps(c.id, { sizes: '(min-width: 768px) 24rem, 92vw' })}
+              alt={c.id === colour ? gownAlt(c.id, c.label) : ''}
               aria-hidden={c.id !== colour}
               width={1100}
               height={1300}
@@ -56,7 +57,7 @@ export function ProductPageMock() {
               phase === 'idle' ? 'opacity-0 duration-300 [clip-path:inset(0_100%_0_0)]' : 'opacity-100 duration-[1400ms] [clip-path:inset(0_0_0_0)]',
             )}
           >
-            <img src="/images/showcase/gown-scan.webp" alt="" width={1100} height={1300} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full bg-[#0b0c0d] object-contain" />
+            <img {...gownProps('scan', { sizes: '(min-width: 768px) 24rem, 92vw', scanOf: colour })} alt="" width={1100} height={1300} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full bg-[#0b0c0d] object-contain" />
           </div>
           {phase !== 'idle' && (
             <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-ink px-3 py-1.5 font-mono text-[0.68rem] tracking-[0.14em] text-lumen uppercase" role="status">

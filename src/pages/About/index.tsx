@@ -1,3 +1,4 @@
+import { gownProps, gownAlt } from '@/lib/images'
 import { ConversionCard } from '@/components/sections/ConversionCard'
 import { PageHero } from '@/components/sections/PageHero'
 import { Cta } from '@/components/ui/Cta'
@@ -45,8 +46,8 @@ export default function About() {
         visual={
           <div className="relative mx-auto aspect-[4/5] w-[min(100%,25rem)]">
             <div className="absolute inset-0 overflow-hidden rounded-[50%_50%_46%_54%/38%_42%_58%_62%] border-2 border-foreground/80 bg-[radial-gradient(80%_65%_at_50%_35%,#2a3020_0%,#121413_60%,#0b0c0d_100%)] shadow-[0_0_0_10px_rgb(245_241_232/0.06),0_40px_90px_-40px_rgb(213_255_79/0.35)]">
-              <img src="/images/showcase/gown-champagne.webp" alt="Champagne satin gown reflected in an oval mirror" width={1100} height={1300} loading="eager" decoding="async" className="absolute inset-0 h-full w-full scale-[1.08] object-contain" />
-              <img src="/images/showcase/gown-scan.webp" alt="" aria-hidden="true" width={1100} height={1300} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full scale-[1.08] object-contain [clip-path:inset(0_0_0_62%)]" />
+              <img {...gownProps('champagne', { sizes: '25rem' })} alt={gownAlt('champagne', 'Champagne')} width={1100} height={1300} loading="eager" decoding="async" className="absolute inset-0 h-full w-full scale-[1.08] object-contain" />
+              <img {...gownProps('scan', { sizes: '25rem', scanOf: 'champagne' })} alt="" aria-hidden="true" width={1100} height={1300} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full scale-[1.08] object-contain [clip-path:inset(0_0_0_62%)]" />
               <span className="absolute inset-y-0 left-[62%] w-px bg-lumen/80 shadow-[0_0_16px_2px_rgb(213_255_79/0.45)]" aria-hidden="true" />
             </div>
             <span aria-hidden="true" className="absolute -top-1 right-[14%] h-14 w-1.5 rotate-[38deg] rounded-full bg-lumen" />

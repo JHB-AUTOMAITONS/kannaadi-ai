@@ -5,8 +5,9 @@ import { useEffect, useRef, type RefObject } from 'react'
  * rendered into the interaction on touch devices, never replaces the native cursor, and steps
  * aside over anything marked data-cursor-hide (CTAs, nav) so clicking stays unambiguous.
  */
-export function RevealCursor({ target, label = 'Reveal' }: { target: RefObject<HTMLElement | null>; label?: string }) {
+export function RevealCursor({ target, label = 'Reveal', enabled = true }: { target: RefObject<HTMLElement | null>; label?: string; enabled?: boolean }) {
   const el = useRef<HTMLDivElement>(null)
+  const on = useRef(enabled)
 
   useEffect(() => {
     const host = target.current
@@ -28,7 +29,7 @@ export function RevealCursor({ target, label = 'Reveal' }: { target: RefObject<H
     }
     const show = (v: boolean) => {
       shown = v
-      node.dataset.show = v ? 'true' : 'false'
+      node.dataset.show = v && on.current ? 'true' : 'false'
     }
     const enter = (e: PointerEvent) => {
       if (e.pointerType === 'touch') return
@@ -57,6 +58,12 @@ export function RevealCursor({ target, label = 'Reveal' }: { target: RefObject<H
       host.removeEventListener('pointerleave', leave)
     }
   }, [target])
+
+  // `enabled` follows the reveal itself (it is off whenever the engine has no pointer)
+  useEffect(() => {
+    on.current = enabled
+    if (el.current && !enabled) el.current.dataset.show = 'false'
+  }, [enabled])
 
   return (
     <div

@@ -1,3 +1,4 @@
+import { scene } from '@/lib/images'
 import { useRef } from 'react'
 import { Link } from 'react-router'
 import { ArrowUpRight } from 'lucide-react'
@@ -5,8 +6,6 @@ import { RevealStage } from '@/components/hero/RevealStage'
 import type { Business } from '@/data/businesses'
 import { cn } from '@/lib/utils'
 
-const widthsClean = (b: Business) => [{ src: `${b.image}-clean.webp`, width: 1200 }]
-const widthsAi = (b: Business) => [{ src: `${b.image}-ai.webp`, width: 1200 }]
 
 /**
  * Category card. The studio image is permanent; hovering or touching the card reveals that same
@@ -27,6 +26,7 @@ export function BusinessCard({
   compact?: boolean
 }) {
   const link = useRef<HTMLAnchorElement>(null)
+  const sc = scene(b.slug, b.image, b.imageAlt)
   return (
     <Link
       ref={link}
@@ -40,10 +40,10 @@ export function BusinessCard({
       )}
     >
       <RevealStage
-        clean={widthsClean(b)}
-        ai={widthsAi(b)}
-        alt={b.imageAlt}
-        aspect={[1200, 900]}
+        clean={sc.clean}
+        ai={sc.ai}
+        alt={sc.alt}
+        aspect={sc.aspect}
         sizes="(min-width: 1280px) 22vw, (min-width: 640px) 45vw, 92vw"
         eventTarget={link}
         blobScale={0.62}

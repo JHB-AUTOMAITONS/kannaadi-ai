@@ -16,17 +16,14 @@ export async function render(path: string): Promise<string> {
   )
 }
 
-/** Head markup for a route — identical to what the client writes on navigation. */
+/**
+ * Head markup for a route — identical to what the client writes on navigation. The hero image's preload hint is not
+ * written here: React emits it automatically from the <img fetchPriority="high"> itself, so it can never disagree
+ * with the image's own srcset/sizes (a hand-written copy duplicated it).
+ */
 export function head(path: string, opts: { noindex?: boolean } = {}): string {
   const meta = pageByPath(path)
-  let out = headToString(headTags(meta ?? NOT_FOUND_META, { noindex: opts.noindex ?? !meta }))
-  if (meta?.preloadHero) {
-    out +=
-      `\n    <link data-seo rel="preload" as="image" href="/images/hero/hero-clean-2400.webp" ` +
-      `imagesrcset="/images/hero/hero-clean-1600.webp 1600w, /images/hero/hero-clean-2400.webp 2400w" ` +
-      `imagesizes="(max-width: 767px) 140vw, 100vw" fetchpriority="high">`
-  }
-  return out
+  return headToString(headTags(meta ?? NOT_FOUND_META, { noindex: opts.noindex ?? !meta }))
 }
 
 export const paths = () => PAGES.map((p) => p.path)

@@ -1,4 +1,6 @@
+import { scene } from '@/lib/images'
 import { useRef, type ReactNode } from 'react'
+import { RevealHint } from '@/components/hero/RevealHint'
 import { RevealStage } from '@/components/hero/RevealStage'
 import { PageHero } from '@/components/sections/PageHero'
 import { Cta } from '@/components/ui/Cta'
@@ -36,16 +38,17 @@ interface Props {
  */
 export function IndustryHero({ path, slug, theme = 'light', shape = 'round', eyebrow, title, intro, focal, secondary, tone }: Props) {
   const b = businessBySlug(slug)!
+  const sc = scene(b.slug, b.image, b.imageAlt)
   const host = useRef<HTMLDivElement>(null)
   const wide = shape === 'wide'
 
   const stage = (
     <div ref={host} className={cn('relative w-full overflow-hidden border border-border', SHAPES[shape])}>
       <RevealStage
-        clean={[{ src: `${b.image}-clean.webp`, width: 1200 }]}
-        ai={[{ src: `${b.image}-ai.webp`, width: 1200 }]}
-        aspect={[1200, 900]}
-        alt={b.imageAlt}
+        clean={sc.clean}
+        ai={sc.ai}
+        aspect={sc.aspect}
+        alt={sc.alt}
         sizes={wide ? '(min-width: 1400px) 1300px, 92vw' : '(min-width: 1024px) 46vw, 92vw'}
         imgClassName={focal}
         eventTarget={host}
@@ -54,9 +57,7 @@ export function IndustryHero({ path, slug, theme = 'light', shape = 'round', eye
         loadAi="idle"
         className="absolute inset-0"
       />
-      <p className="pointer-events-none absolute bottom-3 left-4 font-mono text-[0.68rem] tracking-[0.14em] text-white/85 uppercase mix-blend-difference">
-        Move across to reveal the AI scan
-      </p>
+      <RevealHint />
     </div>
   )
 

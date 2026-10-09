@@ -1,3 +1,4 @@
+import { gown as gownUrl, gownProps } from '@/lib/images'
 import { useEffect, useRef, useState } from 'react'
 import { Globe, MonitorSmartphone, PartyPopper, Plus } from 'lucide-react'
 import { Cta } from '@/components/ui/Cta'
@@ -12,7 +13,8 @@ const STEPS = [
   { title: 'Launch and refine', body: 'Go live in the places your customers shop, then update pieces, add channels and run new campaigns.' },
 ]
 
-const gown = (c: string) => `/images/showcase/gown-${c}.webp`
+const gown = (c: string) => gownUrl(c, 'sm')
+const SIZES = '(min-width: 1024px) 30rem, 90vw'
 
 function Visual({ step }: { step: number }) {
   return (
@@ -48,8 +50,8 @@ function Visual({ step }: { step: number }) {
       )}
       {step === 2 && (
         <div className="relative h-full">
-          <img src={gown('forest')} alt="" aria-hidden="true" width={1100} height={1300} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-contain" />
-          <img src="/images/showcase/gown-scan.webp" alt="" aria-hidden="true" width={1100} height={1300} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-contain [clip-path:inset(0_0_0_62%)]" />
+          <img {...gownProps('forest', { sizes: SIZES })} alt="" aria-hidden="true" width={1100} height={1300} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-contain" />
+          <img {...gownProps('scan', { sizes: SIZES, scanOf: 'forest' })} alt="" aria-hidden="true" width={1100} height={1300} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-contain [clip-path:inset(0_0_0_62%)]" />
           <div className="absolute inset-y-0 left-[62%] w-px bg-lumen shadow-[0_0_14px_2px_rgb(213_255_79/0.5)]" />
           <div className="absolute top-0 left-0 flex flex-wrap gap-2 font-mono text-[0.68rem] tracking-[0.14em] uppercase">
             <span className="rounded-full border border-lumen px-2.5 py-1 text-lumen">AI looks</span>

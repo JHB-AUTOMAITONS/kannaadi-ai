@@ -51,7 +51,7 @@ export default function BridalStores() {
             eyebrow="The journey"
             title={
               <>
-                A bridal journey with try-on <span className="accent-serif">at every step.</span>
+                A bridal journey with <span className="whitespace-nowrap">try-on</span> <span className="accent-serif">at every step.</span>
               </>
             }
             lede="Try-on does not replace the appointment. It makes the weeks around it more useful."

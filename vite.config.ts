@@ -31,22 +31,13 @@ export default defineConfig({
   plugins: [react(), tailwindcss(), preloadCriticalFonts()],
   resolve: {
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
+    // Exactly one React in every bundle (scripts/check-bundle.mjs fails the build otherwise). A second copy was
+    // observed intermittently and renders a blank page: "Cannot read properties of null (reading 'useContext')".
+    dedupe: ['react', 'react-dom', 'react-router', 'scheduler'],
   },
   build: {
     target: 'es2022',
     cssCodeSplit: true,
-    // Fewer, larger shared chunks: lucide ships one module per icon and the app has several tiny shared
-    // modules; left alone they become ~25 requests, which serialises loading on a high-latency connection.
-    rolldownOptions: {
-      output: {
-        advancedChunks: {
-          groups: [
-            { name: 'react', test: /node_modules[\\/](react|react-dom|react-router|scheduler)[\\/]/ },
-            { name: 'icons', test: /node_modules[\\/]lucide-react[\\/]/ },
-            { name: 'app-shared', test: /[\\/]src[\\/](data|lib|hooks|components[\\/]ui)[\\/]/ },
-          ],
-        },
-      },
-    },
+    // Default chunk splitting (manual groups are deprecated in this bundler and were removed).
   },
 })

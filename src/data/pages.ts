@@ -22,7 +22,6 @@ export interface PageMeta {
   parent?: string
   /** Industry slug if this is a business page */
   business?: string
-  preloadHero?: boolean
 }
 
 const core: PageMeta[] = [
@@ -37,7 +36,6 @@ const core: PageMeta[] = [
     schema: 'home',
     priority: 1,
     changefreq: 'weekly',
-    preloadHero: true,
   },
   {
     path: '/features/',

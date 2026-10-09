@@ -1,3 +1,4 @@
+import { heroPair } from '@/lib/images'
 import { Cta } from '@/components/ui/Cta'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 
@@ -9,11 +10,18 @@ const LAYERS = [
 ]
 
 /** Dark band that continues the showcase, using the same AI-scan world the hero reveals. */
+const AI_BG = (() => {
+  const ai = [...heroPair().scan].sort((a, b) => a.width - b.width).filter((a) => a.width <= 1600)
+  return { src: ai[ai.length - 1].src, srcSet: ai.map((a) => `${a.src} ${a.width}w`).join(', ') }
+})()
+
 export function AiTechnology() {
   return (
     <section className="theme-dark relative isolate overflow-hidden border-t border-border bg-background text-foreground" aria-labelledby="tech-title">
       <img
-        src="/images/hero/hero-ai-1600.webp"
+        src={AI_BG.src}
+            srcSet={AI_BG.srcSet}
+            sizes="100vw"
         alt=""
         aria-hidden="true"
         width={1600}

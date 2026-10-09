@@ -5,8 +5,10 @@ import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Link002 } from '@/components/ui/skiper-ui/skiper40'
 import { useParallax } from '@/hooks/use-parallax'
 import { cn } from '@/lib/utils'
+import { gown, gownProps, gownAlt, scene } from '@/lib/images'
 
 const PARALLAX: [number, number] = [-18, 18]
+const pickSmall = (l: { src: string; width: number }[]) => [...l].sort((a, b) => a.width - b.width)[0].src
 
 function Tile({
   to,
@@ -34,17 +36,17 @@ function Tile({
   )
 }
 
-const Head = ({ icon: Icon, title, body, light }: { icon: typeof Shirt; title: string; body: string; light?: boolean }) => (
+const Head = ({ icon: Icon, title, body, tone = 'default' }: { icon: typeof Shirt; title: string; body: string; tone?: 'default' | 'light' | 'image' }) => (
   <div className="relative z-10 flex max-w-[26rem] flex-col gap-3">
-    <Icon aria-hidden="true" className={cn('size-6', light ? 'text-ink' : 'text-foreground')} />
+    <Icon aria-hidden="true" className={cn('size-6', tone === 'light' ? 'text-ink' : tone === 'image' ? 'text-white' : 'text-foreground')} />
     <h3 className="t-2">{title}</h3>
-    <p className={cn('text-[0.98rem] leading-snug', light ? 'text-ink/75' : 'text-muted-foreground')}>{body}</p>
+    <p className={cn('text-[0.98rem] leading-snug', tone === 'light' ? 'text-ink/75' : tone === 'image' ? 'text-white/90' : 'text-muted-foreground')}>{body}</p>
   </div>
 )
 
 export function FeatureBento() {
-  const gown = useRef<HTMLImageElement>(null)
-  useParallax(gown, PARALLAX)
+  const gownRef = useRef<HTMLImageElement>(null)
+  useParallax(gownRef, PARALLAX)
 
   return (
     <section className="section" aria-labelledby="bento-title">
@@ -55,7 +57,7 @@ export function FeatureBento() {
             eyebrow="The product"
             title={
               <>
-                Everything a try-on needs, in <span className="accent-serif">one</span> product.
+                Everything a <span className="whitespace-nowrap">try-on</span> needs, in <span className="accent-serif">one</span> product.
               </>
             }
             lede="From the first look to the lucky draw, Kannaadi.Ai covers the whole experience — not just the mirror."
@@ -69,17 +71,17 @@ export function FeatureBento() {
 
         <div className="grid grid-cols-1 gap-3 md:grid-cols-12 md:gap-4">
           {/* AI Virtual Try-On */}
-          <Tile to="/features/#ai-virtual-try-on" className="bg-card max-md:min-h-[29rem] md:col-span-5 md:row-span-2 md:min-h-[34rem]">
+          <Tile to="/features/#ai-virtual-try-on" className="bg-card max-md:min-h-[25rem] md:col-span-5 md:row-span-2 md:min-h-[34rem]">
             <Head icon={Shirt} title="AI Virtual Try-On" body="Garments shown on the shopper, not a model — colour, silhouette and style in context." />
             <img
-              ref={gown}
-              src="/images/showcase/gown-champagne.webp"
-              alt="Champagne satin gown on a dress form"
+              ref={gownRef}
+              {...gownProps('champagne', { sizes: '(min-width: 768px) 26rem, 68vw' })}
+              alt={gownAlt('champagne', 'Champagne')}
               width={1100}
               height={1300}
               loading="lazy"
               decoding="async"
-              className="pointer-events-none absolute right-[-8%] bottom-[-6%] w-[62%] max-w-[26rem] md:w-[78%] object-contain transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover/tile:scale-[1.03]"
+              className="pointer-events-none absolute right-[-8%] bottom-[-6%] w-[68%] max-w-[26rem] md:w-[78%] object-contain transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover/tile:scale-[1.03]"
             />
           </Tile>
 
@@ -93,7 +95,7 @@ export function FeatureBento() {
                   className="relative aspect-[3/4] flex-1 overflow-hidden rounded-xl border border-border bg-muted transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover/tile:-translate-y-1.5"
                   style={{ transitionDelay: `${i * 45}ms` }}
                 >
-                  <img src={`/images/showcase/gown-${c}.webp`} alt="" aria-hidden="true" width={1100} height={1300} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover object-[50%_35%] scale-125" />
+                  <img src={gown(c, 'sm')} alt="" aria-hidden="true" width={1100} height={1300} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover object-[50%_35%] scale-125" />
                   <span className="absolute bottom-1.5 left-2 font-mono text-[0.68rem] tracking-[0.14em] text-ink/70 uppercase">Look 0{i + 1}</span>
                 </div>
               ))}
@@ -125,7 +127,7 @@ export function FeatureBento() {
 
           {/* Lucky draw — the single accent tile */}
           <Tile to="/features/#lucky-draw" className="border-transparent bg-lumen text-ink md:col-span-4">
-            <Head light icon={Gift} title="Lucky Draw" body="A playful reward moment after the try-on, built for campaigns." />
+            <Head tone="light" icon={Gift} title="Lucky Draw" body="A playful reward moment after the try-on, built for campaigns." />
             <svg aria-hidden="true" viewBox="0 0 64 64" className="absolute right-6 bottom-6 size-20 text-ink/90 transition-transform duration-[900ms] ease-[var(--ease-out-expo)] group-hover/tile:rotate-[200deg]">
               <circle cx="32" cy="32" r="28" fill="none" stroke="currentColor" strokeWidth="2" />
               {Array.from({ length: 8 }).map((_, i) => (
@@ -137,16 +139,16 @@ export function FeatureBento() {
 
           {/* Jewellery */}
           <Tile to="/features/#jewellery-try-on" className="justify-end bg-card text-white md:col-span-4">
-            <img src="/images/industry/jewellery-stores-clean.webp" alt="" aria-hidden="true" width={1200} height={900} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover/tile:scale-105" />
+            <img src={pickSmall(scene('jewellery-stores', '/images/industry/jewellery-stores', '').clean)} alt="" aria-hidden="true" width={1200} height={900} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover/tile:scale-105" />
             <span className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/35 to-transparent" />
-            <Head icon={Gem} title="Jewellery try-on" body="Necklaces and earrings, worn." />
+            <Head tone="image" icon={Gem} title="Jewellery try-on" body="Necklaces and earrings, worn." />
           </Tile>
 
           {/* Eyewear */}
           <Tile to="/features/#eyewear-try-on" className="justify-end bg-card text-white md:col-span-4">
-            <img src="/images/industry/eyewear-stores-clean.webp" alt="" aria-hidden="true" width={1200} height={900} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover/tile:scale-105" />
+            <img src={pickSmall(scene('eyewear-stores', '/images/industry/eyewear-stores', '').clean)} alt="" aria-hidden="true" width={1200} height={900} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover/tile:scale-105" />
             <span className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/35 to-transparent" />
-            <Head icon={Glasses} title="Eyewear try-on" body="Frames on your own face." />
+            <Head tone="image" icon={Glasses} title="Eyewear try-on" body="Frames on your own face." />
           </Tile>
         </div>
       </div>

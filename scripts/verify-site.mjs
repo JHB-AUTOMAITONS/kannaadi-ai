@@ -143,6 +143,14 @@ for (const page of PAGES) {
       const graph = j['@graph'] ?? [j]
       if (!graph.some((n) => n['@type']?.toString().match(/Page$/) && n.url === `${SITE_URL}${p}`)) fail(p, 'JSON-LD has no WebPage node for this URL')
       if (p !== '/' && !graph.some((n) => n['@type'] === 'BreadcrumbList')) fail(p, 'JSON-LD lacks BreadcrumbList')
+      // FAQPage markup is only valid if the same questions and answers are on the page itself (not just in JSON-LD)
+      const body = norm($('body').clone().find('script,style,noscript').remove().end().text())
+      for (const node of graph.filter((n) => n['@type'] === 'FAQPage')) {
+        for (const q of node.mainEntity ?? []) {
+          if (!body.includes(norm(q.name))) fail(p, `FAQ question not present in page content: "${q.name.slice(0, 50)}"`)
+          if (!body.includes(norm(q.acceptedAnswer.text).slice(0, 80))) fail(p, `FAQ answer not present in page content: "${q.name.slice(0, 50)}"`)
+        }
+      }
     } catch (e) {
       fail(p, `JSON-LD is not valid JSON: ${e.message}`)
     }

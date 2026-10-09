@@ -1,4 +1,6 @@
+import { heroPair } from '@/lib/images'
 import { useEffect, useRef, useState } from 'react'
+import { RevealHint } from '@/components/hero/RevealHint'
 import { RevealStage } from '@/components/hero/RevealStage'
 import { ConversionCard } from '@/components/sections/ConversionCard'
 import { FeatureVisual } from '@/components/sections/FeatureVisual'
@@ -21,14 +23,9 @@ const RELATED: Record<string, { to: string; label: string }> = {
   'customer-engagement': { to: '/use-cases/', label: 'Engagement use cases' },
 }
 
-const HERO_CLEAN = [
-  { src: '/images/hero/hero-clean-1600.webp', width: 1600 },
-  { src: '/images/hero/hero-clean-2400.webp', width: 2400 },
-]
-const HERO_AI = [
-  { src: '/images/hero/hero-ai-1600.webp', width: 1600 },
-  { src: '/images/hero/hero-ai-2400.webp', width: 2400 },
-]
+const HERO = heroPair()
+const HERO_CLEAN = HERO.clean
+const HERO_AI = HERO.ai.filter((a) => a.width >= 1600)
 
 /** /features/ — primary intent: "AI fashion technology". All product features live on this one page. */
 export default function Features() {
@@ -58,7 +55,7 @@ export default function Features() {
         eyebrow="Features"
         title={
           <>
-            AI fashion technology for every step of the <span className="accent-serif">try-on.</span>
+            AI fashion technology for every step of the <span className="accent-serif whitespace-nowrap">try-on.</span>
           </>
         }
         intro="Kannaadi.Ai brings AI fashion technology to the whole try-on journey — from virtual try-on and AI Looks to dress scanning, kiosks, jewellery and eyewear. One product, ten ways to put a customer in front of the mirror."
@@ -77,7 +74,7 @@ export default function Features() {
             <RevealStage
               clean={HERO_CLEAN}
               ai={HERO_AI}
-              alt="Satin gown on a dress form; moving the pointer reveals its AI scan"
+              alt={HERO.alt}
               sizes="(min-width: 1024px) 45vw, 92vw"
               imgClassName="object-[70%_50%]"
               eventTarget={heroCard}
@@ -86,7 +83,7 @@ export default function Features() {
               priority
               className="absolute inset-0"
             />
-            <p className="pointer-events-none absolute bottom-3 left-4 font-mono text-[0.68rem] tracking-[0.14em] text-white/85 uppercase mix-blend-difference">Move across to reveal the AI scan</p>
+            <RevealHint />
           </div>
         }
       />

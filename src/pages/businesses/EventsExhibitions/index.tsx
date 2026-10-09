@@ -23,7 +23,7 @@ export default function EventsExhibitions() {
         eyebrow="Events & exhibitions"
         title={
           <>
-            Brand activation marketing built around a live <span className="accent-serif">try-on.</span>
+            Brand activation marketing built around a live <span className="accent-serif whitespace-nowrap">try-on.</span>
           </>
         }
         intro="Brand activation marketing works when visitors do something, not just see something. Kannaadi.Ai turns a stand, pop-up or launch into a live virtual try on moment — with AI looks and a lucky draw — that people want to take part in and share."

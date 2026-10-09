@@ -15,19 +15,77 @@
  * loop stops entirely once the reveal has shrunk away, so an idle page costs nothing.
  */
 
-interface Vec {
+export interface Vec {
   x: number
   y: number
 }
-interface Rect {
+export interface Rect {
   x0: number
   y0: number
   x1: number
   y1: number
 }
 
+/** The blob of one frame: exactly what is drawn as Image 2's mask, in the engine's own (stage) coordinates. */
+export interface BlobShape {
+  pts: Vec[]
+  drops: { x: number; y: number; r: number }[]
+  ang: number
+  feather: number
+}
+
 const TAU = Math.PI * 2
 const N = 10
+
+/** Closed Catmull-Rom spline through the blob's control points. */
+function traceBlob(ctx: CanvasRenderingContext2D, pts: Vec[]) {
+  const n = pts.length
+  ctx.beginPath()
+  ctx.moveTo(pts[0].x, pts[0].y)
+  for (let i = 0; i < n; i++) {
+    const p0 = pts[(i - 1 + n) % n]
+    const p1 = pts[i]
+    const p2 = pts[(i + 1) % n]
+    const p3 = pts[(i + 2) % n]
+    const c = 5.2
+    ctx.bezierCurveTo(
+      p1.x + (p2.x - p0.x) / c,
+      p1.y + (p2.y - p0.y) / c,
+      p2.x - (p3.x - p1.x) / c,
+      p2.y - (p3.y - p1.y) / c,
+      p2.x,
+      p2.y,
+    )
+  }
+  ctx.closePath()
+}
+
+/**
+ * Paint the feathered blob as an alpha mask (source-over, black). The shape is drawn far off-canvas and only its
+ * blurred shadow lands inside the clip: a soft edge with no ctx.filter (which Safari lacks).
+ * `ox`/`oy` (css px) shift the shape, so another canvas can draw the very same blob in its own coordinates.
+ * Leaves the context's transform and shadow state reset.
+ */
+export function paintBlobMask(ctx: CanvasRenderingContext2D, shape: BlobShape, dpr: number, canvasW: number, ox = 0, oy = 0) {
+  const OFF = canvasW + 4000
+  ctx.setTransform(dpr, 0, 0, dpr, -OFF + ox * dpr, oy * dpr)
+  ctx.shadowColor = '#000'
+  ctx.shadowBlur = shape.feather * dpr
+  ctx.shadowOffsetX = OFF
+  ctx.shadowOffsetY = 0
+  ctx.fillStyle = '#000'
+  traceBlob(ctx, shape.pts)
+  ctx.fill()
+  for (const d of shape.drops) {
+    ctx.beginPath()
+    ctx.ellipse(d.x, d.y, d.r * 1.25, d.r * 0.9, shape.ang, 0, TAU)
+    ctx.fill()
+  }
+  ctx.setTransform(1, 0, 0, 1, 0, 0)
+  ctx.shadowColor = 'transparent'
+  ctx.shadowBlur = 0
+  ctx.shadowOffsetX = 0
+}
 
 /** Small deterministic generator so the blob's character is identical on every load. */
 function mulberry(seed: number) {
@@ -76,6 +134,9 @@ export class RevealEngine {
   private baseR = 165
   private feather = 34
   private scale = 1
+
+  /** Called every painted frame with the blob (stage coordinates), or null while hidden. */
+  onShape: ((shape: BlobShape | null) => void) | null = null
 
   private autoUntil = 0
   private autoStart = 0
@@ -271,28 +332,6 @@ export class RevealEngine {
     return pts
   }
 
-  private tracePath(ctx: CanvasRenderingContext2D, pts: Vec[]) {
-    const n = pts.length
-    ctx.beginPath()
-    ctx.moveTo(pts[0].x, pts[0].y)
-    for (let i = 0; i < n; i++) {
-      const p0 = pts[(i - 1 + n) % n]
-      const p1 = pts[i]
-      const p2 = pts[(i + 1) % n]
-      const p3 = pts[(i + 2) % n]
-      const c = 5.2
-      ctx.bezierCurveTo(
-        p1.x + (p2.x - p0.x) / c,
-        p1.y + (p2.y - p0.y) / c,
-        p2.x - (p3.x - p1.x) / c,
-        p2.y - (p3.y - p1.y) / c,
-        p2.x,
-        p2.y,
-      )
-    }
-    ctx.closePath()
-  }
-
   private histAt(now: number, delay: number): Vec {
     const want = now - delay
     for (let i = this.hist.length - 1; i >= 0; i--) if (this.hist[i].t <= want) return this.hist[i]
@@ -323,6 +362,10 @@ export class RevealEngine {
       }
     }
 
+    // hand the very same blob to any other layer drawn through this mask (the hero lettering)
+    const shape: BlobShape | null = pts.length ? { pts, drops, ang, feather: this.feather } : null
+    this.onShape?.(shape)
+
     // bounds of the new shape
     const pad = this.feather * 1.7
     const boxes: Rect[] = [
@@ -352,27 +395,8 @@ export class RevealEngine {
     ctx.clip()
     ctx.clearRect(dx, dy, dw, dh)
 
-    if (pts.length) {
-      // Draw the shape far off-canvas and let only its blurred shadow land inside the clip:
-      // a soft-edged mask with no ctx.filter.
-      const OFF = W + 4000
-      ctx.setTransform(dpr, 0, 0, dpr, -OFF, 0)
-      ctx.shadowColor = '#000'
-      ctx.shadowBlur = this.feather * dpr
-      ctx.shadowOffsetX = OFF
-      ctx.shadowOffsetY = 0
-      ctx.fillStyle = '#000'
-      this.tracePath(ctx, pts)
-      ctx.fill()
-      for (const d of drops) {
-        ctx.beginPath()
-        ctx.ellipse(d.x, d.y, d.r * 1.25, d.r * 0.9, ang, 0, TAU)
-        ctx.fill()
-      }
-      ctx.setTransform(1, 0, 0, 1, 0, 0)
-      ctx.shadowColor = 'transparent'
-      ctx.shadowBlur = 0
-      ctx.shadowOffsetX = 0
+    if (shape) {
+      paintBlobMask(ctx, shape, dpr, W)
 
       // keep only the AI image where the mask has alpha — same cover math as <img object-fit: cover>
       const s = Math.max(this.w / iw, this.h / ih)
@@ -402,5 +426,6 @@ export class RevealEngine {
     this.ctx.setTransform(1, 0, 0, 1, 0, 0)
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
     this.dirty = null
+    this.onShape?.(null)
   }
 }

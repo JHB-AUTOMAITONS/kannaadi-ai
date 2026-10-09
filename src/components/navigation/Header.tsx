@@ -1,3 +1,4 @@
+import { scene } from '@/lib/images'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router'
 import { ChevronDown, Menu, X } from 'lucide-react'
@@ -5,6 +6,7 @@ import { Logo } from '@/components/ui/Logo'
 import { Cta } from '@/components/ui/Cta'
 import { Link005 } from '@/components/ui/skiper-ui/skiper40'
 import { BUSINESSES } from '@/data/businesses'
+import { useDesktop } from '@/hooks/use-media'
 import { cn } from '@/lib/utils'
 
 const LINKS = [
@@ -26,13 +28,15 @@ export function Header() {
   // open state is keyed to the pathname it was opened on, so navigating closes it without an effect
   const [megaAt, setMegaAt] = useState<string | null>(null)
   const [menuAt, setMenuAt] = useState<string | null>(null)
-  const mega = megaAt === pathname
-  const menu = menuAt === pathname
+  const desktop = useDesktop()
+  const mega = desktop && megaAt === pathname
+  const menu = !desktop && menuAt === pathname
   const setMega = useCallback((v: boolean | ((p: boolean) => boolean)) => setMegaAt((cur) => ((typeof v === 'function' ? v(cur === pathname) : v) ? pathname : null)), [pathname])
   const setMenu = useCallback((v: boolean | ((p: boolean) => boolean)) => setMenuAt((cur) => ((typeof v === 'function' ? v(cur === pathname) : v) ? pathname : null)), [pathname])
   const closeTimer = useRef<number>(0)
   const hoverOpenedAt = useRef(0)
   const megaBtn = useRef<HTMLButtonElement>(null)
+  const menuBtn = useRef<HTMLButtonElement>(null)
   const megaWrap = useRef<HTMLDivElement>(null)
 
   // header state
@@ -62,6 +66,13 @@ export function Header() {
       document.removeEventListener('pointerdown', click)
     }
   }, [mega, setMega])
+
+  // stable identities: MobileMenu's focus/scroll-lock effect must not re-run on unrelated header renders
+  const closeMenu = useCallback(() => setMenu(false), [setMenu])
+  const escapeMenu = useCallback(() => {
+    setMenu(false)
+    menuBtn.current?.focus()
+  }, [setMenu])
 
   const openMega = useCallback(() => {
     window.clearTimeout(closeTimer.current)
@@ -130,6 +141,7 @@ export function Header() {
             </Cta>
           </div>
           <button
+            ref={menuBtn}
             type="button"
             aria-expanded={menu}
             aria-controls="mobile-menu"
@@ -142,7 +154,7 @@ export function Header() {
         </div>
       </div>
 
-      <MobileMenu open={menu} onClose={() => setMenu(false)} />
+      <MobileMenu open={menu} onClose={closeMenu} onEscape={escapeMenu} />
     </header>
   )
 }
@@ -179,7 +191,7 @@ function MegaMenu({ open, onNavigate }: { open: boolean; onNavigate: () => void 
               <li key={b.slug}>
                 <Link005 href={b.path} onClick={onNavigate} className="gap-3 rounded-xl p-2 text-foreground">
                   <img
-                    src={`${b.image}-clean.webp`}
+                    src={scene(b.slug, b.image, b.imageAlt).thumb}
                     alt=""
                     width={64}
                     height={48}
@@ -201,7 +213,7 @@ function MegaMenu({ open, onNavigate }: { open: boolean; onNavigate: () => void 
   )
 }
 
-function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
+function MobileMenu({ open, onClose, onEscape }: { open: boolean; onClose: () => void; onEscape: () => void }) {
   const panel = useRef<HTMLDivElement>(null)
   const [biz, setBiz] = useState(false)
 
@@ -209,16 +221,19 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
     if (!open) return
     const prev = document.body.style.overflow
     document.body.style.overflow = 'hidden'
+    // the page behind an open modal menu must not be reachable by keyboard or screen reader
+    const behind = [document.getElementById('main'), document.querySelector<HTMLElement>('body > #root footer, footer')].filter((el): el is HTMLElement => !!el)
+    behind.forEach((el) => (el.inert = true))
     const root = panel.current
     const focusables = () =>
       Array.from(root?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') ?? []).filter((el) => el.offsetParent !== null)
     const first = window.setTimeout(() => focusables()[0]?.focus(), 80)
     const key = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape') onEscape()
       if (e.key !== 'Tab') return
-      // keep focus inside the menu, including the toggle button that closes it
+      // keep focus inside the menu. DOM order is toggle → menu items, so that is also the cycle order
       const toggle = document.querySelector<HTMLElement>('button[aria-controls="mobile-menu"]')
-      const list = [...focusables(), ...(toggle ? [toggle] : [])]
+      const list = [...(toggle ? [toggle] : []), ...focusables()]
       if (!list.length) return
       const i = list.indexOf(document.activeElement as HTMLElement)
       if (e.shiftKey && i <= 0) {
@@ -232,10 +247,11 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
     document.addEventListener('keydown', key)
     return () => {
       document.body.style.overflow = prev
+      behind.forEach((el) => (el.inert = false))
       window.clearTimeout(first)
       document.removeEventListener('keydown', key)
     }
-  }, [open, onClose])
+  }, [open, onEscape])
 
   return (
     <div

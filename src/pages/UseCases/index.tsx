@@ -121,7 +121,7 @@ export default function UseCases() {
             eyebrow="Beyond the website"
             title={
               <>
-                The same try-on, <span className="accent-serif">everywhere.</span>
+                The same <span className="whitespace-nowrap">try-on</span>, <span className="accent-serif">everywhere.</span>
               </>
             }
             lede="Ecommerce is where many retailers start. The same ecommerce fashion technology can then move into stores and events."

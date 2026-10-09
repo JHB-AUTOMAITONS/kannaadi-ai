@@ -63,7 +63,7 @@ export default function Boutiques() {
 
       <section className="section-sm md:section" aria-label="Related pages">
         <div className="container-x flex flex-wrap items-center gap-x-8 gap-y-3 text-[1rem]">
-          <span className="eyebrow">Also see</span>
+          <span className="eyebrow w-full sm:w-auto">Also see</span>
           <Link002 href="/for-businesses/fashion-stores/" className="font-medium">
             Fashion stores
           </Link002>

@@ -1,0 +1,11 @@
+{
+  "casual": { "leftEye": [558.75, 274.25], "rightEye": [682, 262] },
+  "saree": { "leftEye": [464.5, 270], "rightEye": [581.75, 258] },
+  "meta": {
+    "alt": "A South Indian woman in a casual linen shirt. Moving the pointer over her reveals her virtually trying on a red and gold Kanchipuram silk saree.",
+    "hint": "Move across her to try on the saree",
+    "touchHint": "Touch and drag to try on the saree",
+    "pairLabel": "Casual ↔ Saree try-on",
+    "cursorLabel": "Try on"
+  }
+}

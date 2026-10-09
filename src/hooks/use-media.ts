@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from 'react'
 
 /** Subscribe to a CSS media query. Server and first client render report `false` (no hydration mismatch). */
-export function useMedia(query: string): boolean {
+function useMedia(query: string): boolean {
   return useSyncExternalStore(
     (cb) => {
       const mq = window.matchMedia(query)
@@ -13,9 +13,7 @@ export function useMedia(query: string): boolean {
   )
 }
 
-export const useReducedMotion = () => useMedia('(prefers-reduced-motion: reduce)')
-/** True when the primary pointer is a mouse/trackpad. */
-export const useFinePointer = () => useMedia('(hover: hover) and (pointer: fine)')
+/** Matches the `lg` breakpoint where the desktop navigation takes over. */
 export const useDesktop = () => useMedia('(min-width: 1024px)')
 
 /** Non-hook check for effects. */

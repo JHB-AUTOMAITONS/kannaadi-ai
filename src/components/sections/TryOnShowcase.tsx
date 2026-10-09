@@ -1,3 +1,4 @@
+import { gownProps, gownAlt, looksArePhotos } from '@/lib/images'
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react'
 import { Layers, MonitorSmartphone, Shirt } from 'lucide-react'
 import { Cta } from '@/components/ui/Cta'
@@ -11,6 +12,8 @@ const COLOURS = [
   { id: 'forest', label: 'Forest', swatch: '#1f5a43' },
   { id: 'claret', label: 'Claret', swatch: '#6a1730' },
 ] as const
+
+const SHOWCASE_SIZES = '(min-width: 1024px) 34rem, 92vw'
 
 const POINTS = [
   { icon: Shirt, title: 'Colour and silhouette on the shopper', body: 'Customers judge the piece the way they will wear it.' },
@@ -31,7 +34,8 @@ export function TryOnShowcase() {
   const knob = useRef<HTMLDivElement>(null)
   const dragging = useRef(false)
   const touched = useRef(false)
-  const visible = useRef(false)
+  // Other colourways are fetched only once the section has been seen (or a swatch is hovered/focused)
+  const [armed, setArmed] = useState(false)
 
   // Paint the split position straight to the DOM (no React render per frame during the idle sweep).
   const paint = useCallback((p: number) => {
@@ -41,21 +45,32 @@ export function TryOnShowcase() {
   }, [])
   useEffect(() => paint(pos), [pos, paint])
 
-  // gentle idle sweep until the visitor takes over (paused off-screen and for reduced motion)
+  // Gentle idle sweep until the visitor takes over. The loop only exists while the stage is on screen.
   useEffect(() => {
     const el = stage.current
-    if (!el || prefersReducedMotion()) return
-    const io = new IntersectionObserver(([e]) => (visible.current = e.isIntersecting), { threshold: 0.25 })
-    io.observe(el)
+    if (!el) return
+    const reduced = prefersReducedMotion()
     let raf = 0
+    let arm = 0
     const t0 = performance.now()
     const loop = (now: number) => {
-      if (!touched.current && visible.current) paint(58 + Math.sin((now - t0) / 1500) * 22)
+      if (touched.current) return
+      paint(58 + Math.sin((now - t0) / 1500) * 22)
       raf = requestAnimationFrame(loop)
     }
-    raf = requestAnimationFrame(loop)
+    const io = new IntersectionObserver(
+      ([e]) => {
+        cancelAnimationFrame(raf)
+        if (!e.isIntersecting) return
+        arm = window.setTimeout(() => setArmed(true), 900)
+        if (!reduced && !touched.current) raf = requestAnimationFrame(loop)
+      },
+      { threshold: 0.25 },
+    )
+    io.observe(el)
     return () => {
       cancelAnimationFrame(raf)
+      window.clearTimeout(arm)
       io.disconnect()
     }
   }, [paint])
@@ -95,11 +110,11 @@ export function TryOnShowcase() {
             onPointerUp={() => (dragging.current = false)}
             onPointerCancel={() => (dragging.current = false)}
           >
-            {COLOURS.map((c) => (
+            {COLOURS.filter((c) => c.id === colour || armed).map((c) => (
               <img
                 key={c.id}
-                src={`/images/showcase/gown-${c.id}.webp`}
-                alt={c.id === colour ? `${c.label} satin gown on a dress form` : ''}
+                {...gownProps(c.id, { sizes: SHOWCASE_SIZES })}
+                alt={c.id === colour ? gownAlt(c.id, c.label) : ''}
                 aria-hidden={c.id !== colour}
                 width={1100}
                 height={1300}
@@ -111,7 +126,7 @@ export function TryOnShowcase() {
             ))}
             {/* AI layer — same geometry, clipped by the scan line */}
             <img
-              src="/images/showcase/gown-scan.webp"
+              {...gownProps('scan', { sizes: SHOWCASE_SIZES, scanOf: colour })}
               alt=""
               aria-hidden="true"
               width={1100}
@@ -156,6 +171,8 @@ export function TryOnShowcase() {
                   aria-checked={c.id === colour}
                   aria-label={c.label}
                   onClick={() => setColour(c.id)}
+                  onPointerEnter={() => setArmed(true)}
+                  onFocus={() => setArmed(true)}
                   className={cn(
                     'size-9 rounded-full border-2 border-transparent p-0.5 transition-[transform,border-color] duration-300',
                     c.id === colour ? 'scale-110 border-lumen' : 'hover:scale-105 hover:border-foreground/40',
@@ -168,7 +185,7 @@ export function TryOnShowcase() {
                 {COLOURS.find((c) => c.id === colour)?.label}
               </span>
             </div>
-            <p className="text-xs text-muted-foreground">Illustration: garment on a dress form.</p>
+            <p className="text-xs text-muted-foreground">{looksArePhotos ? 'AI-generated model imagery.' : 'Illustration: garment on a dress form.'}</p>
           </div>
         </div>
 

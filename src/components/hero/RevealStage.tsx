@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, type RefObject } from 'react'
-import { RevealEngine } from '@/lib/reveal-engine'
+import { RevealEngine, type BlobShape } from '@/lib/reveal-engine'
 import { prefersReducedMotion } from '@/hooks/use-media'
 import { cn } from '@/lib/utils'
 
@@ -28,6 +28,15 @@ interface Props {
   aspect?: [number, number]
   /** Element that receives pointer events. Defaults to the stage itself. */
   eventTarget?: RefObject<HTMLElement | null>
+  /**
+   * Mouse and pen drive the reveal from anywhere inside `eventTarget`, not only over the stage (which can be narrower
+   * than the hero on wide screens). Coordinates stay stage-relative, so the image layer is untouched; the blob may
+   * simply sit outside the stage. Touch keeps the stage as its surface, so a scroll that starts on the copy stays calm.
+   */
+  reachAll?: boolean
+  /** Receives the blob every frame (null while hidden) so another layer can be drawn through the very same mask.
+   *  `origin` is the stage's top-left corner in client px. */
+  onShape?: (shape: BlobShape | null, origin: { x: number; y: number }) => void
   priority?: boolean
   /** When to fetch Image 2: after load+idle, when scrolled into view, or on first interaction */
   loadAi?: 'idle' | 'visible' | 'interact'
@@ -47,7 +56,7 @@ const pickSource = (list: ImageSource[], needed: number) => {
  * On load the canvas is fully transparent, so Image 2 is completely hidden.
  */
 export const RevealStage = forwardRef<RevealStageHandle, Props>(function RevealStage(
-  { clean, ai, alt, imgClassName, blobScale = 1, sizes = '100vw', aspect = [2400, 1300], eventTarget, priority, loadAi = 'idle', className, onActiveChange },
+  { clean, ai, alt, imgClassName, blobScale = 1, sizes = '100vw', aspect = [2400, 1300], eventTarget, reachAll, onShape, priority, loadAi = 'idle', className, onActiveChange },
   ref,
 ) {
   const wrap = useRef<HTMLDivElement>(null)
@@ -55,13 +64,15 @@ export const RevealStage = forwardRef<RevealStageHandle, Props>(function RevealS
   const engineRef = useRef<RevealEngine | null>(null)
   const sizeRef = useRef({ w: 0, h: 0, dpr: 1 })
   const cb = useRef(onActiveChange)
+  const shapeCb = useRef(onShape)
   // Callers may pass fresh array literals each render; the effect reads the latest through a ref
   // so it only re-binds when the event target or load strategy really changes.
-  const cfg = useRef({ ai, aspect, blobScale })
+  const cfg = useRef({ ai, aspect, blobScale, reachAll })
   // keep the latest props readable from long-lived listeners without re-binding them
   useEffect(() => {
     cb.current = onActiveChange
-    cfg.current = { ai, aspect, blobScale }
+    shapeCb.current = onShape
+    cfg.current = { ai, aspect, blobScale, reachAll }
   })
   const img1 = useRef<HTMLImageElement>(null)
 
@@ -83,9 +94,15 @@ export const RevealStage = forwardRef<RevealStageHandle, Props>(function RevealS
     const engine = new RevealEngine(cv, { reducedMotion: prefersReducedMotion() })
     engine.setScale(cfg.current.blobScale)
     engineRef.current = engine
+    engine.onShape = (shape) => {
+      const fn = shapeCb.current
+      if (!fn) return
+      if (!shape) return fn(null, { x: 0, y: 0 })
+      const r = stage.getBoundingClientRect()
+      fn(shape, { x: r.left, y: r.top })
+    }
 
     // ---- sizing ------------------------------------------------------------------------
-    let aiLoaded = false
     let aiStarted = false
     const dprNow = () => Math.min(window.devicePixelRatio || 1, 2)
     const apply = () => {
@@ -112,10 +129,7 @@ export const RevealStage = forwardRef<RevealStageHandle, Props>(function RevealS
       const im = new Image()
       im.decoding = 'async'
       im.src = choice.src
-      const done = () => {
-        aiLoaded = true
-        engine.setImage(im)
-      }
+      const done = () => engine.setImage(im)
       if (im.decode) im.decode().then(done, done)
       else im.onload = done
     }
@@ -148,7 +162,9 @@ export const RevealStage = forwardRef<RevealStageHandle, Props>(function RevealS
     let inside = false
     const local = (e: PointerEvent) => {
       const r = stage.getBoundingClientRect()
-      return { x: e.clientX - r.left, y: e.clientY - r.top, ok: e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom }
+      const inStage = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom
+      // `target` only delivers events from inside itself, so for mouse/pen "anywhere in the target" is always true
+      return { x: e.clientX - r.left, y: e.clientY - r.top, ok: inStage || (!!cfg.current.reachAll && e.pointerType !== 'touch') }
     }
     const setInside = (v: boolean) => {
       if (v !== inside) {
@@ -219,7 +235,6 @@ export const RevealStage = forwardRef<RevealStageHandle, Props>(function RevealS
       }
       engine.destroy()
       engineRef.current = null
-      void aiLoaded
     }
     // sources are static per mount; re-bind only if the event target changes
   }, [eventTarget, loadAi])

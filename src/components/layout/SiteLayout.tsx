@@ -1,18 +1,19 @@
-import { Suspense, useEffect, useLayoutEffect, useRef } from 'react'
+import { Suspense, useEffect } from 'react'
 import { Outlet, useLocation, useNavigationType } from 'react-router'
 import { Footer } from '@/components/layout/Footer'
 import { Header } from '@/components/navigation/Header'
+import { useRouteEffects } from '@/hooks/use-route-effects'
 import { useScrollReveal } from '@/hooks/use-scroll-reveal'
 import { NOT_FOUND_META, normalizePath, pageByPath } from '@/data/pages'
 import { applyHead, headTags } from '@/lib/seo'
 
 /** Site shell: skip link, header, routed page, footer, plus per-route SEO sync and motion plumbing. */
 export function SiteLayout() {
-  const { pathname, hash } = useLocation()
-  const navs = useRef(0)
+  const { pathname } = useLocation()
   const navType = useNavigationType() // POP on first load, PUSH after a link click
 
   useScrollReveal(pathname)
+  useRouteEffects()
 
   // keep <head> in step with the route (the prerenderer writes the same tags into the static HTML)
   useEffect(() => {
@@ -20,18 +21,10 @@ export function SiteLayout() {
     applyHead(headTags(meta ?? NOT_FOUND_META, { noindex: !meta }))
   }, [pathname])
 
-  // new page → top; anchors keep native behaviour
-  useLayoutEffect(() => {
-    navs.current += 1
-    if (navs.current === 1 || hash) return
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior })
-  }, [pathname, hash])
-
   useEffect(() => {
     // reveal CSS may now apply; cancel the "JS never arrived" failsafe set in index.html
     const w = window as unknown as { __kfb?: number }
     if (w.__kfb) window.clearTimeout(w.__kfb)
-    document.documentElement.dataset.ready = '1'
   }, [])
 
   return (

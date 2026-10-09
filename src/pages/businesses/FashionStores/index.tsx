@@ -48,7 +48,7 @@ export default function FashionStores() {
             eyebrow="Map your floor"
             title={
               <>
-                Five places a try-on <span className="accent-serif">earns its spot.</span>
+                Five places a <span className="whitespace-nowrap">try-on</span> <span className="accent-serif">earns its spot.</span>
               </>
             }
             lede="A virtual fitting room does not have to live in one place. Tap a hotspot to see where it can sit on a typical fashion retail floor."
@@ -61,7 +61,7 @@ export default function FashionStores() {
 
       <section className="section-sm" aria-label="Related pages">
         <div className="container-x flex flex-wrap items-center gap-x-8 gap-y-3 text-[1rem]">
-          <span className="eyebrow">Keep exploring</span>
+          <span className="eyebrow w-full sm:w-auto">Keep exploring</span>
           <Link000 href="/for-businesses/boutiques/" className="font-medium">
             Boutiques
           </Link000>

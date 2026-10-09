@@ -62,7 +62,7 @@ export default function EyewearStores() {
 
       <section className="section-sm md:section" aria-labelledby="ew-more-title">
         <div className="container-x grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-          <SectionHeading id="ew-more-title" eyebrow="In store and online" title={<>The same try-on, <span className="accent-serif">wherever they look.</span></>} size="2" />
+          <SectionHeading id="ew-more-title" eyebrow="In store and online" title={<>The same <span className="whitespace-nowrap">try-on</span>, <span className="accent-serif">wherever they look.</span></>} size="2" />
           <p data-reveal="" className="max-w-[58ch] text-[1.02rem] leading-relaxed text-muted-foreground">
             A counter screen helps the customer who is already in your store; the same experience on your website helps the one who is
             not yet. See how it works as a{' '}

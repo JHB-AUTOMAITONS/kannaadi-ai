@@ -57,7 +57,7 @@ export function NecklaceLengths() {
             value={i}
             onChange={(e) => setI(Number(e.target.value))}
             aria-valuetext={`${n.name}, ${n.inches}`}
-            className="mt-4 h-2 w-full cursor-pointer appearance-none rounded-full bg-border accent-lumen [&::-moz-range-thumb]:size-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-ink [&::-moz-range-thumb]:bg-lumen [&::-webkit-slider-thumb]:size-6 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-ink [&::-webkit-slider-thumb]:bg-lumen"
+            className="mt-3 h-6 w-full cursor-pointer appearance-none bg-transparent accent-lumen [&::-webkit-slider-runnable-track]:h-2 [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-border [&::-webkit-slider-thumb]:-mt-2 [&::-moz-range-track]:h-2 [&::-moz-range-track]:rounded-full [&::-moz-range-track]:bg-border [&::-moz-range-thumb]:size-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-ink [&::-moz-range-thumb]:bg-lumen [&::-webkit-slider-thumb]:size-6 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-ink [&::-webkit-slider-thumb]:bg-lumen"
           />
           <div className="mt-3 flex justify-between font-mono text-[0.68rem] tracking-[0.12em] text-muted-foreground uppercase" aria-hidden="true">
             {LENGTHS.map((l) => (

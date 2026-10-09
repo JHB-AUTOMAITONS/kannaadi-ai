@@ -1,7 +1,7 @@
 import { BUSINESSES } from '@/data/businesses'
 import { faqFor } from '@/data/faqs'
 import { FEATURES } from '@/data/features'
-import { PAGES, pageByPath, type PageMeta } from '@/data/pages'
+import { pageByPath, type PageMeta } from '@/data/pages'
 import { SITE, absoluteUrl } from '@/data/site'
 
 /**
@@ -66,7 +66,7 @@ const pageType: Record<PageMeta['schema'], string> = {
   service: 'WebPage',
 }
 
-export function structuredData(meta: PageMeta): object {
+function structuredData(meta: PageMeta): object {
   const url = absoluteUrl(meta.path)
   const graph: object[] = [organization(), website()]
 
@@ -211,4 +211,3 @@ export function applyHead(tags: HeadTag[]) {
   }
 }
 
-export const allIndexablePaths = () => PAGES.map((p) => p.path)

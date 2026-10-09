@@ -4,12 +4,11 @@
  * Adapted for Kannaadi.Ai: the Next.js <Link> is replaced by React Router (internal hrefs) or a
  * plain anchor (mailto:/external), the five variants share one <Anchor>, and the demo section that
  * shipped with the component was removed. Variants:
+ * Variants kept (upstream Link003/Link004 were removed as unused):
  *   Link000  underline wipe (left → right)               — footer + inline links
  *   Link001  underline + arrow, opens in a new tab        — external links
- *   Link002  underline wipe (right → left) + arrow
- *   Link003  underline grows from the centre + arrow
- *   Link004  difference-blend bar rises behind the label  — works on light AND dark surfaces
- *   Link005  difference-blend sweep fills the row         — menu rows, category index
+ *   Link002  underline wipe (right → left) + arrow        — standalone "more" links
+ *   Link005  difference-blend sweep fills the row         — mega-menu rows (works on light AND dark)
  *
  * Skiper UI — inspired by and adapted from https://cursor.com/?from=home
  * License & Usage (upstream):
@@ -57,8 +56,6 @@ const Arrow = ({ className }: { className: string }) => (
 
 const ARROW_RISE =
   "ml-[0.3em] mt-[0em] size-[0.55em] translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 motion-reduce:transition-none"
-const ARROW_ROTATE =
-  "z-0 ml-[0.6em] mt-[0em] size-[0.55em] translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:rotate-45 group-hover:opacity-100 motion-reduce:transition-none"
 const ARROW_SLIDE =
   "z-0 ml-[0.6em] mt-[0em] size-[0.55em] -translate-x-1 rotate-45 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100 motion-reduce:transition-none"
 
@@ -116,38 +113,6 @@ export const Link002 = ({ children, href, className, ...rest }: LinkProps) => (
   >
     {children}
     <Arrow className={ARROW_RISE} />
-  </Anchor>
-)
-
-export const Link003 = ({ children, href, className, ...rest }: LinkProps) => (
-  <Anchor
-    href={href}
-    {...rest}
-    className={cn(
-      'group relative inline-flex items-center',
-      className,
-      LINE,
-      HIT,
-      'before:bottom-[-0.15em] before:h-[0.06em] before:origin-center hover:before:scale-x-100 focus-visible:before:scale-x-100',
-    )}
-  >
-    {children}
-    <Arrow className={ARROW_RISE} />
-  </Anchor>
-)
-
-export const Link004 = ({ children, href, className, ...rest }: LinkProps) => (
-  <Anchor
-    href={href}
-    {...rest}
-    className={cn(
-      'group relative flex items-center px-2',
-      className,
-      "before:pointer-events-none before:absolute before:bottom-0 before:left-0 before:z-1 before:h-0 before:w-full before:bg-white before:mix-blend-difference before:transition-all before:duration-300 before:ease-[cubic-bezier(0.4,0,0.2,1)] before:content-[''] hover:before:h-[1.4em] focus-visible:before:h-[1.4em] motion-reduce:before:transition-none",
-    )}
-  >
-    {children}
-    <Arrow className={ARROW_ROTATE} />
   </Anchor>
 )
 

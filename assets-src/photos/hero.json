@@ -1,0 +1,20 @@
+{
+  "alt": "A South Indian woman in a casual linen shirt. Moving the pointer over her reveals her virtually trying on a red and gold Kanchipuram silk saree.",
+  "hint": "Move across her to try on the saree",
+  "touchHint": "Touch and drag to try on the saree",
+  "pairLabel": "Casual ↔ Saree try-on",
+  "cursorLabel": "Try on",
+  "face": {
+    "x": 0.64,
+    "y": 0.173,
+    "w": 0.12,
+    "h": 0.22
+  },
+  "subject": {
+    "x": 0.521,
+    "y": 0.088,
+    "w": 0.374,
+    "h": 0.912
+  },
+  "matchBackground": false
+}
