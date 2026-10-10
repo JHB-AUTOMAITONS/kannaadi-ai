@@ -2,7 +2,7 @@
 export const SITE = {
   name: 'Kannaadi.Ai',
   /** Canonical origin. Set VITE_SITE_URL at build time for the real domain. */
-  url: ((import.meta.env.VITE_SITE_URL as string | undefined) ?? 'https://kannaadi.ai').replace(/\/+$/, ''),
+  url: ((import.meta.env.VITE_SITE_URL as string | undefined) ?? 'https://kannadi.ai').replace(/\/+$/, ''),
   locale: 'en',
   ogImage: '/images/og/kannaadi-og.jpg',
   ogImageAlt: 'A satin gown shown half as a studio photo and half as an AI scan — the Kannaadi.Ai virtual try on reveal.',
