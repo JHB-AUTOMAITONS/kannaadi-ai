@@ -1,4 +1,4 @@
-import { LeadForm } from '@/components/forms/LeadForm'
+import { HostedDemoForm } from '@/components/forms/HostedDemoForm'
 import { Breadcrumbs } from '@/components/sections/PageHero'
 import { FaqSection } from '@/components/sections/FaqSection'
 import { Eyebrow } from '@/components/ui/SectionHeading'
@@ -30,10 +30,10 @@ export default function BookDemo() {
             </p>
           </div>
 
-          <div className="theme-light rounded-[2rem] border border-foreground/10 bg-card p-6 shadow-[0_40px_90px_-40px_rgb(0_0_0/0.7)] md:p-9 lg:sticky lg:top-24 lg:col-start-2 lg:row-span-2 lg:row-start-1">
+          <div className="theme-light rounded-[2rem] border border-foreground/10 bg-card p-4 shadow-[0_40px_90px_-40px_rgb(0_0_0/0.7)] sm:p-6 md:p-9 lg:col-start-2 lg:row-span-2 lg:row-start-1">
             <h2 className="t-2 mb-1">Request a demo</h2>
             <p className="mb-6 text-[0.95rem] text-muted-foreground">A few details so we can prepare something relevant.</p>
-            <LeadForm kind="demo" />
+            <HostedDemoForm />
           </div>
 
           <div className="flex flex-col gap-6 lg:col-start-1 lg:row-start-2">

@@ -127,6 +127,12 @@ Until a slot has a photo, the site shows the procedural placeholder art (`script
 
 ### Forms
 
-`LeadForm` validates client-side, shows loading / success / error states and POSTs JSON to `VITE_FORM_ENDPOINT`.
-The success panel only appears after the endpoint confirms. Without an endpoint the form reports that delivery isn’t
-set up; it never fakes a send.
+**`/book-a-demo/`** embeds the live form hosted by the form provider (`HostedDemoForm`, URL in `DEMO_FORM_URL`). Its
+fields, validation, submission and success/error messages all belong to the provider; the site never intercepts or
+simulates a submit. The iframe mounts client-side only (the page is prerendered and hydrated), and the provider's
+`form_embed.js` is loaded once per visit to keep the iframe sized to the form. Anything about how the form *looks*
+(background, label and input colours, field names) is changed in the provider's form builder, not in this repo.
+
+**`/contact/`** still uses `LeadForm`: it validates client-side, shows loading / success / error states and POSTs JSON to
+`VITE_FORM_ENDPOINT`. The success panel only appears after the endpoint confirms. Without an endpoint the form reports
+that delivery isn’t set up; it never fakes a send.
