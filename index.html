@@ -5,6 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#F5F1E8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P7JMC5VRSF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+      // page_view is sent manually on route change (src/components/layout/SiteLayout.tsx)
+      // so client-side navigations are counted once each, not duplicated with the initial load.
+      gtag('config', 'G-P7JMC5VRSF', { send_page_view: false })
+    </script>
+
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+      ;(function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments)
+          }
+        t = l.createElement(r)
+        t.async = 1
+        t.src = 'https://www.clarity.ms/tag/' + i
+        y = l.getElementsByTagName(r)[0]
+        y.parentNode.insertBefore(t, y)
+      })(window, document, 'clarity', 'script', 'yxxrqij0po')
+    </script>
+
     <script>
       // Marks the document as script-enabled (scroll-reveal hides content only then). If the app
       // never mounts, the failsafe makes everything visible again after 6s.

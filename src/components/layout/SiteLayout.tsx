@@ -6,6 +6,7 @@ import { useRouteEffects } from '@/hooks/use-route-effects'
 import { useScrollReveal } from '@/hooks/use-scroll-reveal'
 import { NOT_FOUND_META, normalizePath, pageByPath } from '@/data/pages'
 import { applyHead, headTags } from '@/lib/seo'
+import { trackPageview } from '@/lib/analytics'
 
 /** Site shell: skip link, header, routed page, footer, plus per-route SEO sync and motion plumbing. */
 export function SiteLayout() {
@@ -19,6 +20,7 @@ export function SiteLayout() {
   useEffect(() => {
     const meta = pageByPath(normalizePath(pathname))
     applyHead(headTags(meta ?? NOT_FOUND_META, { noindex: !meta }))
+    trackPageview(pathname, meta?.title ?? NOT_FOUND_META.title)
   }, [pathname])
 
   useEffect(() => {
