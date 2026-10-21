@@ -9,6 +9,7 @@ const YEAR = new Date().getFullYear()
 const EXPLORE = [
   { to: '/features/', label: 'Features' },
   { to: '/use-cases/', label: 'Use Cases' },
+  { to: '/blog', label: 'Blog' },
   { to: '/about/', label: 'About' },
   { to: '/book-a-demo/', label: 'Book a Demo' },
   { to: '/contact/', label: 'Contact' },

@@ -9,7 +9,11 @@ import * as cheerio from 'cheerio'
 const root = path.resolve(import.meta.dirname, '..')
 const dist = path.join(root, 'dist')
 const mod = await import(pathToFileURL(path.join(root, 'dist-ssr', 'entry-server.js')).href)
-const PAGES = mod.pages()
+const ALL_PAGES = mod.pages()
+const isBlog = (p) => mod.isBlogPath(p)
+const PAGES = ALL_PAGES
+const SITE_PAGES = ALL_PAGES.filter((p) => !isBlog(p.path))
+const BLOG_PAGES = ALL_PAGES.filter((p) => isBlog(p.path))
 const SITE_URL = mod.siteUrl()
 
 /** The exact URL set from the brief. */
@@ -40,14 +44,23 @@ const EXPECTED_PRIMARY = {
 const failures = []
 const notes = []
 const fail = (p, msg) => failures.push(`${p}  ✗ ${msg}`)
+// "virtual try on clothes india" is matched in its natural readable form too ("…clothes in India")
+const kw = (t, k) => t.includes(k.toLowerCase()) || t.includes(k.toLowerCase().replace(/ india$/, ' in india'))
 const norm = (t) => t.replace(/\s+/g, ' ').replace(/[’‘]/g, "'").trim().toLowerCase()
 
 // 1. exact route set + keyword mapping -----------------------------------------------------------
-const got = PAGES.map((p) => p.path)
+const got = SITE_PAGES.map((p) => p.path)
 if (JSON.stringify([...got].sort()) !== JSON.stringify([...EXPECTED].sort())) fail('routes', `route set differs from brief.\n    got:      ${got.join(' ')}\n    expected: ${EXPECTED.join(' ')}`)
-for (const p of PAGES) {
+for (const p of SITE_PAGES) {
   if ((p.primary ?? null) !== EXPECTED_PRIMARY[p.path]) fail(p.path, `primary keyword is "${p.primary}", brief says "${EXPECTED_PRIMARY[p.path]}"`)
   if (!/^\/[a-z0-9\-/]*$/.test(p.path) || !p.path.endsWith('/')) fail(p.path, 'URL must be lowercase, hyphenated, trailing-slash')
+}
+// Blog: slash-less lowercase URLs; /blog (+ /blog/page/N) have no keyword, every article owns a distinct one.
+for (const p of BLOG_PAGES) {
+  if (!/^\/blog(\/[a-z0-9-]+)*$/.test(p.path)) fail(p.path, 'blog URL must be lowercase, hyphenated and slash-less')
+  if (p.schema === 'article' && !p.primary) fail(p.path, 'article has no primary keyword')
+  if (p.schema === 'article' && p.path.split('/').length !== 3) fail(p.path, 'article URL must be exactly /blog/{slug}')
+  if (p.noindex) fail(p.path, 'draft/noindex article leaked into a production build')
 }
 const primaries = PAGES.map((p) => p.primary).filter(Boolean)
 if (new Set(primaries).size !== primaries.length) fail('keywords', 'a primary keyword is used on more than one page')
@@ -58,7 +71,8 @@ const seenDesc = new Map()
 const seenH1 = new Map()
 const anchors = new Map() // path -> Set of element ids
 
-const pageHtml = (p) => fs.readFileSync(p === '/' ? path.join(dist, 'index.html') : path.join(dist, p, 'index.html'), 'utf8')
+const pageFile = (p) => (p === '/' ? path.join(dist, 'index.html') : isBlog(p) ? path.join(dist, `${p}.html`) : path.join(dist, p, 'index.html'))
+const pageHtml = (p) => fs.readFileSync(pageFile(p), 'utf8')
 
 for (const page of PAGES) {
   const p = page.path
@@ -79,14 +93,14 @@ for (const page of PAGES) {
     if (title.length > 66) notes.push(`${p}  title is ${title.length} chars (may truncate in results)`)
     if (seenTitles.has(title)) fail(p, `duplicate title with ${seenTitles.get(title)}`)
     seenTitles.set(title, p)
-    if (page.primary && !norm(title).includes(page.primary.toLowerCase())) fail(p, `title lacks primary keyword "${page.primary}"`)
+    if (page.primary && !kw(norm(title), page.primary)) fail(p, `title lacks primary keyword "${page.primary}"`)
   }
   // description
   const desc = $('meta[name="description"]').attr('content') ?? ''
   if (desc.length < 70 || desc.length > 175) fail(p, `meta description length ${desc.length} (want 70–175)`)
   if (seenDesc.has(desc)) fail(p, `duplicate description with ${seenDesc.get(desc)}`)
   seenDesc.set(desc, p)
-  if (page.primary && !norm(desc).includes(page.primary.toLowerCase().replace('ai ', ''))) notes.push(`${p}  description does not contain "${page.primary}" verbatim`)
+  if (page.primary && !kw(norm(desc), page.primary.replace('ai ', ''))) notes.push(`${p}  description does not contain "${page.primary}" verbatim`)
 
   // canonical, robots, OG, Twitter
   const canon = $('link[rel="canonical"]').attr('href')
@@ -103,7 +117,7 @@ for (const page of PAGES) {
   const h1 = norm(h1s.first().text())
   if (seenH1.has(h1)) fail(p, `duplicate H1 with ${seenH1.get(h1)}`)
   seenH1.set(h1, p)
-  if (page.primary && !h1.includes(page.primary.toLowerCase())) fail(p, `H1 "${h1}" lacks primary keyword "${page.primary}"`)
+  if (page.primary && !kw(h1, page.primary)) fail(p, `H1 "${h1}" lacks primary keyword "${page.primary}"`)
 
   // primary keyword in the first substantial paragraph of <main>
   if (page.primary) {
@@ -111,7 +125,7 @@ for (const page of PAGES) {
       .map((_, el) => norm($(el).text()))
       .get()
       .find((t) => t.length > 60)
-    if (!first || !first.includes(page.primary.toLowerCase())) fail(p, `first paragraph lacks primary keyword. Got: "${(first ?? '').slice(0, 90)}…"`)
+    if (!first || !kw(first, page.primary)) fail(p, `first paragraph lacks primary keyword. Got: "${(first ?? '').slice(0, 90)}…"`)
   } else {
     // hub page: must not carry any other page's primary keyword in its H1
     for (const other of primaries) if (h1.includes(other.toLowerCase())) fail(p, `hub H1 contains "${other}" (hub must stay keyword-neutral)`)
@@ -156,6 +170,27 @@ for (const page of PAGES) {
     }
   })
 
+  // blog article: BlogPosting must match the visible page
+  if (page.schema === 'article') {
+    const nodes = ld.map((_, el) => JSON.parse($(el).text())['@graph'] ?? []).get().flat()
+    const bp = nodes.find((n) => n['@type'] === 'BlogPosting')
+    if (!bp) fail(p, 'no BlogPosting JSON-LD')
+    else {
+      if (norm(bp.headline) !== h1) fail(p, 'BlogPosting.headline differs from the visible H1')
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(bp.datePublished ?? '')) fail(p, 'BlogPosting.datePublished missing/invalid')
+      if (!$(`time[datetime="${bp.datePublished}"]`).length) fail(p, 'datePublished is not shown on the page')
+      if (!bp.image?.length || !bp.author || !bp.publisher) fail(p, 'BlogPosting lacks image/author/publisher')
+      if (bp.mainEntityOfPage?.['@id'] !== `${SITE_URL}${p}#webpage`) fail(p, 'BlogPosting.mainEntityOfPage mismatch')
+    }
+    if ($('meta[property="og:type"]').attr('content') !== 'article') fail(p, 'og:type should be "article"')
+    if ($('meta[property="og:image"]').attr('content') !== bp?.image?.[0]) fail(p, 'og:image differs from the BlogPosting image')
+    if (!$('main h2').length) fail(p, 'article has no H2 sections')
+    if (!$('main nav[aria-label="Breadcrumb"]').length) fail(p, 'article has no visible breadcrumb')
+    if (!kw($('main h2').map((_, e) => norm($(e).text())).get().join(' | '), page.primary)) fail(p, 'no H2 contains the primary keyword')
+    if (!$('main article a[href^="/"]').length) fail(p, 'article has no internal links')
+    if ($('a[href]').filter((_, e) => /^\/(articles|blog\/[^/#?]+\/)/.test($(e).attr('href'))).length) fail(p, 'wrong blog URL pattern linked (use /blog/{slug}, no /articles, no trailing slash)')
+  }
+
   // form + a11y basics
   $('input:not([type=hidden]):not([type=radio]):not([type=checkbox]), textarea, select').each((_, el) => {
     const id = $(el).attr('id')
@@ -170,7 +205,7 @@ for (const page of PAGES) {
 }
 
 // 3. internal links ---------------------------------------------------------------------------------
-const known = new Set(EXPECTED)
+const known = new Set([...EXPECTED, ...BLOG_PAGES.map((p) => p.path)])
 let linkCount = 0
 for (const page of PAGES) {
   const $ = cheerio.load(pageHtml(page.path))
@@ -187,9 +222,10 @@ for (const page of PAGES) {
 
 // 4. sitemap + robots -----------------------------------------------------------------------------
 const sitemap = fs.readFileSync(path.join(dist, 'sitemap.xml'), 'utf8')
-for (const p of EXPECTED) if (!sitemap.includes(`<loc>${SITE_URL}${p}</loc>`)) fail('sitemap.xml', `missing ${p}`)
+for (const p of [...EXPECTED, ...BLOG_PAGES.map((b) => b.path)]) if (!sitemap.includes(`<loc>${SITE_URL}${p}</loc>`)) fail('sitemap.xml', `missing ${p}`)
 if (!fs.readFileSync(path.join(dist, 'robots.txt'), 'utf8').includes('Sitemap:')) fail('robots.txt', 'no Sitemap line')
 if (!fs.existsSync(path.join(dist, '404.html'))) fail('404.html', 'missing')
+if (sitemap.includes('/articles')) fail('sitemap.xml', 'contains an /articles URL')
 
 // report -------------------------------------------------------------------------------------------
 console.log(`Checked ${PAGES.length} routes, ${linkCount} internal links, ${seenTitles.size} unique titles, ${seenH1.size} unique H1s.`)

@@ -30,6 +30,25 @@ boutiques, shopping-malls, events-exhibitions, jewellery-stores, eyewear-stores}
 schema type, sitemap priority. `scripts/verify-site.mjs` asserts the route set and the primary-keyword mapping
 against the SEO brief, so drift fails the build check.
 
+## Blog
+
+URLs are slash-less by design: `/blog` (listing; `/blog/page/N` once there are more than 9 articles) and
+`/blog/{slug}` (article). Everything else on the site keeps its trailing slash.
+
+Articles are typed modules in [src/content/blog/](src/content/blog) — no CMS, database or admin UI, so there is nothing
+to expose or authenticate. Git is the workflow:
+
+1. **Draft** — copy `virtual-try-on-clothes-india.ts`, set `status: 'draft'`, register it in `src/content/blog/index.ts`.
+2. **Preview** — `npm run dev` shows drafts at `/blog/{slug}` with `noindex`. Production builds never prerender, list,
+   or add drafts to the sitemap (a draft or unknown slug is a real 404).
+3. **Review** — open a pull request; reviewers read the diff and run `npm run build && npm run verify`.
+4. **Publish** — set `status: 'published'` and a real `publishedAt`, merge, deploy.
+5. **Update** — edit the content and set `modifiedAt` only for meaningful changes (drives `dateModified` and sitemap `lastmod`).
+6. **Unpublish** — set `status: 'draft'` (the URL then returns 404 and leaves the sitemap).
+
+The build writes blog pages as `dist/blog.html` and `dist/blog/{slug}.html`, plus a Netlify `dist/_redirects` with forced
+`200!` rewrites, so the slash-less URLs are served directly instead of being redirected to `/blog/`.
+
 ## How the site is built
 
 ```

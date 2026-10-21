@@ -1,4 +1,5 @@
 import { createElement, type ComponentType, type ReactElement } from 'react'
+import { POSTS, listingPath, pageCount, postPath } from '@/content/blog'
 
 export interface RouteDef {
   id: string
@@ -6,7 +7,7 @@ export interface RouteDef {
   load: () => Promise<{ default: ComponentType }>
 }
 
-/** The exact URL set. Keep in sync with data/pages.ts (verified by scripts/verify-site.mjs). */
+/** The exact URL set. Keep in sync with data/pages.ts (verified by scripts/verify-site.mjs). Blog routes come from content/blog. */
 export const ROUTES: RouteDef[] = [
   { id: 'home', path: '/', load: () => import('@/pages/Home') },
   { id: 'features', path: '/features/', load: () => import('@/pages/Features') },
@@ -23,6 +24,10 @@ export const ROUTES: RouteDef[] = [
   { id: 'about', path: '/about/', load: () => import('@/pages/About') },
   { id: 'book-a-demo', path: '/book-a-demo/', load: () => import('@/pages/BookDemo') },
   { id: 'contact', path: '/contact/', load: () => import('@/pages/Contact') },
+  // Blog: slash-less URLs. Articles share one page component and are generated from published content, so an
+  // unknown or unpublished slug falls through to the 404 route.
+  ...Array.from({ length: pageCount() }, (_, i) => ({ id: 'blog', path: listingPath(i + 1), load: () => import('@/pages/Blog') })),
+  ...POSTS.map((p) => ({ id: 'blog-post', path: postPath(p.slug), load: () => import('@/pages/BlogPost') })),
 ]
 
 export const NOT_FOUND_ROUTE: RouteDef = { id: '404', path: '*', load: () => import('@/pages/NotFound') }

@@ -1,3 +1,4 @@
+import { POSTS, postPath, wordCount } from '@/content/blog'
 import { BUSINESSES } from '@/data/businesses'
 import { faqFor } from '@/data/faqs'
 import { FEATURES } from '@/data/features'
@@ -64,6 +65,8 @@ const pageType: Record<PageMeta['schema'], string> = {
   contact: 'ContactPage',
   web: 'WebPage',
   service: 'WebPage',
+  blog: 'CollectionPage',
+  article: 'WebPage',
 }
 
 function structuredData(meta: PageMeta): object {
@@ -78,7 +81,7 @@ function structuredData(meta: PageMeta): object {
     description: meta.description,
     inLanguage: SITE.locale,
     isPartOf: { '@id': SITE_ID },
-    primaryImageOfPage: { '@type': 'ImageObject', url: absoluteUrl(SITE.ogImage) },
+    primaryImageOfPage: { '@type': 'ImageObject', url: absoluteUrl(meta.post?.image.og ?? SITE.ogImage) },
   }
   if (meta.path !== '/') page.breadcrumb = { '@id': `${url}#breadcrumb` }
   graph.push(page)
@@ -135,6 +138,40 @@ function structuredData(meta: PageMeta): object {
     })
   }
 
+  if (meta.schema === 'blog') {
+    graph.push({
+      '@type': 'ItemList',
+      name: 'Kannaadi.Ai blog articles',
+      itemListElement: POSTS.filter((p) => p.status === 'published').map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: p.h1,
+        url: absoluteUrl(postPath(p.slug)),
+      })),
+    })
+  }
+
+  if (meta.post) {
+    const post = meta.post
+    graph.push({
+      '@type': 'BlogPosting',
+      '@id': `${url}#article`,
+      mainEntityOfPage: { '@id': `${url}#webpage` },
+      headline: post.h1,
+      description: post.description,
+      image: [absoluteUrl(post.image.og)],
+      datePublished: post.publishedAt,
+      dateModified: post.modifiedAt ?? post.publishedAt,
+      author: post.author.name === SITE.name ? { '@id': ORG_ID } : { '@type': 'Person', name: post.author.name, ...(post.author.url ? { url: post.author.url } : {}) },
+      publisher: { '@id': ORG_ID },
+      inLanguage: SITE.locale,
+      articleSection: post.category,
+      keywords: [post.primaryKeyword, ...post.secondaryKeywords].join(', '),
+      wordCount: wordCount(post),
+      isPartOf: { '@id': SITE_ID },
+    })
+  }
+
   const faq = faqFor(meta.path)
   if (faq.length) {
     graph.push({
@@ -154,13 +191,16 @@ function structuredData(meta: PageMeta): object {
 /** Every head element a page needs. All carry data-seo so the client can replace them in place. */
 export function headTags(meta: PageMeta, opts: { noindex?: boolean } = {}): HeadTag[] {
   const url = absoluteUrl(meta.path)
-  const image = absoluteUrl(SITE.ogImage)
+  const post = meta.post
+  const image = absoluteUrl(post?.image.og ?? SITE.ogImage)
+  const imageAlt = post?.image.alt ?? SITE.ogImageAlt
+  opts = { ...opts, noindex: opts.noindex || meta.noindex }
   const tags: HeadTag[] = [
     { tag: 'title', text: meta.title },
     { tag: 'meta', attrs: { name: 'description', content: meta.description } },
     { tag: 'meta', attrs: { name: 'robots', content: opts.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large' } },
     { tag: 'link', attrs: { rel: 'canonical', href: url } },
-    { tag: 'meta', attrs: { property: 'og:type', content: 'website' } },
+    { tag: 'meta', attrs: { property: 'og:type', content: post ? 'article' : 'website' } },
     { tag: 'meta', attrs: { property: 'og:site_name', content: SITE.name } },
     { tag: 'meta', attrs: { property: 'og:locale', content: 'en_US' } },
     { tag: 'meta', attrs: { property: 'og:title', content: meta.title } },
@@ -169,13 +209,20 @@ export function headTags(meta: PageMeta, opts: { noindex?: boolean } = {}): Head
     { tag: 'meta', attrs: { property: 'og:image', content: image } },
     { tag: 'meta', attrs: { property: 'og:image:width', content: '1200' } },
     { tag: 'meta', attrs: { property: 'og:image:height', content: '630' } },
-    { tag: 'meta', attrs: { property: 'og:image:alt', content: SITE.ogImageAlt } },
+    { tag: 'meta', attrs: { property: 'og:image:alt', content: imageAlt } },
     { tag: 'meta', attrs: { name: 'twitter:card', content: 'summary_large_image' } },
     { tag: 'meta', attrs: { name: 'twitter:title', content: meta.title } },
     { tag: 'meta', attrs: { name: 'twitter:description', content: meta.description } },
     { tag: 'meta', attrs: { name: 'twitter:image', content: image } },
-    { tag: 'meta', attrs: { name: 'twitter:image:alt', content: SITE.ogImageAlt } },
+    { tag: 'meta', attrs: { name: 'twitter:image:alt', content: imageAlt } },
   ]
+  if (post) {
+    tags.push(
+      { tag: 'meta', attrs: { property: 'article:published_time', content: post.publishedAt } },
+      { tag: 'meta', attrs: { property: 'article:section', content: post.category } },
+    )
+    if (post.modifiedAt) tags.push({ tag: 'meta', attrs: { property: 'article:modified_time', content: post.modifiedAt } })
+  }
   if (!opts.noindex) {
     tags.push({ tag: 'script', attrs: { type: 'application/ld+json' }, text: JSON.stringify(structuredData(meta)) })
   }

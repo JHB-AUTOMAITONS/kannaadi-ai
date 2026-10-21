@@ -1,7 +1,7 @@
 import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router'
 import App from './App'
-import { PAGES, NOT_FOUND_META, pageByPath } from './data/pages'
+import { PAGES, NOT_FOUND_META, isBlogPath, pageByPath } from './data/pages'
 import { SITE, absoluteUrl } from './data/site'
 import { headTags, headToString } from './lib/seo'
 import { loadRoute } from './routes'
@@ -26,15 +26,16 @@ export function head(path: string, opts: { noindex?: boolean } = {}): string {
   return headToString(headTags(meta ?? NOT_FOUND_META, { noindex: opts.noindex ?? !meta }))
 }
 
-export const paths = () => PAGES.map((p) => p.path)
+export const paths = () => PAGES.filter((p) => !p.noindex).map((p) => p.path)
+export { isBlogPath }
 export const pages = () => PAGES
 export const siteUrl = () => SITE.url
 
 export function sitemap(): string {
   const today = new Date().toISOString().slice(0, 10)
-  const urls = PAGES.map(
+  const urls = PAGES.filter((p) => !p.noindex).map(
     (p) =>
-      `  <url>\n    <loc>${absoluteUrl(p.path)}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${p.changefreq}</changefreq>\n    <priority>${p.priority.toFixed(1)}</priority>\n  </url>`,
+      `  <url>\n    <loc>${absoluteUrl(p.path)}</loc>\n    <lastmod>${p.lastmod ?? today}</lastmod>\n    <changefreq>${p.changefreq}</changefreq>\n    <priority>${p.priority.toFixed(1)}</priority>\n  </url>`,
   ).join('\n')
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`
 }

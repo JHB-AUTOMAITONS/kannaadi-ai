@@ -8,7 +8,7 @@ export default function App() {
     <Routes>
       <Route element={<SiteLayout />}>
         {ROUTES.map((r) => (
-          <Route key={r.id} path={r.path} element={<LazyPage route={r} />} />
+          <Route key={r.path} path={r.path} element={<LazyPage route={r} />} />
         ))}
         <Route path="*" element={<LazyPage route={NOT_FOUND_ROUTE} />} />
       </Route>

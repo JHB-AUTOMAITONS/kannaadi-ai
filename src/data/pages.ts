@@ -1,6 +1,7 @@
+import { BLOG_BASE, POSTS, listingPath, pageCount, postPath, type BlogPost } from '@/content/blog'
 import { BUSINESSES } from './businesses'
 
-export type SchemaKind = 'home' | 'collection' | 'about' | 'contact' | 'web' | 'service'
+export type SchemaKind = 'home' | 'collection' | 'about' | 'contact' | 'web' | 'service' | 'blog' | 'article'
 
 /**
  * Single source of truth for every indexable URL: SEO fields, primary keyword mapping,
@@ -22,6 +23,14 @@ export interface PageMeta {
   parent?: string
   /** Industry slug if this is a business page */
   business?: string
+  /** Blog article behind this page (schema `article`) */
+  post?: BlogPost
+  /** Blog listing page number (schema `blog`) */
+  listingPage?: number
+  /** Emit `noindex` (draft articles previewed in dev) */
+  noindex?: boolean
+  /** ISO date for the sitemap <lastmod>; defaults to the build date */
+  lastmod?: string
 }
 
 const core: PageMeta[] = [
@@ -182,13 +191,57 @@ const industries: PageMeta[] = BUSINESSES.map((b) => ({
   business: b.slug,
 }))
 
-export const PAGES: PageMeta[] = [...core, ...industries]
+/**
+ * Blog URLs are deliberately slash-less (/blog, /blog/{slug}); every other page keeps its trailing slash.
+ * Keywords: the listing has no primary keyword (like the hub page); each article owns one (see content/blog).
+ */
+const blogListing: PageMeta[] = Array.from({ length: pageCount() }, (_, i) => {
+  const n = i + 1
+  return {
+    path: listingPath(n),
+    name: n === 1 ? 'Blog' : `Blog, page ${n}`,
+    title: n === 1 ? 'Blog: Fashion Retail Technology Guides | Kannaadi.Ai' : `Blog, page ${n} | Kannaadi.Ai`,
+    description:
+      'Guides and insights on virtual try on, AI fashion technology and the shopping experience for fashion retailers, from the Kannaadi.Ai team.',
+    primary: null,
+    secondary: [],
+    schema: 'blog' as const,
+    priority: n === 1 ? 0.7 : 0.4,
+    changefreq: 'weekly' as const,
+    parent: n === 1 ? '/' : BLOG_BASE,
+    listingPage: n,
+    lastmod: POSTS[0]?.modifiedAt ?? POSTS[0]?.publishedAt,
+  }
+})
+
+const articles: PageMeta[] = POSTS.map((post) => ({
+  path: postPath(post.slug),
+  name: post.h1.length > 48 ? post.title.split(' | ')[0] : post.h1,
+  title: post.title,
+  description: post.description,
+  primary: post.primaryKeyword,
+  secondary: post.secondaryKeywords,
+  schema: 'article' as const,
+  priority: 0.6,
+  changefreq: 'monthly' as const,
+  parent: BLOG_BASE,
+  post,
+  noindex: post.status !== 'published',
+  lastmod: post.modifiedAt ?? post.publishedAt,
+}))
+
+export const isBlogPath = (path: string) => path === BLOG_BASE || path.startsWith(`${BLOG_BASE}/`)
+
+export const SITE_PAGES: PageMeta[] = [...core, ...industries]
+export const BLOG_PAGES: PageMeta[] = [...blogListing, ...articles]
+export const PAGES: PageMeta[] = [...SITE_PAGES, ...BLOG_PAGES]
 
 export const pageByPath = (path: string) => PAGES.find((p) => p.path === path)
 
-/** Normalise a location pathname to the canonical trailing-slash form. */
+/** Normalise a location pathname to its canonical form: trailing slash everywhere except under /blog. */
 export const normalizePath = (pathname: string) => {
   const p = pathname.toLowerCase().replace(/\/+/g, '/')
+  if (isBlogPath(p.replace(/\/$/, ''))) return p.replace(/\/$/, '')
   return p.endsWith('/') ? p : `${p}/`
 }
 
