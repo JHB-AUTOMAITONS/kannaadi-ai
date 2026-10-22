@@ -75,7 +75,7 @@ export default function BlogPost() {
             <Breadcrumbs path={path} />
             <Eyebrow>{post.category}</Eyebrow>
             <h1 className="t-1 max-w-[24ch] text-[clamp(2rem,1.2rem+3.2vw,3.7rem)]">{post.h1}</h1>
-            <p className="eyebrow flex flex-wrap items-center gap-x-3 gap-y-1">
+            <div className="eyebrow flex flex-wrap items-center gap-x-3 gap-y-1">
               <span>By {post.author.name}</span>
               <span aria-hidden="true">·</span>
               <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
@@ -89,7 +89,7 @@ export default function BlogPost() {
               )}
               <span aria-hidden="true">·</span>
               <span>{readingMinutes(post)} min read</span>
-            </p>
+            </div>
           </div>
           <div className="container-x">
             <img
