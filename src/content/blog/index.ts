@@ -1,4 +1,5 @@
 import type { BlogPost } from './types'
+import { post as virtualFittingRoomTechnology } from './virtual-fitting-room-technology'
 import { post as virtualTryOnClothesIndia } from './virtual-try-on-clothes-india'
 
 export type { BlogPost, Block } from './types'
@@ -7,7 +8,7 @@ export type { BlogPost, Block } from './types'
  * Register new articles here. Order does not matter: the list is sorted newest first.
  * Drafts are exposed only by the dev server; production builds contain published articles exclusively.
  */
-const ALL: BlogPost[] = [virtualTryOnClothesIndia]
+const ALL: BlogPost[] = [virtualTryOnClothesIndia, virtualFittingRoomTechnology]
 
 export const BLOG_BASE = '/blog'
 export const PAGE_SIZE = 9

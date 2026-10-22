@@ -27,6 +27,7 @@ export const post: BlogPost = {
   },
   primaryKeyword: 'virtual try on clothes india',
   secondaryKeywords: ['AI virtual try-on', 'virtual clothing try-on', 'virtual try-on for clothing stores', 'AI-powered fashion shopping'],
+  related: ['virtual-fitting-room-technology'],
   blocks: [
     {
       type: 'p',

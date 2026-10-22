@@ -122,6 +122,22 @@ export default function BlogPost() {
           </nav>
           <div className="flex flex-col gap-5">
             <Blocks blocks={post.blocks} />
+            {post.sources && (
+              <section aria-labelledby="sources-title" className="mt-8 max-w-[68ch] border-t border-border pt-6">
+                <h2 id="sources-title" className="t-3">
+                  Sources
+                </h2>
+                <ol className="mt-3 flex list-decimal flex-col gap-2 pl-6 text-[0.95rem] leading-relaxed text-muted-foreground">
+                  {post.sources.map((src) => (
+                    <li key={src.url}>
+                      <a href={src.url} rel="noopener" className="underline underline-offset-[0.2em] hover:text-foreground">
+                        {src.label}
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            )}
           </div>
         </div>
       </article>

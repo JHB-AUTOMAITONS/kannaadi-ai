@@ -49,4 +49,6 @@ export interface BlogPost {
   /** Slugs of related articles, shown under the article when published */
   related?: string[]
   blocks: Block[]
+  /** External references for factual claims; rendered as a visible "Sources" list */
+  sources?: { label: string; url: string }[]
 }
