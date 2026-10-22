@@ -16,6 +16,7 @@ export const post: BlogPost = {
     'What virtual try-on is, how it works, where it helps Indian clothing stores and boutiques, what it cannot do, and a practical way to introduce it.',
   category: 'Retail guide',
   publishedAt: '2026-10-21',
+  modifiedAt: '2026-10-22',
   author: { name: 'Kannaadi.Ai' },
   image: {
     og: '/images/blog/virtual-try-on-clothes-india.jpg',
@@ -186,5 +187,9 @@ export const post: BlogPost = {
       type: 'p',
       text: 'Virtual try on clothes in India is most valuable when it is treated as a way to help customers choose, honestly described and tested on one category first. If you would like to see how it looks with your own garments, you can [book a Kannaadi.Ai demo](/book-a-demo/), or read about [virtual try-on for fashion stores](/for-businesses/fashion-stores/) first.',
     },
+  ],  sources: [
+    { label: 'Song et al., “Image-Based Virtual Try-On: A Survey” (arXiv:2311.04811), on how AI try-on generates a preview from a person image and a garment image', url: 'https://arxiv.org/abs/2311.04811' },
+    { label: 'India Code: The Digital Personal Data Protection Act, 2023 (No. 22 of 2023)', url: 'https://www.indiacode.nic.in/handle/123456789/22037?view_type=browse' },
+    { label: 'Kannaadi.Ai, product features', url: 'https://kannadi.ai/features/' },
   ],
 }
