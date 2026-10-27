@@ -1,4 +1,5 @@
 import type { BlogPost } from './types'
+import { post as aiFashionModelGeneratorForEcommerce } from './ai-fashion-model-generator-for-ecommerce'
 import { post as aiShoppingAssistantFashionEcommerce } from './ai-shopping-assistant-fashion-ecommerce'
 import { post as aiOutfitGeneratorForFashionStores } from './ai-outfit-generator-for-fashion-stores'
 import { post as virtualFittingRoomTechnology } from './virtual-fitting-room-technology'
@@ -10,7 +11,7 @@ export type { BlogPost, Block } from './types'
  * Register new articles here. Order does not matter: the list is sorted newest first.
  * Drafts are exposed only by the dev server; production builds contain published articles exclusively.
  */
-const ALL: BlogPost[] = [virtualTryOnClothesIndia, virtualFittingRoomTechnology, aiOutfitGeneratorForFashionStores, aiShoppingAssistantFashionEcommerce]
+const ALL: BlogPost[] = [virtualTryOnClothesIndia, virtualFittingRoomTechnology, aiOutfitGeneratorForFashionStores, aiShoppingAssistantFashionEcommerce, aiFashionModelGeneratorForEcommerce]
 
 export const BLOG_BASE = '/blog'
 export const PAGE_SIZE = 9
@@ -30,7 +31,7 @@ export const listingPath = (n: number) => (n <= 1 ? BLOG_BASE : `${BLOG_BASE}/pa
 
 export const wordCount = (p: BlogPost) =>
   p.blocks
-    .flatMap((b) => ('items' in b ? b.items : [b.type === 'callout' ? `${b.title} ${b.text}` : b.text]))
+    .flatMap((b) => ('items' in b ? b.items : b.type === 'table' ? b.rows.flat() : [b.type === 'callout' ? `${b.title} ${b.text}` : b.text]))
     .join(' ')
     .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
     .replace(/\*\*/g, '')

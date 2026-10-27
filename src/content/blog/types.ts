@@ -11,6 +11,7 @@ export type Block =
   | { type: 'ul'; items: string[] }
   | { type: 'ol'; items: string[] }
   | { type: 'callout'; title: string; text: string }
+  | { type: 'table'; caption: string; head: string[]; rows: string[][] }
 
 export interface BlogImage {
   /** 1200×630 JPEG — used for Open Graph / Twitter cards and as the schema image */

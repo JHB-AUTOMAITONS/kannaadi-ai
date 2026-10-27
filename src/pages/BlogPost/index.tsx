@@ -44,6 +44,40 @@ function Blocks({ blocks }: { blocks: Block[] }) {
           </List>
         )
       }
+      case 'table':
+        return (
+          <div key={i} className="max-w-[68ch] overflow-x-auto rounded-2xl border border-border">
+            <table className="w-full min-w-[34rem] border-collapse text-left text-[0.95rem] leading-snug">
+              <caption className="sr-only">{b.caption}</caption>
+              <thead className="bg-foreground/[0.05]">
+                <tr>
+                  {b.head.map((h) => (
+                    <th key={h} scope="col" className="px-4 py-3 font-semibold">
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {b.rows.map((r) => (
+                  <tr key={r[0]} className="border-t border-border align-top">
+                    {r.map((c, j) =>
+                      j === 0 ? (
+                        <th key={j} scope="row" className="px-4 py-3 font-medium">
+                          {c}
+                        </th>
+                      ) : (
+                        <td key={j} className="px-4 py-3 text-muted-foreground">
+                          {c}
+                        </td>
+                      ),
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )
       case 'callout':
         return (
           <aside key={i} className="theme-sand max-w-[68ch] rounded-3xl border border-border bg-background p-6 md:p-7">
@@ -120,7 +154,7 @@ export default function BlogPost() {
               </ol>
             </div>
           </nav>
-          <div className="flex flex-col gap-5">
+          <div className="flex min-w-0 flex-col gap-5">
             <Blocks blocks={post.blocks} />
             {post.sources && (
               <section aria-labelledby="sources-title" className="mt-8 max-w-[68ch] border-t border-border pt-6">
