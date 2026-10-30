@@ -9,7 +9,7 @@ import { BUSINESSES } from '@/data/businesses'
 const GLANCE: Record<string, { where: string; signature: string }> = {
   'fashion-stores': { where: 'Shop floor and online', signature: 'AI Virtual Try-On · Upload or scan a dress' },
   'saree-ethnic-stores': { where: 'Showroom and online', signature: 'Drape, border and pallu preview' },
-  'bridal-stores': { where: 'Appointments and at home', signature: 'Silhouettes, trains and necklines' },
+  'bridal-stores': { where: 'Appointments and between fittings', signature: 'Silhouettes and trains' },
   boutiques: { where: 'In the boutique', signature: 'AI Looks for curated collections' },
   'shopping-malls': { where: 'Concourses and flagships', signature: 'Kiosk experience' },
   'events-exhibitions': { where: 'Stands, pop-ups and launches', signature: 'Live try-on · Lucky Draw' },

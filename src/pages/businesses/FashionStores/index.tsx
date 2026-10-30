@@ -22,7 +22,7 @@ export default function FashionStores() {
             AI virtual try on for fashion stores, on the floor and <span className="accent-serif">online.</span>
           </>
         }
-        intro="Kannaadi.Ai's AI virtual try on for fashion stores puts a digital fitting room on every rail. Shoppers see a piece on themselves straight away, so the pieces that reach a changing room are the ones they already like — in your shop through a kiosk or screen, and across your online catalogue."
+        intro="Kannaadi.Ai's AI virtual try on for fashion stores brings a digital fitting room to the rail. Shoppers see a piece on themselves straight away, so the pieces that reach a changing room are the ones they already like — in your shop through a kiosk or screen, and across your online catalogue."
         secondary={{ to: '/use-cases/', label: 'Ecommerce use cases' }}
       />
 
