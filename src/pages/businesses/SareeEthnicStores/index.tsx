@@ -94,7 +94,11 @@ export default function SareeEthnicStores() {
               <Link000 href="/features/#scan-a-dress" className="font-medium text-foreground">
                 scanning a garment at the rail
               </Link000>{' '}
-              works.
+              works. Selling online as well? See{' '}
+              <Link000 href="/use-cases/" className="font-medium text-foreground">
+                virtual try on for ecommerce
+              </Link000>
+              .
             </p>
           </div>
         </div>

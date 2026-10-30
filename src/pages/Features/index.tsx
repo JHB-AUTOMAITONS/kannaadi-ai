@@ -6,7 +6,11 @@ import { ConversionCard } from '@/components/sections/ConversionCard'
 import { FeatureVisual } from '@/components/sections/FeatureVisual'
 import { PageHero } from '@/components/sections/PageHero'
 import { Cta } from '@/components/ui/Cta'
-import { Link002 } from '@/components/ui/skiper-ui/skiper40'
+import { Gift, ScanLine, Shirt } from 'lucide-react'
+import { FaqSection } from '@/components/sections/FaqSection'
+import { Pillars } from '@/components/sections/Pillars'
+import { Link000, Link002 } from '@/components/ui/skiper-ui/skiper40'
+import { faqFor } from '@/data/faqs'
 import { FEATURES } from '@/data/features'
 import { cn } from '@/lib/utils'
 
@@ -165,6 +169,36 @@ export default function Features() {
           </div>
         </div>
       </section>
+
+      <Pillars
+        id="ft-session"
+        eyebrow="How it works"
+        title={
+          <>
+            How AI virtual try-on works, <span className="accent-serif">in one session.</span>
+          </>
+        }
+        lede={
+          <>
+            The shopper-side flow in plain terms. How your own range is set up, and which channels it runs on, is agreed in a demo. Browse by{' '}
+            <Link000 href="/for-businesses/" className="font-medium text-foreground">
+              business type
+            </Link000>{' '}
+            or{' '}
+            <Link000 href="/book-a-demo/" className="font-medium text-foreground">
+              book a demo
+            </Link000>
+            .
+          </>
+        }
+        items={[
+          { icon: ScanLine, title: 'Choose a piece', body: 'The shopper picks a piece from your range — or scans a garment in store, or uploads a photo of a dress they have in mind.' },
+          { icon: Shirt, title: 'See it on the shopper', body: 'The piece is shown on the shopper rather than on a model, and they can switch colours and looks to compare.' },
+          { icon: Gift, title: 'Look further, then finish', body: 'AI Looks suggests how pieces come together, and campaigns can end with a share-ready look or a lucky draw.' },
+        ]}
+      />
+
+      <FaqSection faqs={faqFor('/features/')} title="Features, answered" />
 
       <ConversionCard
         title={

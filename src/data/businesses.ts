@@ -48,6 +48,14 @@ export const BUSINESSES: Business[] = [
         q: 'Can it run in store and online?',
         a: 'Yes — the same virtual try-on software is designed to work across kiosks, in-store screens and ecommerce, so customers get one consistent experience.',
       },
+      {
+        q: 'What should a fashion store prepare before a demo?',
+        a: 'Pick a focused set of pieces from your range, such as one collection or category, and note where you would use it: on the shop floor, on your online catalogue or both. Scope and rollout are agreed in a demo.',
+      },
+      {
+        q: 'Should we start on the shop floor or online?',
+        a: 'Start where choosing is hardest for your customers. The same try-on is designed to work in both places, so you can add the other later. We can talk through the order in a demo.',
+      },
     ],
   },
   {
@@ -72,6 +80,14 @@ export const BUSINESSES: Business[] = [
       {
         q: 'Is it only for stores, or for online too?',
         a: 'Both. Many ethnic retailers sell across showroom and website, and the experience is designed to work in either place.',
+      },
+      {
+        q: 'What should a saree showroom prepare before a demo?',
+        a: 'Choose a few sarees from your showroom, for example a silk or festive collection, and decide whether you would use it in the showroom, on your website or both. Which categories and drapes launch first is agreed in a demo.',
+      },
+      {
+        q: 'How closely does the preview match a real saree’s border and embroidery?',
+        a: 'Treat the preview as a visual guide rather than an exact match for the finished saree. Your team still shows the actual piece, and how borders, embroidery and colours appear in the preview for your range is something we cover in a demo.',
       },
     ],
   },
@@ -98,6 +114,14 @@ export const BUSINESSES: Business[] = [
         q: 'Can brides use it at home?',
         a: 'Some bridal stores may want to offer it online as well as in the shop. How you run it is something we cover in a demo.',
       },
+      {
+        q: 'What should a bridal store prepare before a demo?',
+        a: 'Pick a small set of gowns or silhouettes you would like brides to explore, and think about how you run appointments today. Scope and rollout are agreed in a demo.',
+      },
+      {
+        q: 'How closely does the preview match a real gown’s lace and beadwork?',
+        a: 'Treat the preview as a visual guide to shape and style rather than an exact match for the gown. Fittings and the gown itself stay with your team, and what the preview shows for lace, beadwork and colour is something we cover in a demo.',
+      },
     ],
   },
   {
@@ -122,6 +146,10 @@ export const BUSINESSES: Business[] = [
       {
         q: 'How many pieces do I need to start?',
         a: 'We can start with a focused capsule of pieces. Exact scope is agreed in a demo based on your collection.',
+      },
+      {
+        q: 'What should a boutique prepare before a demo?',
+        a: 'Choose a focused capsule of pieces, ideally the ones customers ask about most, and think about where one screen could sit in your shop. Exact scope is agreed in a demo.',
       },
     ],
   },
@@ -148,6 +176,10 @@ export const BUSINESSES: Business[] = [
         q: 'What does installation involve?',
         a: 'Hardware and placement depend on the space and footfall. Those details are discussed in a demo.',
       },
+      {
+        q: 'What should we decide before a mall kiosk demo?',
+        a: 'Decide whether you are thinking of a shared mall experience or a kiosk inside a brand’s own store, and which spot you have in mind, such as a concourse, atrium or flagship entrance. Hardware and placement are discussed in a demo.',
+      },
     ],
   },
   {
@@ -172,6 +204,10 @@ export const BUSINESSES: Business[] = [
       {
         q: 'What kinds of events suit it?',
         a: 'Exhibitions, trade shows, pop-ups and store launches are the natural fits. Whether it suits other formats, such as fashion weeks, is something we discuss in a demo.',
+      },
+      {
+        q: 'What should we bring to an event try-on demo?',
+        a: 'Bring the event format, the pieces or looks you would like visitors to try, and what you would like on the lucky-draw wheel, since rewards are set per campaign. What can be customised is covered in a demo.',
       },
     ],
   },
@@ -198,6 +234,14 @@ export const BUSINESSES: Business[] = [
         q: 'Is it in store or online?',
         a: 'Both are possible: a counter screen or kiosk in store, and your website. How you run it is agreed in a demo.',
       },
+      {
+        q: 'What should a jewellery store prepare before a demo?',
+        a: 'Choose a few necklaces and earrings from your range, and decide whether you would use it at the counter, on a kiosk or on your website. The range for launch is agreed in a demo.',
+      },
+      {
+        q: 'How closely does the preview match a real piece’s metal and stones?',
+        a: 'Treat the preview as a visual guide to scale, length and style rather than an exact match for the piece. Your team still shows the real piece, and what the preview shows for metal, stones and finish is something we cover in a demo.',
+      },
     ],
   },
   {
@@ -222,6 +266,10 @@ export const BUSINESSES: Business[] = [
       {
         q: 'Can it live on our website?',
         a: 'It is designed to run online as well as on an in-store screen. Integration options are covered in a demo.',
+      },
+      {
+        q: 'What should an optical store prepare before a demo?',
+        a: 'Choose a few frames you would like customers to compare, and decide whether you would use it at the counter, on your website or both. How frames are set up for your store is agreed in a demo.',
       },
     ],
   },

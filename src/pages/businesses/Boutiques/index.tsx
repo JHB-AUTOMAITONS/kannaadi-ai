@@ -70,6 +70,9 @@ export default function Boutiques() {
           <Link002 href="/for-businesses/jewellery-stores/" className="font-medium">
             Jewellery stores
           </Link002>
+          <Link002 href="/use-cases/" className="font-medium">
+            Virtual try on for ecommerce
+          </Link002>
           <Link002 href="/features/" className="font-medium">
             AI virtual try-on features
           </Link002>
