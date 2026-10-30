@@ -25,7 +25,7 @@ const EXPECTED = [
 ]
 const EXPECTED_PRIMARY = {
   '/': 'virtual try on',
-  '/features/': 'AI fashion technology',
+  '/features/': 'AI virtual try-on features',
   '/for-businesses/': null,
   '/use-cases/': 'virtual try on for ecommerce',
   '/about/': 'fashion technology company',

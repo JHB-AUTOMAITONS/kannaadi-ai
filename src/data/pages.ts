@@ -49,11 +49,11 @@ const core: PageMeta[] = [
   {
     path: '/features/',
     name: 'Features',
-    title: 'AI Fashion Technology: Try-On, Looks & Kiosks | Kannaadi.Ai',
+    title: 'AI Virtual Try-On Features: Looks, Kiosks & More | Kannaadi.Ai',
     description:
-      "Explore Kannaadi.Ai's AI fashion technology: virtual try-on, an AI outfit generator, dress upload and scan, kiosks, jewellery and eyewear try-on.",
-    primary: 'AI fashion technology',
-    secondary: ['AI outfit generator', 'fashion AI', 'AI fashion tools'],
+      'AI virtual try-on features from Kannaadi.Ai: try-on on the shopper, AI outfit generator, upload or scan a dress, kiosk, lucky draw, jewellery and eyewear try-on.',
+    primary: 'AI virtual try-on features',
+    secondary: ['virtual try-on software features', 'virtual fitting room features', 'AI outfit generator'],
     schema: 'collection',
     priority: 0.9,
     changefreq: 'monthly',

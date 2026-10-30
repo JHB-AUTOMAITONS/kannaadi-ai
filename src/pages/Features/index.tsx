@@ -27,7 +27,7 @@ const HERO = heroPair()
 const HERO_CLEAN = HERO.clean
 const HERO_AI = HERO.ai.filter((a) => a.width >= 1600)
 
-/** /features/ — primary intent: "AI fashion technology". All product features live on this one page. */
+/** /features/ — primary intent: "AI virtual try-on features". All product features live on this one page. */
 export default function Features() {
   const [active, setActive] = useState(0)
   const heroCard = useRef<HTMLDivElement>(null)
@@ -55,10 +55,10 @@ export default function Features() {
         eyebrow="Features"
         title={
           <>
-            AI fashion technology for every step of the <span className="accent-serif whitespace-nowrap">try-on.</span>
+            AI virtual try-on features for every step of the <span className="accent-serif whitespace-nowrap">journey.</span>
           </>
         }
-        intro="Kannaadi.Ai brings AI fashion technology to the whole try-on journey — from virtual try-on and AI Looks to dress scanning, kiosks, jewellery and eyewear. One product, ten ways to put a customer in front of the mirror."
+        intro="The AI virtual try-on features inside Kannaadi.Ai, one by one: try-on on the shopper, AI Looks, upload and scan, the kiosk, lucky draw, jewellery and eyewear try-on. Ten capabilities, each described below with what it does and where it helps."
         actions={
           <>
             <Cta to="/book-a-demo/" size="lg" magnetic>
