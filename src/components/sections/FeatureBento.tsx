@@ -87,7 +87,7 @@ export function FeatureBento() {
 
           {/* AI Looks */}
           <Tile to="/features/#ai-outfit-generator" className="bg-card md:col-span-7">
-            <Head icon={Sparkles} title="AI Outfit Generator / AI Looks" body="Turn one piece into a look — and a reason to keep exploring." />
+            <Head icon={Sparkles} title="AI Outfit Generator / AI Looks" body="Suggest outfit ideas around a chosen piece, so shoppers keep exploring your range." />
             <div className="relative z-10 flex gap-2.5">
               {(['ink', 'champagne', 'forest', 'claret'] as const).map((c, i) => (
                 <div
@@ -141,14 +141,14 @@ export function FeatureBento() {
           <Tile to="/features/#jewellery-try-on" className="justify-end bg-card text-white md:col-span-4">
             <img src={pickSmall(scene('jewellery-stores', '/images/industry/jewellery-stores', '').clean)} alt="" aria-hidden="true" width={1200} height={900} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover/tile:scale-105" />
             <span className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/35 to-transparent" />
-            <Head tone="image" icon={Gem} title="Jewellery try-on" body="Necklaces and earrings, worn." />
+            <Head tone="image" icon={Gem} title="Jewellery try-on" body="Necklaces and earrings shown on the customer, so they can judge scale and style." />
           </Tile>
 
           {/* Eyewear */}
           <Tile to="/features/#eyewear-try-on" className="justify-end bg-card text-white md:col-span-4">
             <img src={pickSmall(scene('eyewear-stores', '/images/industry/eyewear-stores', '').clean)} alt="" aria-hidden="true" width={1200} height={900} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover/tile:scale-105" />
             <span className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/35 to-transparent" />
-            <Head tone="image" icon={Glasses} title="Eyewear try-on" body="Frames on your own face." />
+            <Head tone="image" icon={Glasses} title="Eyewear try-on" body="Compare frames on your own face, in store or online." />
           </Tile>
         </div>
       </div>

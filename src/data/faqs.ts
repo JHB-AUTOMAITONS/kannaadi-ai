@@ -4,19 +4,19 @@ const generic: Record<string, Faq[]> = {
   '/': [
     {
       q: 'What is virtual try on?',
-      a: 'Virtual try on lets a shopper see a garment, accessory or pair of frames on themselves digitally, instead of imagining it from a product photo. Kannaadi.Ai uses AI to make that preview feel like standing at the mirror.',
+      a: 'Virtual try on lets a shopper see a garment, accessory or pair of frames on themselves digitally, instead of imagining it from a product photo. Kannaadi.Ai is AI virtual try on software for fashion and retail: it places the piece on the shopper, so the preview feels closer to standing at the mirror.',
     },
     {
       q: 'Where can Kannaadi.Ai be used?',
-      a: 'It is designed for three places: online stores, in-store kiosks and screens, and live events. Which mix suits your business is something we map out in a demo.',
+      a: 'Kannaadi.Ai is designed for three places: online stores, in-store kiosks and screens, and live events such as exhibitions and launches. You can use the virtual fitting room in one place or across all three; we map out the right mix in a demo.',
     },
     {
       q: 'Does it work for more than clothes?',
-      a: 'Yes. Beyond clothing and ethnic wear, Kannaadi.Ai includes jewellery try-on and eyewear try-on, plus an AI outfit generator for putting looks together.',
+      a: 'Yes. Beyond clothing and ethnic wear, Kannaadi.Ai includes jewellery try-on and eyewear try-on, plus an AI outfit generator (AI Looks) that suggests how pieces come together.',
     },
     {
       q: 'How do we get started?',
-      a: 'Book a demo. We will show the experience working with products like yours and talk through what a rollout would involve.',
+      a: 'Book a demo. We will show the AI virtual try on working with products like yours, then talk through which channels suit your business and what a rollout would involve.',
     },
   ],
   '/use-cases/': [

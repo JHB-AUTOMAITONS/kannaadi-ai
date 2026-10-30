@@ -94,8 +94,8 @@ export function HomeHero() {
               </span>
             </h1>
             <p className={`hero-fade hero-lede mt-6 max-w-[34rem] text-[1.05rem] leading-relaxed text-foreground/85 md:text-[1.12rem] lg:text-white/85 short:mt-2.5 short:text-[0.9rem] short:leading-snug ${FIT_P}`} style={{ ['--d' as string]: '620ms' }}>
-              Kannaadi.Ai helps fashion and retail businesses deliver AI-powered virtual try on experiences — online, in store and at
-              events — so every customer can see a look on themselves before they commit to it.
+              Kannaadi.Ai is AI virtual try on software for fashion and retail businesses — online, in store and at events — so every
+              customer can see a look on themselves before they commit to it.
             </p>
           </div>
 
