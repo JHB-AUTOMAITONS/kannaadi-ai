@@ -38,7 +38,7 @@ export const BUSINESSES: Business[] = [
     faq: [
       {
         q: 'How does virtual try on work in a fashion store?',
-        a: 'A shopper picks a garment and Kannaadi.Ai shows it on them using AI — through a kiosk or screen on the shop floor, or on your online store. The setup for your catalogue and channels is agreed in a demo.',
+        a: 'A shopper picks a garment — for example by scanning it at the rail — and Kannaadi.Ai shows it on them using AI, through a kiosk or screen on the shop floor or on your online store. The setup for your catalogue and channels is agreed in a demo.',
       },
       {
         q: 'Does it replace the fitting room?',
@@ -46,7 +46,7 @@ export const BUSINESSES: Business[] = [
       },
       {
         q: 'Can it run in store and online?',
-        a: 'Yes — the same try-on experience is designed to work across kiosks, in-store screens and ecommerce, so customers get one consistent experience.',
+        a: 'Yes — the same virtual try-on software is designed to work across kiosks, in-store screens and ecommerce, so customers get one consistent experience.',
       },
     ],
   },

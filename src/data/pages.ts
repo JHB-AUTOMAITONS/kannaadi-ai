@@ -128,9 +128,9 @@ const core: PageMeta[] = [
 
 const industryCopy: Record<string, { title: string; description: string; secondary: string[] }> = {
   'fashion-stores': {
-    title: 'Virtual Try On for Fashion Stores | Kannaadi.Ai',
+    title: 'AI Virtual Try On for Fashion Stores | Kannaadi.Ai',
     description:
-      "Bring virtual try on for fashion stores to the shop floor and your online catalogue. Kannaadi.Ai's AI try-on helps shoppers see looks before they buy.",
+      'AI virtual try on for fashion stores: a virtual fitting room for the shop floor and your online catalogue, with kiosk, scan-a-dress and AI Looks. Book a Kannaadi.Ai demo.',
     secondary: ['AI try-on for retail', 'virtual fitting room', 'fashion retail technology'],
   },
   'saree-ethnic-stores': {

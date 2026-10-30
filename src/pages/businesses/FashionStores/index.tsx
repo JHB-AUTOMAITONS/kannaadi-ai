@@ -8,7 +8,7 @@ import { Link000 } from '@/components/ui/skiper-ui/skiper40'
 import { businessBySlug } from '@/data/businesses'
 import { FloorPlan } from './FloorPlan'
 
-/** /for-businesses/fashion-stores/ — primary: "virtual try on for fashion stores". */
+/** /for-businesses/fashion-stores/ — primary: "virtual try on for fashion stores" (title and H1 read "AI virtual try on…"). */
 export default function FashionStores() {
   const b = businessBySlug('fashion-stores')!
   return (
@@ -19,10 +19,10 @@ export default function FashionStores() {
         eyebrow="Fashion stores"
         title={
           <>
-            Virtual try on for fashion stores, on the floor and <span className="accent-serif">online.</span>
+            AI virtual try on for fashion stores, on the floor and <span className="accent-serif">online.</span>
           </>
         }
-        intro="Virtual try on for fashion stores gives every rail a digital fitting room. Shoppers see a piece on themselves straight away, so the pieces that reach a changing room are the ones they already like — in your shop and across your online catalogue."
+        intro="Kannaadi.Ai's AI virtual try on for fashion stores puts a digital fitting room on every rail. Shoppers see a piece on themselves straight away, so the pieces that reach a changing room are the ones they already like — in your shop through a kiosk or screen, and across your online catalogue."
         secondary={{ to: '/use-cases/', label: 'Ecommerce use cases' }}
       />
 
@@ -51,7 +51,7 @@ export default function FashionStores() {
                 Five places a <span className="whitespace-nowrap">try-on</span> <span className="accent-serif">earns its spot.</span>
               </>
             }
-            lede="A virtual fitting room does not have to live in one place. Tap a hotspot to see where it can sit on a typical fashion retail floor."
+            lede="A virtual fitting room for a fashion store does not have to live in one place. Tap a hotspot to see where it can sit on a typical fashion retail floor."
           />
           <div data-reveal="">
             <FloorPlan />
@@ -72,7 +72,7 @@ export default function FashionStores() {
             Virtual try on for ecommerce
           </Link000>
           <Link000 href="/features/" className="font-medium">
-            All features
+            AI virtual try-on features
           </Link000>
         </div>
       </section>
