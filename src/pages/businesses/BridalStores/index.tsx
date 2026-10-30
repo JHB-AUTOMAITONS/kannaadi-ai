@@ -22,7 +22,7 @@ export default function BridalStores() {
             Virtual try on wedding dresses, from first browse to <span className="accent-serif">final fitting.</span>
           </>
         }
-        intro="Virtual try on wedding dresses lets a bride explore silhouettes, necklines and trains before her first appointment — and keep exploring between fittings. Your team still does what only people can: fit, fabric and honest advice."
+        intro="Virtual try on wedding dresses gives bridal stores another way to help brides narrow down silhouettes and trains before an appointment, and between fittings. Your team still does what only people can: fit, fabric and honest advice."
         secondary={{ to: '/for-businesses/jewellery-stores/', label: 'Add the jewellery' }}
       />
 
@@ -36,7 +36,7 @@ export default function BridalStores() {
                 Find the <span className="accent-serif">shape</span> before the sample size.
               </>
             }
-            lede="Brides often start with a feeling rather than a style name. Try a silhouette and a train length and see how the dress reads."
+            lede="Brides often start with a feeling rather than a style name. Pick a silhouette and a train length to put words to what she is drawn to."
           />
           <div data-reveal="">
             <SilhouetteExplorer />
@@ -51,10 +51,10 @@ export default function BridalStores() {
             eyebrow="The journey"
             title={
               <>
-                A bridal journey with <span className="whitespace-nowrap">try-on</span> <span className="accent-serif">at every step.</span>
+                A bridal journey that <span className="whitespace-nowrap">try-on</span> <span className="accent-serif">can support.</span>
               </>
             }
-            lede="Try-on does not replace the appointment. It makes the weeks around it more useful."
+            lede="Try-on does not replace the appointment. It is a consultation aid for the time around it."
           />
           <Journey />
         </div>
@@ -62,11 +62,11 @@ export default function BridalStores() {
 
       <section className="section-sm md:section" aria-labelledby="br-more-title">
         <div className="container-x grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-          <SectionHeading id="br-more-title" eyebrow="Complete the look" title={<>Gown, veil, <span className="accent-serif">jewellery.</span></>} size="2" />
+          <SectionHeading id="br-more-title" eyebrow="Complete the look" title={<>Beyond the <span className="accent-serif">gown.</span></>} size="2" />
           <div data-reveal="" className="flex max-w-[58ch] flex-col gap-4 text-[1.02rem] leading-relaxed text-muted-foreground">
             <p>
-              A wedding look is more than the dress. The same try-on that shows a gown can show the necklace that goes with it, so brides
-              and their families see the whole picture.
+              A wedding look is more than the dress. Jewellery try-on is a separate feature, so brides and their families can look at the
+              necklace as well as the gown.
             </p>
             <p>
               Explore{' '}

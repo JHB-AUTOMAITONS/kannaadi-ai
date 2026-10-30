@@ -20,10 +20,10 @@ export default function EyewearStores() {
         eyebrow="Eyewear stores"
         title={
           <>
-            Virtual try on eyewear: frames that fit before the <span className="accent-serif">fitting.</span>
+            Virtual try on eyewear: frames chosen before the <span className="accent-serif">fitting.</span>
           </>
         }
-        intro="Virtual try on eyewear lets shoppers compare frames on their own face — shape, size and colour — in store or at home. Your opticians keep the measurements, lenses and fit; try-on helps customers arrive with frames they already like."
+        intro="Virtual try on eyewear lets shoppers compare frames on their own face — shape and colour — at a counter screen or on your website. Your opticians keep the measurements, lenses and fit; try-on helps customers narrow down frames before the fitting."
         secondary={{ to: '/features/#eyewear-try-on', label: 'Eyewear try-on' }}
       />
 
@@ -36,8 +36,8 @@ export default function EyewearStores() {
           </>
         }
         items={[
-          { icon: ScanFace, title: 'On your own face', body: 'Shoppers look at the camera and see frames on themselves, not a model with a different face.' },
-          { icon: Layers, title: 'Compare quickly', body: 'Move between shapes and colours with a tap, so a shortlist builds itself.' },
+          { icon: ScanFace, title: 'On your own face', body: 'Shoppers see frames on their own face rather than on a model.' },
+          { icon: Layers, title: 'Compare quickly', body: 'Move between shapes and colours with a tap, so shoppers can build a shortlist.' },
           { icon: Glasses, title: 'Fitting stays human', body: 'Measurements, lenses and adjustments remain with your opticians. Try-on only narrows the choice.' },
         ]}
       />
@@ -52,7 +52,7 @@ export default function EyewearStores() {
                 Five shapes, four finishes, <span className="accent-serif">one face.</span>
               </>
             }
-            lede="Pick a shape and a finish to see how frames change a face. The real try-on does this on the customer."
+            lede="Pick a shape and a finish to see how frames change a face. This is a simplified illustration of the idea, not the try-on itself."
           />
           <div data-reveal="">
             <FrameShapes />
@@ -64,7 +64,7 @@ export default function EyewearStores() {
         <div className="container-x grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <SectionHeading id="ew-more-title" eyebrow="In store and online" title={<>The same <span className="whitespace-nowrap">try-on</span>, <span className="accent-serif">wherever they look.</span></>} size="2" />
           <p data-reveal="" className="max-w-[58ch] text-[1.02rem] leading-relaxed text-muted-foreground">
-            A counter screen helps the customer who is already in your store; the same experience on your website helps the one who is
+            A counter screen can help the customer who is already in your store, and your website can help the one who is
             not yet. See how it works as a{' '}
             <Link000 href="/features/#kiosk-experience" className="font-medium text-foreground">
               kiosk experience

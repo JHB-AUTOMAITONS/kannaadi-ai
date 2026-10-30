@@ -136,43 +136,43 @@ const industryCopy: Record<string, { title: string; description: string; seconda
   'saree-ethnic-stores': {
     title: 'Virtual Try On Saree for Ethnic Wear Stores | Kannaadi.Ai',
     description:
-      'Virtual try on saree experiences for saree and ethnic stores — preview drape, border and pallu on the shopper before purchase. Book a Kannaadi.Ai demo.',
+      'Explore virtual try on saree experiences for ethnic wear stores. Help shoppers preview saree looks before staff unfold and drape each piece. Explore Kannaadi.Ai.',
     secondary: ['saree try on', 'ethnic wear virtual try on', 'virtual saree draping'],
   },
   'bridal-stores': {
     title: 'Virtual Try On Wedding Dresses for Bridal Stores | Kannaadi.Ai',
     description:
-      'Let brides explore silhouettes with virtual try on wedding dresses — before and between appointments. AI try-on for bridal stores by Kannaadi.Ai.',
+      'Virtual try on wedding dresses for bridal stores: help brides narrow down silhouettes before and between appointments. Explore Kannaadi.Ai for your boutique.',
     secondary: ['bridal gown try on', 'wedding dress visualiser', 'bridal store technology'],
   },
   boutiques: {
-    title: 'Virtual Try On for Boutiques | Kannaadi.Ai',
+    title: 'Virtual Try On for Boutiques: Digital Fitting Room | Kannaadi.Ai',
     description:
-      'Virtual try on for boutiques: give curated collections a digital fitting room that keeps the personal touch. Explore AI try-on from Kannaadi.Ai.',
+      'Virtual try on for boutiques: a digital fitting room that supports your stylists, helping shoppers explore a curated collection. Explore Kannaadi.Ai.',
     secondary: ['boutique technology', 'digital fitting room', 'AI styling for boutiques'],
   },
   'shopping-malls': {
-    title: 'Virtual Fitting Room In Store for Malls | Kannaadi.Ai',
+    title: 'Virtual Fitting Room in Store for Malls & Flagships | Kannaadi.Ai',
     description:
-      'A virtual fitting room in store for shopping malls and flagships — a walk-up kiosk try-on experience for shoppers. Book a Kannaadi.Ai demo.',
+      'A virtual fitting room in store for shopping malls and flagships: a walk-up kiosk that lets shoppers preview looks on themselves. Book a Kannaadi.Ai demo.',
     secondary: ['virtual fitting room kiosk', 'mall kiosk experience', 'in-store AI try on'],
   },
   'events-exhibitions': {
-    title: 'Brand Activation Marketing with AI Try-On | Kannaadi.Ai',
+    title: 'Brand Activation Marketing: Live Try-On for Events | Kannaadi.Ai',
     description:
-      'Brand activation marketing built around a live virtual try on: kiosks, AI looks and lucky-draw moments for exhibitions, pop-ups and launches.',
+      'Brand activation marketing built around a live virtual try on: a kiosk, AI Looks and a lucky draw for exhibitions, pop-ups and launches. Book a Kannaadi.Ai demo.',
     secondary: ['experiential marketing', 'exhibition engagement', 'event try-on kiosk'],
   },
   'jewellery-stores': {
-    title: 'Virtual Try On Jewellery for Jewellery Stores | Kannaadi.Ai',
+    title: 'Virtual Try On Jewellery for Jewellers & Stores | Kannaadi.Ai',
     description:
-      'Virtual try on jewellery — necklaces, earrings and more — shown on the customer in real time. AI jewellery try-on for stores, by Kannaadi.Ai.',
+      'Virtual try on jewellery for jewellers: let customers preview necklaces and earrings on themselves before staff bring pieces out. Book a Kannaadi.Ai demo.',
     secondary: ['jewellery try on', 'necklace try on', 'AI jewellery visualisation'],
   },
   'eyewear-stores': {
     title: 'Virtual Try On Eyewear for Optical Stores | Kannaadi.Ai',
     description:
-      'Virtual try on eyewear: let shoppers compare frames on their own face in store or online. AI eyewear try-on for optical stores from Kannaadi.Ai.',
+      'Virtual try on eyewear for optical stores: let shoppers compare frames on their own face, at the counter or on your website. Book a Kannaadi.Ai demo.',
     secondary: ['glasses try on', 'virtual frame fitting', 'optical store technology'],
   },
 }

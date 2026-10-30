@@ -5,7 +5,7 @@ import { prefersReducedMotion } from '@/hooks/use-media'
 
 const STEPS = [
   { title: 'Approach', body: 'An attract screen invites passers-by with a moving look and a single prompt.' },
-  { title: 'Step in', body: 'A simple guide shows where to stand. No sign-up, no manual — the screen leads.' },
+  { title: 'Step in', body: 'A simple guide shows where to stand, and the screen leads from there.' },
   { title: 'Try', body: 'The shopper sees pieces on themselves and switches colours and looks with a tap.' },
   { title: 'Share or reward', body: 'A share-ready look, and for campaigns a lucky-draw moment to finish.' },
 ]

@@ -24,7 +24,7 @@ export default function Boutiques() {
             Virtual try on for boutiques that <span className="accent-serif">curate,</span> not just stock.
           </>
         }
-        intro="Virtual try on for boutiques gives a small, curated collection a digital fitting room — one that supports your styling advice instead of replacing it. A single screen or kiosk can extend what you show without adding floor space or staff."
+        intro="Virtual try on for boutiques gives a curated collection a digital fitting room that supports your styling advice instead of replacing it. Shoppers can explore pieces first, so your team can spend the conversation on what suits them."
         secondary={{ to: '/features/#ai-outfit-generator', label: 'Meet AI Looks' }}
       />
 
@@ -38,8 +38,8 @@ export default function Boutiques() {
         }
         items={[
           { icon: MessageCircle, title: 'Your advice leads', body: 'Shoppers explore; your team still guides the decision. The screen is a prompt for the conversation, not a substitute.' },
-          { icon: Layers, title: 'A small range, shown wider', body: 'A focused capsule can be shown in more colours and combinations than the rail has room for.' },
-          { icon: MonitorSmartphone, title: 'One screen is enough', body: 'It scales down as well as up: a single mirror-style screen beside the fitting room can carry the whole experience.' },
+          { icon: Layers, title: 'A small range, shown wider', body: 'A focused capsule can be explored in more colours and combinations than the rail has room for. Which pieces launch first is agreed in a demo.' },
+          { icon: MonitorSmartphone, title: 'One screen is enough', body: 'It is designed to scale down as well as up, so a boutique can start small. Placement and setup are agreed in a demo.' },
         ]}
       />
 
@@ -53,7 +53,7 @@ export default function Boutiques() {
                 Curated looks, <span className="accent-serif">kept human.</span>
               </>
             }
-            lede="Pick a piece from the board. AI Looks proposes how it could be styled — and your team decides what actually leaves the shop."
+            lede="Pick a piece from the board. AI Looks can suggest how it could be styled — and your team decides what actually leaves the shop."
           />
           <div data-reveal="">
             <LookBoard />
@@ -71,7 +71,7 @@ export default function Boutiques() {
             Jewellery stores
           </Link002>
           <Link002 href="/features/" className="font-medium">
-            AI fashion tools
+            AI virtual try-on features
           </Link002>
         </div>
       </section>

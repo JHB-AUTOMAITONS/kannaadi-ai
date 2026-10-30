@@ -4,7 +4,7 @@ import { gown, gownAlt } from '@/lib/images'
 
 const LOOKS = [
   { id: 'ink', name: 'The evening anchor', tilt: -2.2, notes: ['Statement earrings', 'Structured clutch', 'Satin heels'], why: 'A confident base piece that a stylist can dress up or down.' },
-  { id: 'champagne', name: 'Soft occasion', tilt: 1.6, notes: ['Pearl drops', 'Slim belt', 'Metallic sandal'], why: 'Light and luminous — easy to pair, and kind to a wide range of skin tones.' },
+  { id: 'champagne', name: 'Soft occasion', tilt: 1.6, notes: ['Pearl drops', 'Slim belt', 'Metallic sandal'], why: 'Light and luminous — easy to pair with accessories.' },
   { id: 'forest', name: 'Deep and quiet', tilt: -1.2, notes: ['Gold cuff', 'Velvet wrap', 'Minimal clutch'], why: 'A colour that photographs richly and rarely competes with accessories.' },
   { id: 'claret', name: 'The collector’s piece', tilt: 2.4, notes: ['Dark lip', 'Brass jewellery', 'Evening bag'], why: 'The one customers remember — and ask to see again.' },
 ] as const
@@ -62,7 +62,7 @@ export function LookBoard() {
               ))}
             </ul>
           </div>
-          <p className="text-xs text-muted-foreground">Illustrative styling. AI Looks suggests combinations like these from your own collection.</p>
+          <p className="text-xs text-muted-foreground">Illustrative styling. Which pieces and combinations AI Looks can suggest from your collection is agreed in a demo.</p>
         </div>
       </div>
     </div>

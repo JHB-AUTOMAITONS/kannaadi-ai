@@ -63,11 +63,11 @@ export const BUSINESSES: Business[] = [
     faq: [
       {
         q: 'What does virtual try on saree actually show?',
-        a: 'It shows the saree on the shopper — colour, border, pallu and overall drape — so they can compare options before staff unfold and drape each one.',
+        a: 'It shows a preview of the saree on the shopper — its colour, border, pallu and overall drape — so they can compare options before staff unfold and drape each one. It is a guide to help choose, not a guarantee of how the saree will look or drape in person.',
       },
       {
         q: 'Does it cover other ethnic wear?',
-        a: 'The same approach applies to lehengas, anarkalis and other ethnic silhouettes. Which categories to launch with is something we scope together in a demo.',
+        a: 'Ethnic stores often sell more than sarees, so the experience is designed to extend to other ethnic wear. Which categories to launch with is something we scope together in a demo.',
       },
       {
         q: 'Is it only for stores, or for online too?',
@@ -88,7 +88,7 @@ export const BUSINESSES: Business[] = [
     faq: [
       {
         q: 'Why use virtual try on for wedding dresses?',
-        a: 'Bridal appointments are personal and time-limited. Virtual try on lets a bride arrive with a shortlist of silhouettes she already responds to.',
+        a: 'Bridal appointments are personal and time-limited. Previewing silhouettes first gives the consultation a starting point, so your team can spend more of the appointment on fit, fabric and advice.',
       },
       {
         q: 'Does it replace bridal appointments?',
@@ -96,7 +96,7 @@ export const BUSINESSES: Business[] = [
       },
       {
         q: 'Can brides use it at home?',
-        a: 'It can be offered online as well as in store, depending on how you want to run the experience. We cover options in a demo.',
+        a: 'Some bridal stores may want to offer it online as well as in the shop. How you run it is something we cover in a demo.',
       },
     ],
   },
@@ -113,7 +113,7 @@ export const BUSINESSES: Business[] = [
     faq: [
       {
         q: 'Is virtual try on practical for a small boutique?',
-        a: 'It is designed to scale down as well as up. A single screen or kiosk can extend a small collection without extra floor staff.',
+        a: 'It is designed to scale down as well as up, so a small boutique can start with a focused set of pieces. Placement and rollout are agreed in a demo.',
       },
       {
         q: 'Will it feel impersonal?',
@@ -142,11 +142,11 @@ export const BUSINESSES: Business[] = [
       },
       {
         q: 'Who is it for — the mall or the brands inside it?',
-        a: 'Either. Malls can offer it as a shared experience, and individual brands can run it inside their own stores.',
+        a: 'It can suit either. A mall operator might offer it as a shared experience, and a brand might run it inside its own store. Which model fits is something we discuss in a demo.',
       },
       {
         q: 'What does installation involve?',
-        a: 'Hardware and placement depend on the space and footfall. We plan those details with you in a demo.',
+        a: 'Hardware and placement depend on the space and footfall. Those details are discussed in a demo.',
       },
     ],
   },
@@ -167,11 +167,11 @@ export const BUSINESSES: Business[] = [
       },
       {
         q: 'Can it be branded for our campaign?',
-        a: 'Yes — the experience can be styled around your brand and campaign. The specifics are covered in a demo.',
+        a: 'It is designed to be branded around your campaign. What can be customised is something we cover in a demo.',
       },
       {
         q: 'What kinds of events suit it?',
-        a: 'Exhibitions, trade shows, pop-ups, store launches and fashion weeks — anywhere you want a hands-on moment at your stand.',
+        a: 'Exhibitions, trade shows, pop-ups and store launches are the natural fits. Whether it suits other formats, such as fashion weeks, is something we discuss in a demo.',
       },
     ],
   },
@@ -192,11 +192,11 @@ export const BUSINESSES: Business[] = [
       },
       {
         q: 'Does it help with high-value pieces?',
-        a: 'It lets customers preview a wider selection before staff bring specific pieces out, so conversations start closer to what they like.',
+        a: 'It can help customers narrow down before staff bring specific pieces out. Your team still shows the real piece, and what the preview shows is agreed in a demo.',
       },
       {
         q: 'Is it in store or online?',
-        a: 'Both are possible: a counter screen or kiosk in store, and the same experience on your website.',
+        a: 'Both are possible: a counter screen or kiosk in store, and your website. How you run it is agreed in a demo.',
       },
     ],
   },
@@ -213,7 +213,7 @@ export const BUSINESSES: Business[] = [
     faq: [
       {
         q: 'How does virtual try on eyewear work?',
-        a: 'The shopper looks at the camera and sees frames on their own face, so they can compare shapes and styles quickly.',
+        a: 'The shopper sees frames on their own face, so they can compare shapes and styles quickly. How it is set up for your store is agreed in a demo.',
       },
       {
         q: 'Does it replace an optician fitting?',
@@ -221,7 +221,7 @@ export const BUSINESSES: Business[] = [
       },
       {
         q: 'Can it live on our website?',
-        a: 'Yes, eyewear try-on can run online as well as on an in-store screen. Integration options are covered in a demo.',
+        a: 'It is designed to run online as well as on an in-store screen. Integration options are covered in a demo.',
       },
     ],
   },

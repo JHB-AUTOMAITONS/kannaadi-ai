@@ -22,10 +22,10 @@ export default function SareeEthnicStores() {
         eyebrow="Saree & ethnic stores"
         title={
           <>
-            Virtual try on saree: see the drape before it’s <span className="accent-serif">unfolded.</span>
+            Virtual try on saree for your showroom: see the drape before it’s <span className="accent-serif">unfolded.</span>
           </>
         }
-        intro="Virtual try on saree experiences let shoppers preview colour, border and pallu on themselves before staff unfold and drape each piece. That way showroom time can go to the sarees a customer already likes."
+        intro="Virtual try on saree experiences give saree and ethnic-wear stores another way to help shoppers explore a look before staff unfold and drape each piece. Customers can narrow down their choices first, helping showroom staff focus on the sarees they want to see more closely."
         secondary={{ to: '/features/#ai-virtual-try-on', label: 'How try-on works' }}
       />
 
@@ -39,9 +39,9 @@ export default function SareeEthnicStores() {
         }
         lede="Choosing a saree is a very visual decision. Virtual try on puts the three things that matter in front of the customer first."
         items={[
-          { icon: Palette, title: 'Colour on you', body: 'See how the body colour sits against your skin tone and outfit — in the light of your own screen, not a rack.' },
-          { icon: Sparkles, title: 'Border and pallu', body: 'Zari width, motif placement and pallu weight are shown where the customer will wear them.' },
-          { icon: Layers, title: 'The drape', body: 'Preview how the saree falls, so comparing similar sarees doesn’t mean unfolding every one.' },
+          { icon: Palette, title: 'Colour on you', body: 'Preview the saree on yourself, rather than seeing it only on a hanger or in a flat photograph.' },
+          { icon: Sparkles, title: 'Border and pallu', body: 'See where the border and pallu sit on the wearer, to get a sense of their width and placement before the saree is unfolded.' },
+          { icon: Layers, title: 'The drape', body: 'Compare similar sarees on yourself, so fewer pieces need unfolding. A preview is a guide, not a guarantee of how a saree will drape in person.' },
         ]}
       />
 
@@ -77,19 +77,24 @@ export default function SareeEthnicStores() {
           />
           <div data-reveal="" className="flex max-w-[58ch] flex-col gap-4 text-[1.02rem] leading-relaxed text-muted-foreground">
             <p>
-              The same approach applies to lehengas, anarkalis and other ethnic silhouettes, and the experience can run on a showroom
-              kiosk as well as on your website — so ethnic wear virtual try on is consistent wherever a customer starts.
+              Ethnic wear stores often sell more than sarees. The experience is designed to extend to other ethnic wear, with the
+              categories to launch with discussed in a demo, and to run on a showroom kiosk as well as on your website — so ethnic wear
+              virtual try on can feel consistent wherever a customer starts.
             </p>
             <p>
               Planning a launch around a festive or wedding season?{' '}
               <Link000 href="/for-businesses/bridal-stores/" className="font-medium text-foreground">
                 See how bridal stores use it
-              </Link000>{' '}
-              or{' '}
+              </Link000>
+              ,{' '}
               <Link000 href="/features/#kiosk-experience" className="font-medium text-foreground">
                 explore the kiosk experience
-              </Link000>
-              .
+              </Link000>{' '}
+              or see how{' '}
+              <Link000 href="/features/#scan-a-dress" className="font-medium text-foreground">
+                scanning a garment at the rail
+              </Link000>{' '}
+              works.
             </p>
           </div>
         </div>

@@ -9,7 +9,7 @@ const STYLES: { id: string; name: string; focus: Focus; body: string; shoppers: 
     name: 'Nivi',
     focus: 'pleats',
     body: 'The most widely worn drape: pleats gathered at the waist, with the pallu carried over the left shoulder.',
-    shoppers: 'Shoppers judge how the pleats fall and how the body colour reads in motion.',
+    shoppers: 'Shoppers judge how the pleats fall and how the body colour reads.',
   },
   {
     id: 'bengali',
@@ -37,7 +37,7 @@ const STYLES: { id: string; name: string; focus: Focus; body: string; shoppers: 
     name: 'Kerala (kasavu)',
     focus: 'border',
     body: 'Off-white with a gold kasavu border — the border does most of the talking.',
-    shoppers: 'Border width and shine are the whole decision.',
+    shoppers: 'Border width and placement are the whole decision.',
   },
 ]
 

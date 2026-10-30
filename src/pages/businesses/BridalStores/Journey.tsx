@@ -1,9 +1,9 @@
 const STAGES = [
-  { title: 'Dream', body: 'Browse silhouettes and necklines from home, with no pressure and no appointment.' },
+  { title: 'Dream', body: 'Browse silhouettes and trains before booking, with no pressure.' },
   { title: 'Shortlist', body: 'Narrow a whole collection down to the handful of shapes she responds to.' },
   { title: 'Appointment', body: 'Arrive with a shortlist, so the hour goes on fit, fabric and advice.' },
-  { title: 'Fitting', body: 'Compare small variations — neckline, sleeve, length — without another trip to the rail.' },
-  { title: 'Final look', body: 'Preview the finishing touches, from veil to jewellery, before the last decision.' },
+  { title: 'Fitting', body: 'Revisit the shapes she liked, so the conversation can focus on small variations.' },
+  { title: 'Final look', body: 'Talk through the finishing touches, from veil to jewellery, before the last decision.' },
 ]
 
 /** Where try-on helps along a bride’s journey. Horizontal on desktop, vertical on mobile. */

@@ -117,7 +117,7 @@ export function SilhouetteExplorer() {
         </fieldset>
 
         <p className="mt-auto border-t border-border pt-4 text-sm text-muted-foreground">
-          With Kannaadi.Ai the same choices are shown on the bride herself, so a shortlist is built from shapes she has actually seen on her.
+          This is a simplified illustration. How a try-on appears on the bride herself, and which silhouettes launch first, is agreed in a demo.
         </p>
       </div>
     </div>

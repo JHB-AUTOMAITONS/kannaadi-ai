@@ -79,7 +79,7 @@ export function MallMap() {
               </li>
             ))}
           </ul>
-          <p className="text-xs text-muted-foreground">Illustrative plan. Hardware and placement are planned with you around your space and footfall.</p>
+          <p className="text-xs text-muted-foreground">Placement and hardware are discussed in a demo, based on your space and footfall.</p>
         </div>
       </div>
     </div>

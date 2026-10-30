@@ -26,7 +26,7 @@ export default function EventsExhibitions() {
             Brand activation marketing built around a live <span className="accent-serif whitespace-nowrap">try-on.</span>
           </>
         }
-        intro="Brand activation marketing works when visitors do something, not just see something. Kannaadi.Ai turns a stand, pop-up or launch into a live virtual try on moment — with AI looks and a lucky draw — that people want to take part in and share."
+        intro="Brand activation marketing works when visitors do something, not just see something. Kannaadi.Ai offers a live virtual try on moment for a stand, pop-up or launch — with AI Looks and a lucky draw — designed to give people something to take part in and share."
         secondary={{ to: '/features/#lucky-draw', label: 'About Lucky Draw' }}
       />
 
@@ -40,7 +40,7 @@ export default function EventsExhibitions() {
                 Five beats from <span className="accent-serif">passer-by to participant.</span>
               </>
             }
-            lede="Every good activation has a shape. This one is built to be understood at a glance and remembered afterwards."
+            lede="Every good activation has a shape. This one is designed to be easy to follow at a glance."
           />
           <div className="theme-dark grain relative isolate overflow-hidden rounded-[2rem] bg-background p-4 text-foreground md:rounded-[2.5rem] md:p-8">
             <ActivationJourney />
@@ -59,7 +59,7 @@ export default function EventsExhibitions() {
                   A reason to <span className="accent-serif">stay for the ending.</span>
                 </>
               }
-              lede="The draw gives a try-on a finish. It is easy to understand, fun to watch, and fits any campaign — you decide what is on the wheel."
+              lede="The draw gives a try-on a finish. It is easy to understand and fun to watch, and the rewards are set per campaign."
             />
             <div data-reveal="">
               <p className="eyebrow mb-4">What you can brand</p>
@@ -91,11 +91,11 @@ export default function EventsExhibitions() {
               ))}
             </ul>
             <p className="max-w-[56ch] text-[1.02rem] leading-relaxed text-muted-foreground">
-              Planning something at a venue with its own footfall? The same kiosk works in a{' '}
+              Planning something at a venue with its own footfall? The same kiosk experience is designed for a{' '}
               <Link000 href="/for-businesses/shopping-malls/" className="font-medium text-foreground">
                 shopping mall
               </Link000>{' '}
-              as it does on an exhibition floor — or take the experience online through{' '}
+              as well as an exhibition floor — or take the experience online through{' '}
               <Link000 href="/use-cases/" className="font-medium text-foreground">
                 virtual try on for ecommerce
               </Link000>

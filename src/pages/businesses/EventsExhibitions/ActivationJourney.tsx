@@ -1,11 +1,11 @@
 import { Eye, Gift, Repeat, Share2, Sparkles } from 'lucide-react'
 
 const STEPS = [
-  { icon: Eye, title: 'Attract', body: 'A branded screen and a moving look stop people at the edge of your stand.' },
+  { icon: Eye, title: 'Attract', body: 'A branded screen and a moving look invite people in at the edge of your stand.' },
   { icon: Sparkles, title: 'Try', body: 'Visitors see pieces on themselves — the part they will want to show someone else.' },
-  { icon: Share2, title: 'Share', body: 'A share-ready look turns each visitor into a small piece of reach for the brand.' },
+  { icon: Share2, title: 'Share', body: 'A share-ready look gives each visitor something to pass on.' },
   { icon: Gift, title: 'Draw', body: 'A lucky-draw moment gives the interaction a clear, playful ending.' },
-  { icon: Repeat, title: 'Follow up', body: 'Collect interest the way your campaign needs, so the conversation continues after the event.' },
+  { icon: Repeat, title: 'Follow up', body: 'Decide with your team how to follow up with interested visitors after the event.' },
 ]
 
 /** The five beats of an activation. Each card lights up in turn on hover/focus for a simple, tactile read. */

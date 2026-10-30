@@ -23,7 +23,7 @@ export default function ShoppingMalls() {
             Virtual fitting room in store for malls and <span className="accent-serif">flagships.</span>
           </>
         }
-        intro="A virtual fitting room in store gives shoppers a walk-up way to see garments on themselves without changing. Kannaadi.Ai’s kiosk experience is built for concourses, atriums and flagship stores, where the experience itself is part of the draw."
+        intro="A virtual fitting room in store gives shoppers a walk-up way to preview pieces on themselves without changing. Kannaadi.Ai’s kiosk experience is designed for concourses, atriums and flagship stores, where the experience itself helps draw people in."
         secondary={{ to: '/features/#kiosk-experience', label: 'The kiosk experience' }}
       />
 
@@ -37,7 +37,7 @@ export default function ShoppingMalls() {
                 Built for people who are <span className="accent-serif">just passing.</span>
               </>
             }
-            lede="A mall kiosk has seconds to earn attention. The flow is short, self-guided and finishes on something worth taking away."
+            lede="The experience is designed to be self-guided and to finish on something worth taking away."
           />
           <div data-reveal="" className="theme-dark grain relative isolate overflow-hidden rounded-[2rem] bg-background p-6 text-foreground md:rounded-[2.5rem] md:p-12">
             <KioskFlow />
@@ -70,7 +70,7 @@ export default function ShoppingMalls() {
             Events &amp; exhibitions
           </Link002>
           <Link002 href="/for-businesses/fashion-stores/" className="font-medium">
-            Fashion stores
+            Virtual try on for fashion stores
           </Link002>
           <Link002 href="/features/#lucky-draw" className="font-medium">
             Lucky Draw

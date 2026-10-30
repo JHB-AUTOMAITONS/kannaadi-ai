@@ -73,7 +73,7 @@ export function NecklaceLengths() {
           </h3>
           <p className="text-[1rem] leading-relaxed text-muted-foreground">{n.body}</p>
         </div>
-        <p className="mt-auto text-sm text-muted-foreground">With virtual try on, customers see this on their own neckline instead of a bust form.</p>
+        <p className="mt-auto text-sm text-muted-foreground">This is a simplified illustration. Virtual try on shows a piece on the customer rather than on a bust form, and the range for launch is agreed in a demo.</p>
       </div>
     </div>
   )
