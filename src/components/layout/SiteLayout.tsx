@@ -1,6 +1,7 @@
 import { Suspense, useEffect } from 'react'
 import { Outlet, useLocation, useNavigationType } from 'react-router'
 import { Footer } from '@/components/layout/Footer'
+import { WhatsAppButton } from '@/components/layout/WhatsAppButton'
 import { Header } from '@/components/navigation/Header'
 import { useRouteEffects } from '@/hooks/use-route-effects'
 import { useScrollReveal } from '@/hooks/use-scroll-reveal'
@@ -44,6 +45,7 @@ export function SiteLayout() {
         </Suspense>
       </main>
       <Footer />
+      <WhatsAppButton />
     </>
   )
 }
