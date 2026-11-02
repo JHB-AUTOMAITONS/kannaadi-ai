@@ -57,10 +57,10 @@ export function FeatureBento() {
             eyebrow="The product"
             title={
               <>
-                Everything a <span className="whitespace-nowrap">try-on</span> needs, in <span className="accent-serif">one</span> product.
+                AI Virtual Try-On <span className="accent-serif">Features</span>
               </>
             }
-            lede="From the first look to the lucky draw, Kannaadi.Ai covers the whole experience — not just the mirror."
+            lede="The AI virtual try on features available in Kannaadi.Ai today, from the core try-on to the in-store kiosk."
           />
           <div data-reveal="" className="shrink-0">
             <Link002 href="/features/" className="text-[1rem] font-medium">
@@ -72,7 +72,7 @@ export function FeatureBento() {
         <div className="grid grid-cols-1 gap-3 md:grid-cols-12 md:gap-4">
           {/* AI Virtual Try-On */}
           <Tile to="/features/#ai-virtual-try-on" className="bg-card max-md:min-h-[25rem] md:col-span-5 md:row-span-2 md:min-h-[34rem]">
-            <Head icon={Shirt} title="AI Virtual Try-On" body="Garments shown on the shopper, not a model — colour, silhouette and style in context." />
+            <Head icon={Shirt} title="AI outfit visualisation" body="Virtual try on for clothes: garments shown on the shopper, not a model — colour, silhouette and style in context." />
             <img
               ref={gownRef}
               {...gownProps('champagne', { sizes: '(min-width: 768px) 26rem, 68vw' })}
@@ -104,7 +104,7 @@ export function FeatureBento() {
 
           {/* Upload / Scan */}
           <Tile to="/features/#upload-a-dress" className="bg-secondary md:col-span-4">
-            <Head icon={Upload} title="Upload or scan a dress" body="Bring a piece in from a photo — or scan it right off the rail." />
+            <Head icon={Upload} title="Dress selection: upload or scan" body="Choose a piece from your range, bring one in from a photo, or scan it right off the rail." />
             <div className="relative z-10 flex items-center gap-3 font-mono text-[0.68rem] tracking-[0.14em] uppercase">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-foreground/25 px-3 py-1.5">
                 <Upload aria-hidden="true" className="size-3.5" /> Upload
@@ -117,7 +117,7 @@ export function FeatureBento() {
 
           {/* Kiosk — dark tile */}
           <Tile to="/features/#kiosk-experience" className="theme-dark border-transparent bg-background text-foreground md:col-span-3">
-            <Head icon={MonitorSmartphone} title="Kiosk experience" body="A walk-up fitting room for floors, malls and events." />
+            <Head icon={MonitorSmartphone} title="Interactive in-store kiosk" body="A walk-up, self-guided fitting room. A simple guide shows shoppers where to stand." />
             <svg aria-hidden="true" viewBox="0 0 120 40" className="relative z-10 h-8 w-full text-lumen" fill="none" stroke="currentColor" strokeWidth="1.4">
               <rect x="42" y="2" width="36" height="30" rx="3" />
               <path d="M60 32v6M50 38h20" strokeLinecap="round" />
@@ -127,7 +127,7 @@ export function FeatureBento() {
 
           {/* Lucky draw — the single accent tile */}
           <Tile to="/features/#lucky-draw" className="border-transparent bg-lumen text-ink md:col-span-4">
-            <Head tone="light" icon={Gift} title="Lucky Draw" body="A playful reward moment after the try-on, built for campaigns." />
+            <Head tone="light" icon={Gift} title="Share-ready looks and Lucky Draw" body="A look to take away, and a playful reward moment for campaigns." />
             <svg aria-hidden="true" viewBox="0 0 64 64" className="absolute right-6 bottom-6 size-20 text-ink/90 transition-transform duration-[900ms] ease-[var(--ease-out-expo)] group-hover/tile:rotate-[200deg]">
               <circle cx="32" cy="32" r="28" fill="none" stroke="currentColor" strokeWidth="2" />
               {Array.from({ length: 8 }).map((_, i) => (

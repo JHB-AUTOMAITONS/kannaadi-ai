@@ -1,27 +1,41 @@
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Link002 } from '@/components/ui/skiper-ui/skiper40'
 
-const CHANNELS = [
+const BENEFITS = [
   {
     n: '01',
-    title: 'Online',
-    body: 'Add virtual try on to your ecommerce experience so shoppers see pieces on themselves, not just on a model.',
-    to: '/use-cases/',
-    link: 'Virtual try on for ecommerce',
+    title: 'Modernise your showroom',
+    body: 'Add an interactive virtual try on layer to a traditional clothing showroom without changing how your team sells.',
+    to: '/for-businesses/fashion-stores/',
+    link: 'Virtual try on for fashion stores',
   },
   {
     n: '02',
-    title: 'In store',
-    body: 'Put a virtual fitting room on the shop floor — a walk-up kiosk that helps shoppers decide what is worth trying on.',
+    title: 'Improve in-store engagement',
+    body: 'A walk-up kiosk gives customers something to do on the floor, so browsing becomes participation.',
     to: '/for-businesses/shopping-malls/',
     link: 'Virtual fitting room in store',
   },
   {
     n: '03',
-    title: 'At events',
-    body: 'Build brand activations around a live try-on and a lucky-draw moment people want to take part in.',
-    to: '/for-businesses/events-exhibitions/',
-    link: 'Brand activation marketing',
+    title: 'Create an interactive shopping experience',
+    body: 'Shoppers switch colours and looks on themselves, scan pieces from the rail and explore outfit ideas with AI Looks.',
+    to: '/features/',
+    link: 'AI virtual try-on features',
+  },
+  {
+    n: '04',
+    title: 'Stand out from competitors',
+    body: 'A distinctive try-on experience gives customers a reason to choose, and remember, your store over a similar one nearby.',
+    to: '/for-businesses/boutiques/',
+    link: 'Virtual try on for boutiques',
+  },
+  {
+    n: '05',
+    title: 'Bring smart technology into physical retail',
+    body: 'Introduce AI to the shop floor in a focused way: start with one range or category, then expand once you see how customers respond.',
+    to: '/use-cases/',
+    link: 'See the use cases',
   },
 ]
 
@@ -32,22 +46,22 @@ export function WhatWeDo() {
         <div className="lg:sticky lg:top-28 lg:self-start">
           <SectionHeading
             id="what-title"
-            eyebrow="What Kannaadi.Ai does"
+            eyebrow="For store owners"
             title={
               <>
-                A mirror for every place <span className="accent-serif">fashion</span> is sold.
+                How Kannaadi.Ai Helps Fashion <span className="accent-serif">Retail</span> Businesses
               </>
             }
-            lede="Kannaadi means mirror. We build the AI behind one — so fashion and retail businesses can offer virtual try on wherever a customer meets a collection."
+            lede="Kannaadi means mirror. Kannaadi.Ai gives physical fashion retailers a way to let customers see an outfit on themselves, right inside the store."
           />
           <p data-reveal="" className="mt-6 max-w-[52ch] text-[1rem] leading-relaxed text-muted-foreground">
-            One technology, three places to use it. Customers get a consistent experience; your team gets a try-on layer that
-            works with the pieces you actually sell, from clothing and ethnic wear to jewellery and eyewear.
+            It is built for store owners and decision-makers who want to bring smart technology into a showroom, working with the
+            pieces you actually sell, from clothing and ethnic wear to jewellery and eyewear.
           </p>
         </div>
 
         <ol data-reveal-stagger="" className="border-t border-border">
-          {CHANNELS.map((c) => (
+          {BENEFITS.map((c) => (
             <li key={c.n} data-reveal="" className="group grid gap-x-6 gap-y-3 border-b border-border py-7 md:grid-cols-[4rem_1fr] md:py-9">
               <span className="font-mono text-sm tracking-widest text-muted-foreground">{c.n}</span>
               <div className="flex flex-col gap-3">

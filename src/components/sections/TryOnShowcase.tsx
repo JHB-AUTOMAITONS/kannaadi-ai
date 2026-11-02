@@ -18,7 +18,7 @@ const SHOWCASE_SIZES = '(min-width: 1024px) 34rem, 92vw'
 const POINTS = [
   { icon: Shirt, title: 'Colour and silhouette on the shopper', body: 'Customers judge the piece the way they will wear it.' },
   { icon: Layers, title: 'Switch pieces without leaving the mirror', body: 'Explore colourways and looks in a single flow.' },
-  { icon: MonitorSmartphone, title: 'Online, in store, at events', body: 'The same try-on experience, wherever the shopper is.' },
+  { icon: MonitorSmartphone, title: 'On the shop floor', body: 'A walk-up kiosk that customers can use on their own.' },
 ]
 
 /**
@@ -196,10 +196,10 @@ export function TryOnShowcase() {
             eyebrow="Virtual try-on showcase"
             title={
               <>
-                See the colour, the drape, the fit — <span className="accent-serif">before</span> the fitting room.
+                Experience Kannaadi.Ai in a <span className="accent-serif">Fashion Store</span>
               </>
             }
-            lede="Virtual try on clothes the way shoppers actually decide: colour first, then how it sits. Switch colourways, then drag the scan line to look beneath the surface."
+            lede="In a showroom, a shopper picks a piece, sees it on themselves and switches colourways in moments. Try it here: switch colourways, then drag the scan line to look beneath the surface."
           />
           <ul data-reveal-stagger="" className="flex flex-col divide-y divide-border border-y border-border">
             {POINTS.map(({ icon: Icon, title, body }) => (
@@ -214,7 +214,10 @@ export function TryOnShowcase() {
               </li>
             ))}
           </ul>
-          <div data-reveal="">
+          <div data-reveal="" className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+            <Cta to="/book-a-demo/" size="lg">
+              Request a Product Demo
+            </Cta>
             <Cta to="/features/#ai-virtual-try-on" size="lg" variant="secondary">
               See how try-on works
             </Cta>

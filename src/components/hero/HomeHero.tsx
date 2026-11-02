@@ -19,8 +19,8 @@ const IMG_POS = HERO.isPhoto
 const FIT_H1 = HERO.isPhoto ? ' lg:max-xl:text-[clamp(2.6rem,min(1.2rem_+_4.6vw,11vh),6.4rem)]' : ''
 const FIT_P = HERO.isPhoto ? ' lg:max-xl:max-w-[26rem]' : ''
 
-const HEADLINE = ['Virtual', 'try', 'on', 'for', 'fashion', 'that']
-const HEADLINE_ACCENT = ['looks', 'like', 'you.']
+const HEADLINE = ['AI', 'virtual', 'try', 'on', 'for', 'fashion']
+const HEADLINE_ACCENT = ['stores']
 
 /**
  * Home hero — the signature experience.
@@ -94,8 +94,9 @@ export function HomeHero() {
               </span>
             </h1>
             <p className={`hero-fade hero-lede mt-6 max-w-[34rem] text-[1.05rem] leading-relaxed text-foreground/85 md:text-[1.12rem] lg:text-white/85 short:mt-2.5 short:text-[0.9rem] short:leading-snug ${FIT_P}`} style={{ ['--d' as string]: '620ms' }}>
-              Kannaadi.Ai is AI virtual try on software for fashion and retail businesses — online, in store and at events — so every
-              customer can see a look on themselves before they commit to it.
+              Kannaadi.Ai is AI virtual try on software designed for physical fashion stores, clothing showrooms, boutiques and retail
+              businesses. Shoppers see an outfit on themselves through an interactive in-store experience, helping you modernise a
+              traditional showroom.
             </p>
           </div>
 
@@ -103,8 +104,8 @@ export function HomeHero() {
             <Cta to="/book-a-demo/" size="lg" magnetic>
               Book a Demo
             </Cta>
-            <Cta to="/features/" size="lg" variant="secondary">
-              Explore Features
+            <Cta href="#how-it-works" size="lg" variant="secondary">
+              Explore How It Works
             </Cta>
           </div>
         </div>

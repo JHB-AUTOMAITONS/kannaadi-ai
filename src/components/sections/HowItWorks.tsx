@@ -7,11 +7,14 @@ import { prefersReducedMotion } from '@/hooks/use-media'
 import { cn } from '@/lib/utils'
 
 const STEPS = [
-  { title: 'Connect your catalogue', body: 'Choose the garments, jewellery or frames you want shoppers to try. We shape the experience around your range.' },
-  { title: 'Choose where it lives', body: 'Online store, in-store kiosk, live event — or a mix. One try-on experience, placed where your customers are.' },
-  { title: 'Shoppers try on', body: 'Customers see pieces on themselves, explore AI Looks and, for campaigns, finish with a lucky draw.' },
-  { title: 'Launch and refine', body: 'Go live in the places your customers shop, then update pieces, add channels and run new campaigns.' },
+  { title: 'Customer photo capture', body: 'A shopper steps up to the Kannaadi.Ai kiosk in your store. A simple on-screen guide shows where to stand, so the kiosk can capture them for virtual clothing try on.' },
+  { title: 'Dress and outfit selection', body: 'They choose a dress or outfit from your range, or scan a garment from the rail, or upload a photo of a dress they have in mind.' },
+  { title: 'AI virtual try-on generation', body: 'The AI shows the chosen piece on the shopper. They switch colours and looks with a tap, and AI Looks suggests outfit ideas for an AI outfit try on that keeps going.' },
+  { title: 'Offer it through your store kiosk', body: 'The walk-up, self-guided kiosk can be branded to your store and set up around your own range. Hardware, placement and scope are agreed with you in a demo.' },
 ]
+
+/** Which of the four existing visuals accompanies each step (the visuals themselves are unchanged). */
+const VISUAL_FOR = [1, 0, 2, 3]
 
 const gown = (c: string) => gownUrl(c, 'sm')
 const SIZES = '(min-width: 1024px) 30rem, 90vw'
@@ -100,16 +103,18 @@ export function HowItWorks() {
   }, [])
 
   return (
-    <section className="theme-dark grain relative isolate overflow-hidden bg-background text-foreground" aria-labelledby="how-title">
+    <section id="how-it-works" className="theme-dark grain relative isolate scroll-mt-20 overflow-hidden bg-background text-foreground" aria-labelledby="how-title">
       <div className="container-x section flex flex-col gap-10 md:gap-14">
         <SectionHeading
           id="how-title"
           eyebrow="How it works"
           title={
             <>
-              From catalogue to <span className="accent-serif">mirror</span> in four steps.
+              How Kannaadi.Ai <span className="accent-serif">Works</span>
             </>
           }
+          lede="One simple in-store flow for customers, and a kiosk your store can offer on the shop floor."
+
         />
         <div ref={root} className="grid items-start gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-16" onMouseEnter={() => (hovering.current = true)} onMouseLeave={() => (hovering.current = false)}>
           <ol className="border-t border-border" data-reveal-stagger="">
@@ -145,12 +150,12 @@ export function HowItWorks() {
             ))}
           </ol>
           <div data-reveal="" aria-live="polite" className="lg:sticky lg:top-28">
-            <Visual step={active} />
+            <Visual step={VISUAL_FOR[active]} />
           </div>
         </div>
         <div data-reveal="">
           <Cta to="/book-a-demo/" size="lg">
-            Plan yours in a demo
+            See it in a demo
           </Cta>
         </div>
       </div>

@@ -37,11 +37,11 @@ const core: PageMeta[] = [
   {
     path: '/',
     name: 'Home',
-    title: 'AI Virtual Try On for Fashion & Retail | Kannaadi.Ai',
+    title: 'AI Virtual Try On Software for Fashion Stores | Kannaadi.Ai',
     description:
-      'Kannaadi.Ai is AI virtual try on software for fashion and retail: a virtual fitting room for online stores, in-store kiosks and events. Book a demo.',
-    primary: 'virtual try on',
-    secondary: ['AI virtual try on', 'virtual fitting room', 'virtual try on clothes'],
+      'Discover Kannaadi.Ai, AI virtual try on software for fashion stores, clothing showrooms and boutiques. Transform your in-store shopping experience.',
+    primary: 'AI virtual try on',
+    secondary: ['virtual try on software', 'virtual clothing try on', 'virtual try on for clothes', 'AI outfit try on'],
     schema: 'home',
     priority: 1,
     changefreq: 'weekly',

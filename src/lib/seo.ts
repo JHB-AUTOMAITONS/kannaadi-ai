@@ -94,7 +94,7 @@ function structuredData(meta: PageMeta): object {
       name: 'Kannaadi.Ai virtual try on',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
-      description: 'AI virtual try on and virtual fitting room software for fashion and retail businesses.',
+      description: 'AI virtual try on software for physical fashion stores, clothing showrooms, boutiques and retail businesses.',
       publisher: { '@id': ORG_ID },
     })
   }

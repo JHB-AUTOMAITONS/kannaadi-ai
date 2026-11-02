@@ -13,6 +13,7 @@ export function BusinessGrid({
   showAllLink = true,
   headingLevel = 'h2',
   compactMobile = true,
+  footer,
 }: {
   id?: string
   eyebrow?: string
@@ -23,6 +24,8 @@ export function BusinessGrid({
   headingLevel?: 'h2' | 'h3'
   /** Two columns of image-led cards on phones (home); the hub keeps full cards */
   compactMobile?: boolean
+  /** Extra content under the cards (home page: who each business type is for) */
+  footer?: React.ReactNode
 }) {
   return (
     <section className="theme-sand bg-background py-14 md:py-20" aria-labelledby={id}>
@@ -56,6 +59,7 @@ export function BusinessGrid({
             </li>
           ))}
         </ul>
+        {footer}
       </div>
     </section>
   )

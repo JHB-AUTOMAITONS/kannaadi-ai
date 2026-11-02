@@ -3,32 +3,36 @@ import { BUSINESSES, type Faq } from './businesses'
 const generic: Record<string, Faq[]> = {
   '/': [
     {
-      q: 'What is virtual try on?',
-      a: 'Virtual try on lets a shopper see a garment, accessory or pair of frames on themselves digitally, instead of imagining it from a product photo. Kannaadi.Ai is AI virtual try on software for fashion and retail: it places the piece on the shopper, so the preview feels closer to standing at the mirror.',
+      q: 'What is AI Virtual Try On software?',
+      a: 'AI virtual try on software shows a garment on a shopper digitally, so they can see colour, shape and style on themselves instead of imagining it from a rail or a product photo. Kannaadi.Ai is AI virtual try on software built for fashion retail: it places the chosen piece on the shopper, in store through a kiosk or screen.',
     },
     {
-      q: 'Where can Kannaadi.Ai be used?',
-      a: 'Kannaadi.Ai is designed for three places: online stores, in-store kiosks and screens, and live events such as exhibitions and launches. You can use the virtual fitting room in one place or across all three; we map out the right mix in a demo.',
+      q: 'How does AI Virtual Try On work in fashion stores?',
+      a: 'A shopper steps up to the Kannaadi.Ai kiosk, follows a simple guide on where to stand, and picks a dress or outfit from your range, or scans a piece from the rail. The AI then shows it on them, and they can switch colours and looks with a tap. Setup for your range is agreed in a demo.',
     },
     {
-      q: 'Does it work for more than clothes?',
-      a: 'Yes. Beyond clothing and ethnic wear, Kannaadi.Ai includes jewellery try-on and eyewear try-on, plus an AI outfit generator (AI Looks) that suggests how pieces come together.',
+      q: 'Can clothing showrooms use virtual try-on software?',
+      a: 'Yes. Kannaadi.Ai is designed for physical fashion retail, including clothing showrooms, boutiques and saree shops. A kiosk or screen on the shop floor lets customers preview pieces before asking staff to bring more out. Which categories to launch with, and where to place the kiosk, are agreed with you in a demo.',
     },
     {
-      q: 'How do we get started?',
-      a: 'Book a demo. We will show the AI virtual try on working with products like yours, then talk through which channels suit your business and what a rollout would involve.',
+      q: 'What is the difference between AI Virtual Try On and a traditional fitting room?',
+      a: 'A traditional fitting room confirms how a garment fits in person. AI virtual try on gives a quick visual preview of colour, shape and style without changing clothes, so shoppers can narrow down what to try. It complements the fitting room rather than replacing it, and measurements, fittings and advice stay with your team.',
     },
     {
-      q: 'What do we need to prepare to get started?',
-      a: 'Start with the pieces you want shoppers to try — garments, jewellery or frames — and where you would use it: online, in store, at events or a mix. Kannaadi.Ai is set up around your own range rather than a generic demo, and the details are agreed in a demo.',
+      q: 'How can Virtual Clothing Try On improve the in-store shopping experience?',
+      a: 'Virtual clothing try on gives customers something interactive to do on the shop floor. They can see pieces on themselves, switch colours and explore outfit ideas before heading to a fitting room, which can make browsing more engaging. The benefit depends on your range, footfall and how your team uses the kiosk; we do not promise specific results.',
     },
     {
-      q: 'Does virtual try on show exact fit?',
-      a: 'A try-on preview is a visual aid for comparing colour, shape and style. Treat it as a guide when choosing rather than a promise of exact fit, fabric feel or appearance in person. Measurements, fittings and advice stay with your team, and what the preview shows for your range is something we cover in a demo.',
+      q: 'Can customers try different outfits using AI Outfit Try On?',
+      a: 'Yes. Shoppers can switch between pieces, colours and looks in one flow. AI Looks, the AI outfit generator in Kannaadi.Ai, also suggests how pieces come together around a garment they have chosen, so one AI outfit try on can lead to several ideas. Which pieces and combinations are offered depends on the range set up for your store.',
     },
     {
-      q: 'Does it replace our staff or fitting rooms?',
-      a: 'No. It helps shoppers narrow down what is worth trying on, so your team and your fitting rooms spend their time on the pieces customers already like.',
+      q: 'Which types of fashion retail businesses can use Kannaadi.Ai?',
+      a: 'Clothing showrooms, fashion boutiques, saree and ethnic wear shops, bridal stores, men’s and women’s fashion stores and multi-brand retailers can use it, along with jewellery and eyewear stores. It also works in malls and at events. Each business type has its own page, and the right scope is agreed in a demo.',
+    },
+    {
+      q: 'How can I get AI Virtual Try On software for my fashion store?',
+      a: 'Book a demo. We will show AI virtual try on working with pieces like yours, then talk through where it would sit in your store, which pieces to start with and what a rollout involves. To prepare, choose a focused set of garments and decide where a kiosk could stand. You can also contact our team with questions.',
     },
   ],
   '/features/': [

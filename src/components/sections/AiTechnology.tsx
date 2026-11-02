@@ -3,10 +3,11 @@ import { Cta } from '@/components/ui/Cta'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 
 const LAYERS = [
-  { n: '01', title: 'Catalogue-aware', body: 'It starts from the pieces you actually sell — garments, jewellery or frames — not a generic demo.' },
-  { n: '02', title: 'Shopper-first', body: 'The piece appears on the person looking at the screen, so the preview is about them.' },
-  { n: '03', title: 'Look-building', body: 'AI Looks turns a single piece into outfit ideas and keeps the visit going.' },
-  { n: '04', title: 'Always responsive', body: 'Real-time fitting is built to feel like a mirror, not a render queue.' },
+  { n: '01', title: 'Better customer engagement', body: 'A kiosk gives customers something interactive to do on the floor, so a visit becomes more than looking at racks.' },
+  { n: '02', title: 'An interactive showroom experience', body: 'Shoppers see pieces on themselves and switch colours and looks, in a flow built to feel like a mirror.' },
+  { n: '03', title: 'Modern retail technology, adopted gradually', body: 'Start with one range or category and expand once you see how your customers use it.' },
+  { n: '04', title: 'Improved product exploration', body: 'AI Looks suggests outfit ideas around a chosen piece, so customers look further into your range.' },
+  { n: '05', title: 'A differentiated customer experience', body: 'Virtual try on for clothes gives people a reason to remember your store. Results depend on your range, footfall and team.' },
 ]
 
 /** Dark band that continues the showcase, using the same AI-scan world the hero reveals. */
@@ -35,17 +36,17 @@ export function AiTechnology() {
         <div className="flex flex-col gap-7">
           <SectionHeading
             id="tech-title"
-            eyebrow="AI fashion technology"
+            eyebrow="Benefits"
             title={
               <>
-                AI fashion technology that <span className="accent-serif">stays out of the way.</span>
+                Benefits of Virtual Try-On for <span className="accent-serif">Fashion Stores</span>
               </>
             }
-            lede="Shoppers should notice the look, not the technology. Kannaadi.Ai keeps the AI behind the glass — fast, visual and built around fashion."
+            lede="What virtual try-on can mean for a store, from the owner's side of the counter. These are possibilities, not guaranteed results."
           />
           <div data-reveal="">
             <Cta to="/features/" size="lg">
-              Explore AI fashion tools
+              Explore AI virtual try-on features
             </Cta>
           </div>
         </div>
