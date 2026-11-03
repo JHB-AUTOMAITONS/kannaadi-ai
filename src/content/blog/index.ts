@@ -4,6 +4,7 @@ import { post as aiFashionModelGeneratorForEcommerce } from './ai-fashion-model-
 import { post as aiShoppingAssistantFashionEcommerce } from './ai-shopping-assistant-fashion-ecommerce'
 import { post as aiOutfitGeneratorForFashionStores } from './ai-outfit-generator-for-fashion-stores'
 import { post as virtualFittingRoomTechnology } from './virtual-fitting-room-technology'
+import { post as virtualFittingRoomSoftware } from './virtual-fitting-room-software'
 import { post as virtualTryOnClothesIndia } from './virtual-try-on-clothes-india'
 
 export type { BlogPost, Block } from './types'
@@ -12,7 +13,7 @@ export type { BlogPost, Block } from './types'
  * Register new articles here. Order does not matter: the list is sorted newest first.
  * Drafts are exposed only by the dev server; production builds contain published articles exclusively.
  */
-const ALL: BlogPost[] = [virtualTryOnClothesIndia, virtualFittingRoomTechnology, aiOutfitGeneratorForFashionStores, aiShoppingAssistantFashionEcommerce, aiFashionModelGeneratorForEcommerce, smartRetailSolutionsForFashionStores]
+const ALL: BlogPost[] = [virtualFittingRoomSoftware, virtualTryOnClothesIndia, virtualFittingRoomTechnology, aiOutfitGeneratorForFashionStores, aiShoppingAssistantFashionEcommerce, aiFashionModelGeneratorForEcommerce, smartRetailSolutionsForFashionStores]
 
 export const BLOG_BASE = '/blog'
 export const PAGE_SIZE = 9
