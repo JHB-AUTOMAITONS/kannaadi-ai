@@ -261,70 +261,84 @@ function MobileMenu({ open, onClose, onEscape }: { open: boolean; onClose: () =>
   }, [open, onEscape])
 
   return (
-    <div
-      id="mobile-menu"
-      ref={panel}
-      role="dialog"
-      aria-modal="true"
-      aria-label="Menu"
-      aria-hidden={!open}
-      inert={!open}
-      className={cn(
-        'theme-dark fixed inset-0 z-[55] flex flex-col overflow-y-auto bg-background px-5 pt-[calc(var(--header-h)+0.75rem)] pb-8 text-foreground lg:hidden',
-        'transition-[opacity,clip-path] duration-500 ease-[var(--ease-out-expo)]',
-        open ? 'pointer-events-auto opacity-100 [clip-path:inset(0_0_0_0)]' : 'pointer-events-none opacity-0 [clip-path:inset(0_0_100%_0)]',
-      )}
-    >
-      <nav aria-label="Mobile" className="flex flex-col">
-        {LINKS.map((l, i) => (
-          <div key={l.to} className="border-b border-border" style={{ transitionDelay: open ? `${120 + i * 55}ms` : '0ms' }}>
-            {'mega' in l ? (
-              <>
-                <div className="flex items-center justify-between">
-                  <Link to={l.to} onClick={onClose} className="py-4 text-[2rem] leading-none font-semibold tracking-[-0.035em]">
+    <>
+      {/* dims the page behind the panel; tapping it closes the menu */}
+      <div
+        aria-hidden="true"
+        onClick={onClose}
+        className={cn(
+          'fixed inset-0 z-[54] bg-black/55 transition-opacity duration-300 lg:hidden',
+          open ? 'opacity-100' : 'pointer-events-none opacity-0',
+        )}
+      />
+      <div
+        id="mobile-menu"
+        ref={panel}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
+        aria-hidden={!open}
+        inert={!open}
+        className={cn(
+          // compact dropdown: sized by its content, capped at 55% of the screen; the link list scrolls, the CTA stays pinned
+          'theme-dark fixed inset-x-0 top-0 z-[55] flex max-h-[55svh] flex-col rounded-b-3xl bg-background px-5 pt-[var(--header-h)] text-foreground shadow-[0_24px_60px_-20px_rgb(0_0_0/0.7)] lg:hidden',
+          'transition-[opacity,clip-path] duration-500 ease-[var(--ease-out-expo)]',
+          open ? 'pointer-events-auto opacity-100 [clip-path:inset(0_0_0_0)]' : 'pointer-events-none opacity-0 [clip-path:inset(0_0_100%_0)]',
+        )}
+      >
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+          <nav aria-label="Mobile" className="flex flex-col">
+            {LINKS.map((l, i) => (
+              <div key={l.to} className="border-b border-border" style={{ transitionDelay: open ? `${120 + i * 55}ms` : '0ms' }}>
+                {'mega' in l ? (
+                  <>
+                    <div className="flex items-center justify-between">
+                      <Link to={l.to} onClick={onClose} className="py-2.5 text-[1.4rem] leading-none font-semibold tracking-[-0.03em]">
+                        {l.label}
+                      </Link>
+                      <button
+                        type="button"
+                        aria-expanded={biz}
+                        aria-controls="mobile-biz"
+                        aria-label="Show business types"
+                        onClick={() => setBiz((v) => !v)}
+                        className="grid size-11 place-items-center rounded-full border border-border"
+                      >
+                        <ChevronDown aria-hidden="true" className={cn('size-5 transition-transform duration-300', biz && 'rotate-180')} />
+                      </button>
+                    </div>
+                    <ul
+                      id="mobile-biz"
+                      hidden={!biz}
+                      className="mb-4 grid grid-cols-1 gap-0.5 rounded-2xl bg-muted/60 p-2 min-[420px]:grid-cols-2"
+                    >
+                      {BUSINESSES.map((b) => (
+                        <li key={b.slug}>
+                          <Link to={b.path} onClick={onClose} className="flex min-h-11 items-center rounded-xl px-3 text-[0.95rem] font-medium hover:bg-foreground/10">
+                            {b.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                ) : (
+                  <Link to={l.to} onClick={onClose} className="block py-2.5 text-[1.4rem] leading-none font-semibold tracking-[-0.03em]">
                     {l.label}
                   </Link>
-                  <button
-                    type="button"
-                    aria-expanded={biz}
-                    aria-controls="mobile-biz"
-                    aria-label="Show business types"
-                    onClick={() => setBiz((v) => !v)}
-                    className="grid size-11 place-items-center rounded-full border border-border"
-                  >
-                    <ChevronDown aria-hidden="true" className={cn('size-5 transition-transform duration-300', biz && 'rotate-180')} />
-                  </button>
-                </div>
-                <ul
-                  id="mobile-biz"
-                  hidden={!biz}
-                  className="mb-4 grid grid-cols-1 gap-0.5 rounded-2xl bg-muted/60 p-2 min-[420px]:grid-cols-2"
-                >
-                  {BUSINESSES.map((b) => (
-                    <li key={b.slug}>
-                      <Link to={b.path} onClick={onClose} className="flex min-h-11 items-center rounded-xl px-3 text-[0.95rem] font-medium hover:bg-foreground/10">
-                        {b.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </>
-            ) : (
-              <Link to={l.to} onClick={onClose} className="block py-4 text-[2rem] leading-none font-semibold tracking-[-0.035em]">
-                {l.label}
-              </Link>
-            )}
-          </div>
-        ))}
-        <Link to="/contact/" onClick={onClose} className="py-4 text-lg font-medium text-muted-foreground">
-          Contact
-        </Link>
-      </nav>
-      <div className="mt-auto pt-6">
-        <Cta to="/book-a-demo/" size="lg" onClick={onClose} className="w-full justify-between">
-          Book a Demo
-        </Cta>
+                )}
+              </div>
+            ))}
+            <Link to="/contact/" onClick={onClose} className="py-2.5 text-base font-medium text-muted-foreground">
+              Contact
+            </Link>
+          </nav>
+        </div>
+        <div className="shrink-0 border-t border-border py-3">
+          <Cta to="/book-a-demo/" size="md" onClick={onClose} className="w-full justify-between">
+            Book a Demo
+          </Cta>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
