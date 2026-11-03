@@ -87,11 +87,17 @@ export function Header() {
 
   return (
     <header
-      className="site-header sticky top-0 z-50 border-b border-transparent bg-background text-foreground backdrop-blur-xl transition-[background-color,border-color] duration-300 data-[top=false]:border-border data-[top=false]:bg-background/90"
+      // The blurred backdrop lives on ::before, not on the header: backdrop-filter on an ancestor becomes the
+      // containing block for `fixed` descendants, which would shrink the mobile menu panel to header height.
+      className={cn(
+        // while the menu is open the header sits on the dark panel, so it takes the dark tokens too
+        menu && 'theme-dark',
+        'site-header sticky top-0 z-50 border-b border-transparent text-foreground transition-[border-color] duration-300 before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:-bottom-px before:-z-10 before:bg-background before:backdrop-blur-xl before:transition-[background-color] before:duration-300 data-[top=false]:border-border data-[top=false]:before:bg-background/90',
+      )}
       data-top={top}
       data-menu={menu ? 'open' : 'closed'}
     >
-      <div className="container-x flex h-[var(--header-h)] items-center justify-between gap-4">
+      <div className="container-x relative z-[60] flex h-[var(--header-h)] items-center justify-between gap-4">
         <Logo />
 
         <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
