@@ -106,7 +106,7 @@ export const post: BlogPost = {
     { type: 'h3', text: '3. Reduces Dependence on Physical Trial Rooms' },
     { type: 'p', text: 'If customers shortlist on screen first, fewer garments may need to go into the fitting room, which can ease pressure at busy times.' },
     { type: 'h3', text: '4. Provides a Modern Digital Shopping Experience' },
-    { type: 'p', text: 'A kiosk shows that your store invests in the customer experience. Industry reports such as the [McKinsey and The Business of Fashion State of Fashion](https://www.mckinsey.com/industries/retail/our-insights/state-of-fashion) regularly discuss technology reshaping fashion retail.' },
+    { type: 'p', text: 'A kiosk shows that your store invests in the customer experience.' },
     { type: 'h3', text: '5. Supports Customer Engagement' },
     { type: 'p', text: 'The kiosk gives staff a natural way to start a conversation, and customers a reason to spend time with your brand.' },
     { type: 'h3', text: '6. Offers Digital Photo Generation' },
@@ -148,7 +148,7 @@ export const post: BlogPost = {
     { type: 'p', text: 'For a deeper buyer’s checklist, read our guide to [virtual fitting room software](/blog/virtual-fitting-room-software).' },
 
     { type: 'h2', id: 'how-kannaadi-ai-helps-modernize-fashion-retail-stores', text: 'How Kannaadi.Ai Helps Modernize Fashion Retail Stores' },
-    { type: 'p', text: '[Kannaadi.Ai](https://kannadi.ai/) is an AI-powered virtual try-on solution designed for physical fashion retail. It helps stores add a more interactive digital trial experience on the shop floor. It is not a clothing marketplace or e-commerce platform.' },
+    { type: 'p', text: 'Kannaadi.Ai is an AI-powered virtual try-on solution designed for physical fashion retail. It helps stores add a more interactive digital trial experience on the shop floor. It is not a clothing marketplace or e-commerce platform.' },
     {
       type: 'ul',
       items: [
@@ -181,9 +181,5 @@ export const post: BlogPost = {
     { type: 'h2', id: 'conclusion', text: 'Conclusion' },
     { type: 'p', text: 'AI Virtual Try-On Software and traditional fitting rooms solve different problems. Fitting rooms confirm fit, fabric and comfort. Virtual try-on makes choosing faster, more interactive and easier to share. The right mix depends on your store requirements, customer preferences and the experience you want to offer.' },
     { type: 'p', text: 'If you want to add a digital trial room to your shop floor, [explore Kannaadi.Ai](/features/), then [book a demo](/book-a-demo/) or [get in touch](/contact/) to enquire about a virtual try-on kiosk for your store.' },
-  ],
-  sources: [
-    { label: 'McKinsey & The Business of Fashion, The State of Fashion', url: 'https://www.mckinsey.com/industries/retail/our-insights/state-of-fashion' },
-    { label: 'Wikipedia, Virtual fitting room', url: 'https://en.wikipedia.org/wiki/Virtual_fitting_room' },
   ],
 }
