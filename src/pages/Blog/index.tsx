@@ -24,6 +24,7 @@ export default function Blog() {
           <Eyebrow>The Kannaadi.Ai blog</Eyebrow>
           <h1 className="t-display max-w-[16ch] text-[clamp(2.4rem,1.2rem+5vw,5.2rem)]">
             Guides for fashion <span className="accent-serif">retail.</span>
+            {page > 1 && <span className="sr-only"> Page {page}</span>}
           </h1>
           <p className="lede">
             Practical guides on virtual try on, AI fashion technology and the shopping experience, written for fashion retailers, boutique owners

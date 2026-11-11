@@ -202,7 +202,9 @@ const blogListing: PageMeta[] = Array.from({ length: pageCount() }, (_, i) => {
     name: n === 1 ? 'Blog' : `Blog, page ${n}`,
     title: n === 1 ? 'Blog: Fashion Retail Technology Guides | Kannaadi.Ai' : `Blog, page ${n} | Kannaadi.Ai`,
     description:
-      'Guides and insights on virtual try on, AI fashion technology and the shopping experience for fashion retailers, from the Kannaadi.Ai team.',
+      n === 1
+        ? 'Guides and insights on virtual try on, AI fashion technology and the shopping experience for fashion retailers, from the Kannaadi.Ai team.'
+        : `More guides on virtual try on, AI fashion technology and in-store shopping experiences for fashion retailers: page ${n} of the Kannaadi.Ai blog.`,
     primary: null,
     secondary: [],
     schema: 'blog' as const,
