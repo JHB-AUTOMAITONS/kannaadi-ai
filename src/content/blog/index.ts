@@ -15,6 +15,7 @@ import { post as tryOnClothingVirtually } from './try-on-clothing-virtually'
 import { post as aiOutfitGenerator } from './ai-outfit-generator'
 import { post as spectaclesVirtualTryOn } from './spectacles-virtual-try-on'
 import { post as aiTransformingInStoreShoppingExperience } from './ai-transforming-in-store-shopping-experience'
+import { post as virtualTryOnKiosksInStoreCustomerExperience } from './virtual-try-on-kiosks-in-store-customer-experience'
 
 export type { BlogPost, Block } from './types'
 
@@ -22,7 +23,7 @@ export type { BlogPost, Block } from './types'
  * Register new articles here. Order does not matter: the list is sorted newest first.
  * Drafts are exposed only by the dev server; production builds contain published articles exclusively.
  */
-const ALL: BlogPost[] = [spectaclesVirtualTryOn, aiTransformingInStoreShoppingExperience, aiOutfitGenerator, tryOnClothingVirtually, eyewearVirtualTryOn, chooseBestAiVirtualTryOnSoftware, modernizeFashionStoreWithAiTechnology, aiVirtualTryOnSoftwareVsTraditionalFittingRooms, aiVirtualTryOnKioskFashionRetailStores, virtualFittingRoomSoftware, virtualTryOnClothesIndia, virtualFittingRoomTechnology, aiOutfitGeneratorForFashionStores, aiShoppingAssistantFashionEcommerce, aiFashionModelGeneratorForEcommerce, smartRetailSolutionsForFashionStores]
+const ALL: BlogPost[] = [virtualTryOnKiosksInStoreCustomerExperience, spectaclesVirtualTryOn, aiTransformingInStoreShoppingExperience, aiOutfitGenerator, tryOnClothingVirtually, eyewearVirtualTryOn, chooseBestAiVirtualTryOnSoftware, modernizeFashionStoreWithAiTechnology, aiVirtualTryOnSoftwareVsTraditionalFittingRooms, aiVirtualTryOnKioskFashionRetailStores, virtualFittingRoomSoftware, virtualTryOnClothesIndia, virtualFittingRoomTechnology, aiOutfitGeneratorForFashionStores, aiShoppingAssistantFashionEcommerce, aiFashionModelGeneratorForEcommerce, smartRetailSolutionsForFashionStores]
 
 export const BLOG_BASE = '/blog'
 export const PAGE_SIZE = 9
